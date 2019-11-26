@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import UserNetworking from '../networking/userNetworking';
+import Geolocation from '@react-native-community/geolocation';
 
 function trackLocation(user, onStatusUpdate) {
     console.log('& trackLocation 1 user = ', user);
     var dist = 50;
     var then = new Date().getTime();
-    navigator.geolocation.watchPosition(watchId => {
+    Geolocation.watchPosition(watchId => {
         var now = new Date().getTime();
         if(user && now - then > 3728){
             UserNetworking.updateUserLocation(user._id, watchId.coords.latitude, watchId.coords.longitude, res => {

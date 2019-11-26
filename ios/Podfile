@@ -36,6 +36,8 @@ target 'Nigh2' do
 
   #post init pods
   pod 'RNFS', :path => '../node_modules/react-native-fs'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   target 'Nigh2Tests' do
     inherit! :search_paths
