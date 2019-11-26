@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 
 import NavigationFooter from '../components/NavigationFooter';    //
 //import CasLeagueFriendsScreen from './CasLeagueFriendsScreen';
-//import CasLeagueStatusScreen from './CasLeagueStatusScreen';
+import CasLeagueStatusScreen from './CasLeagueStatusScreen';
 //import NavigationModal from '../components/NavigationModal';
 import LoginScreen from './LoginScreen';                          //
 //import AdminScreen from './AdminScreen';
@@ -91,7 +91,7 @@ const ParentScreen = props => {
   if(venueUser){
     //view = <CasLeageVenueUserParentScreen venueUser={venueUser} setVenueUser={setVenueUser}/>
   } else if(currentScreen === 'STATUS'){
-    //view = <CasLeagueStatusScreen leftIconFunction={toggleNavModal} user={user} updateParentList={updateUserStatus} updateUserStatusToActive={updateUserStatusToActive}/>;
+    view = <CasLeagueStatusScreen leftIconFunction={toggleNavModal} user={user} updateParentList={updateUserStatus} updateUserStatusToActive={updateUserStatusToActive}/>;
   } else if (currentScreen === 'SEARCH'){
     //view = <CasLeagueSearchScreen onEventSureSelection={setScreen} leftIconFunction={toggleNavModal} user={user}/>;
   } else if (currentScreen === 'FRIENDS'){
