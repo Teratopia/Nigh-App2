@@ -2,16 +2,16 @@ import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import NavigationFooter from '../components/NavigationFooter';    //
-//import CasLeagueFriendsScreen from './CasLeagueFriendsScreen';
+import CasLeagueFriendsScreen from './CasLeagueFriendsScreen';
 import CasLeagueStatusScreen from './CasLeagueStatusScreen';
-//import NavigationModal from '../components/NavigationModal';
+import NavigationModal from '../components/NavigationModal';
 import LoginScreen from './LoginScreen';                          //
 //import AdminScreen from './AdminScreen';
 //import UserProfileScreen from './UserProfileScreen';
 import UserNetworking from '../networking/userNetworking';        //
 import LocationTracker from '../components/LocationTracker';      //
 //import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
-//import CasLeagueSearchScreen from './CasLeagueSearchScreen';
+import CasLeagueSearchScreen from './CasLeagueSearchScreen';  //
 
 
 
@@ -31,7 +31,7 @@ const ParentScreen = props => {
   const setTheUser = theUser => {
     console.log('set the user, ', theUser);
     setUser(theUser);
-    setCurrentScreen('STATUS');
+    setCurrentScreen('SEARCH');
   }
 
   console.log('test1');
@@ -93,11 +93,11 @@ const ParentScreen = props => {
   } else if(currentScreen === 'STATUS'){
     view = <CasLeagueStatusScreen leftIconFunction={toggleNavModal} user={user} updateParentList={updateUserStatus} updateUserStatusToActive={updateUserStatusToActive}/>;
   } else if (currentScreen === 'SEARCH'){
-    //view = <CasLeagueSearchScreen onEventSureSelection={setScreen} leftIconFunction={toggleNavModal} user={user}/>;
+    view = <CasLeagueSearchScreen onEventSureSelection={setScreen} leftIconFunction={toggleNavModal} user={user}/>;
   } else if (currentScreen === 'FRIENDS'){
-    //view = <CasLeagueFriendsScreen selectedEvent={selectedEvent} leftIconFunction={toggleNavModal} user={user} setUser={setUser} onCloseModal={setScreen}/>;
+    view = <CasLeagueFriendsScreen selectedEvent={selectedEvent} leftIconFunction={toggleNavModal} user={user} setUser={setUser} onCloseModal={setScreen}/>;
   } else if (currentScreen === 'ADMIN'){
-    //view = <AdminScreen user={user} onClose={closeAdmin}/>;
+    view = <AdminScreen user={user} onClose={closeAdmin}/>;
   } else if (currentScreen === 'PROFILE'){
     //view = <UserProfileScreen user={user} leftIconFunction={toggleNavModal} setScreen={setScreen} setUser={setTheUser}/>;
   }
@@ -111,7 +111,7 @@ const ParentScreen = props => {
 
   let navView;
   if(viewNavModal){
-    //navView = <NavigationModal setScreen={setScreenFromNav} logOut={logOut} user={user}/>
+    navView = <NavigationModal setScreen={setScreenFromNav} logOut={logOut} user={user}/>
   }
 
   const updateStatusesToPassive = (user) => {

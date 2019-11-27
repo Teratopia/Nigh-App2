@@ -6,7 +6,7 @@ import { getUniqueId, getManufacturer } from 'react-native-device-info';    //
 import apiSettings from '../constants/apiSettings';                         //
 import CheckBox from 'react-native-check-box';                              //
 import VenueNetworking from '../networking/venueNetworking';                //
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from '@react-native-community/geolocation';              //
 
 
 const LoginScreen = props => {
@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row', 
         alignItems : 'center', 
         textAlign: 'center',
+        color : Colors.quasiBlack
     },
     textInputContainer: {
         flexDirection: 'row',
