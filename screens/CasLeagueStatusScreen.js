@@ -6,6 +6,7 @@ import WarningMesageModal from '../components/WarningMesageModal';  //
 import VenueNetworking from '../networking/venueNetworking';    //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import Colors from '../constants/colors';   //
+import Geolocation from '@react-native-community/geolocation';  //
 
 
 //  TODO:
@@ -71,7 +72,7 @@ const CasLeagueStatusScreen = props => {
   }
 
   function initVenueCheckin(){
-    navigator.geolocation.getCurrentPosition(position => {
+    Geolocation.getCurrentPosition(position => {
         setRecLoc({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,

@@ -31,7 +31,7 @@ const ParentScreen = props => {
   const setTheUser = theUser => {
     console.log('set the user, ', theUser);
     setUser(theUser);
-    setCurrentScreen('SEARCH');
+    setCurrentScreen('STATUS');
   }
 
   console.log('test1');
