@@ -44,8 +44,12 @@ function getDist(user, phoneLat, phoneLong, fuzzy){
     //console.log('getDist 2 feet = ');
     //console.log(feet);
     if(fuzzy){
-         if(feet < 250){
-            return '< 250 Feet';
+         if(feet < 5280){
+            return '< 1 Mile';
+         } else if (feet > 5280 && feet < 10560){
+            return (feet/5280).toFixed(2) + ' Miles';
+         } else {
+            return Math.round(feet/5280) + ' Miles';
          }
     }
     return Math.round(feet) + ' Feet';

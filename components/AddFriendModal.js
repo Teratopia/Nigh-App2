@@ -64,13 +64,14 @@ const AddFriendModal = props => {
                 <TouchableOpacity style={styles.TouchableOpacityStyle} onPress={closeModal}>
                     <TouchableOpacity style={styles.modalView} onPress={() => {}} activeOpacity={1}>
                         <View style={styles.titleHeader}>
-                            <Text>
+                            <Text style={styles.titleText}>
                                 Search User
                             </Text>
                         </View>
-                        <View style={styles.searchUserTextInput}>
-                            <TextInput onChangeText={e => {searchUser(e)}} style={{width : '100%', textAlign : 'center'}}/>
-                        </View>
+                            <TextInput 
+                                onChangeText={e => {searchUser(e)}} style={{width : '100%', textAlign : 'center'}}
+                                style={styles.searchUserTextInput}
+                            />
                         { resultsList && resultsList.length > 0 ? 
                             <View style={styles.resultListView}>
                                 <FlatList 
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     modalView: {
         //height : '100%',
         //width: '100%',
-        flex : 1,
+        //flex : 1,
         justifyContent : 'center',
         margin: 48,
         //marginVertical : '20%',
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom : 4
     },
+/*
     searchUserTextInput : {
         justifyContent : 'center',
         alignItems : 'center',
@@ -161,13 +163,14 @@ const styles = StyleSheet.create({
         borderRadius : 4,
         padding : 12
     },
+    */
     resultListView : {
         width: '100%', 
         //height : 500,
         borderColor : Colors.inactiveGrey, 
         borderWidth : 1,
         marginVertical : 8,
-        maxHeight : 112
+        maxHeight : '33%'
         //flex : 1
     },
     userRow : {
@@ -215,7 +218,21 @@ const styles = StyleSheet.create({
         borderRadius : 8,
         backgroundColor : Colors.inactiveGrey,
         marginTop : 8,
-        width : '80%'
+        width : '100%'
+    },
+    searchUserTextInput : {
+        padding : 8,
+        textAlign : 'center',
+        width : '100%',
+        borderWidth : 1,
+        borderColor : Colors.inactiveGrey,
+        borderRadius : 8,
+        backgroundColor : 'white'
+    },
+    titleText : {
+        fontWeight : '700',
+        fontSize : 18,
+        color : Colors.quasiBlack
     }
 });
 

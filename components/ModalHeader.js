@@ -34,7 +34,7 @@ const ModalHeader = props => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={{...styles.container, ...props.style}}>
             {leftIconButton}
             <Text style={styles.text}>{props.title}</Text>
             {rightIconButton}

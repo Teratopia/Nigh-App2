@@ -107,6 +107,11 @@ const CasLeagueFriendsScreen = props => {
                 leftIconFunction={props.leftIconFunction}
                 rightIcon="add-user" 
                 rightIconFunction={() => {setViewAddFriendModal(true)}}
+                style={{
+                    marginBottom: 0,
+                    borderBottomWidth : 'black',
+                    borderBottomWidth : 1,
+                }}
                 />
                 <TouchableOpacity onPress={() => {setExpandRequests(previous => !previous)}} style={{...styles.accordionHeader, backgroundColor : Colors.pendingBlue}}>
                     <View style={styles.accordionHeaderTitle}>
@@ -182,7 +187,12 @@ const CasLeagueFriendsScreen = props => {
                 </View>
     :null
 }
-                <View style={{marginBottom: 20}}></View>
+{
+    /*
+    <View style={{marginBottom: 20}}></View>
+    */
+}
+                
                 {modalView}
             </View>
         </View>

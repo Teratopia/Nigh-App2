@@ -4,7 +4,8 @@ import Colors from '../constants/colors';   //
 import VenueNetworking from '../networking/venueNetworking';    //
 import getDirections from 'react-native-google-maps-directions';    //
 import {encode as btoa} from 'base-64';     //
-
+import { getStatusBarHeight } from 'react-native-status-bar-height';    //
+import VenueLeaderboardTable from './VenueLeaderboardTable';
 
 const CasLeagueSearchVenueSelectedVenueModal = props => {
 
@@ -13,6 +14,7 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
     const [showPromotionModal, setShowPromotionModal] = useState(null);
     const [checkInUsers, setCheckInUsers] = useState(null);
     const [friendsToShowAtThisVenue, setFriendsToShowAtThisVenue] = useState([]);
+    const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
     
     const averages = determinePriceAve(props.venue.poolTables);
 
@@ -79,15 +81,14 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
                 console.log('getVenuePromotionImage res = ', res);
                 if(res.image && res.image.source && res.image.source.data){
                     setPromotionImage({uri : 'data:image/jpeg;base64,' + arrayBufferToBase64(res.image.source.data.data)});
-                    setShowPromotionModal(true);
+                    if(!props.checkInVenue){
+                        setShowPromotionModal(true);
+                    }
                 }
             }, error => {
                 console.log('error = ', error);
             });
-        } else {
-            setPromotionImage({});
         }
-    } else if (!promotionImage) {
         setPromotionImage({});
     }
 
@@ -265,6 +266,9 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
                                 }
                                 
                             </View>
+                            <View style={styles.inactiveButton}>
+                                <Button title="LEADERBOARD" onPress={() => {setShowLeaderboardModal(true)}} color="white"/>
+                            </View>
                             {
                                 promotionImage && promotionImage.uri ? 
                                 <View style={styles.inactiveButton}>
@@ -284,17 +288,70 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
             {
                 showPromotionModal && promotionImage && promotionImage.uri ? 
                 <Modal>
-                    <View style={{flex : 1, justifyContent : 'center', alignItems : 'center'}}/>
+                    <TouchableOpacity 
+                        onPress={() => {setShowPromotionModal(false)}}
+                        style={{
+                            flex : 1,
+                            width : '100%',
+                            alignItems : 'center',
+                            justifyContent : 'center',
+                            paddingVertical : getStatusBarHeight(),
+                            backgroundColor : 'black'
+                        }}
+                        >
                         <Image source={promotionImage} 
-                        style={{flex : 8}}
+                        style={{
+                            flex : 1,
+                            width : '100%',
+                            alignItems : 'center',
+                            justifyContent : 'center'
+                        }}
                         />
-                        <View style={{flex : 1, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                            <Button title="CLOSE" onPress={() => {setShowPromotionModal(false)}} />
-                        </View>
-                        
-                    <View style={{flex : 1}}/>
+                    </TouchableOpacity>
                 </Modal> : 
                 null
+            }
+            {
+                showLeaderboardModal ? 
+                <Modal transparent={true}>
+                    <View style={{flex : 1}}/>
+                    <View style={{
+                        margin : 40,
+                        borderColor : Colors.activeTeal,
+                        borderWidth : 1,
+                        flex : 4,
+                        backgroundColor : 'white',
+                        borderRadius : 8,
+                        justifyContent : 'center'
+                    }}>
+                        <View style={{
+                            width : '100%',
+                            marginTop : 12
+                        }}>
+                            <Text style={{
+                                fontWeight : '700',
+                                fontSize : 22,
+                                textAlign : 'center'
+                            }}>
+                                Leaderboard
+                            </Text>
+                        </View>
+                        
+                        <VenueLeaderboardTable venueUser={props.venue}/>
+                        <View style={{
+                            margin : 12,
+                            borderWidth : 1,
+                            borderColor : Colors.activeTeal,
+                            backgroundColor : Colors.inactiveGrey,
+                            borderRadius : 8
+                        }}>
+                            <Button title="CLOSE" onPress={() => {setShowLeaderboardModal(false)}} color="white"/>
+                        </View>
+                    
+                    </View>
+                    <View style={{flex : 1}}/>
+                </Modal>
+                : null
             }
         </Modal>
 

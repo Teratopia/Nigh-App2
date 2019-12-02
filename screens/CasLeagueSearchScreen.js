@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';   //
 import ModalHeader from '../components/ModalHeader';    //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import VenueNetworking from '../networking/venueNetworking';    //
 import CasLeagueSearchVenueSelectedVenueModal from '../components/CasLeagueSearchVenueSelectedVenueModal';  //
 import Geolocation from '@react-native-community/geolocation';  //
+import Colors from '../constants/colors';
 
 const CasLeagueSearchScreen = props => {
 
   const [recLoc, setRecLoc] = useState(false);
   const [venues, setVenues] = useState([]);
   const [selectedVenue, setSelectedVenue] = useState(null);
+  const [viewSearchBar , setViewSearchBar] = useState(null);
   const [locNow, setLocNow] = useState({
     latitude: 45.523316,
     longitude: -122.689003,
@@ -65,7 +67,21 @@ const CasLeagueSearchScreen = props => {
                 title="STATUS"
                 leftIcon="menu" 
                 leftIconFunction={props.leftIconFunction}
+                rightIcon="magnifying-glass"
+                rightIconFunction={() => {setViewSearchBar(!viewSearchBar)}}
+                style={{marginBottom : 0}}
                 />
+                {
+                    viewSearchBar ?
+                    <View style={styles.searchBarContainer}>
+                        <TextInput 
+                            style={styles.searchTextInput}
+                            onSubmitEditing={() => {}}
+                            placeholder="Search"
+                        />
+                    </View>
+                    : null
+                }
                 <View style={styles.mapView}>
                 {
           recLoc ? 
@@ -78,6 +94,7 @@ const CasLeagueSearchScreen = props => {
                     showsMyLocationButton={true}
                     onRegionChangeComplete={onRegionChangeComplete}
                     onUserLocationChange={onUserLocationChange}
+                    minZoomLevel={7}
                     >
                     {
                         venues && venues.length > 0 ?
@@ -123,14 +140,32 @@ const styles = StyleSheet.create({
   },
   mapView : {
     width : '100%',
-    height : '100%',
-    paddingBottom : 56
+    //height : '100%',
+    flex : 19,
+    //paddingBottom : 56
   },
   mapContainer : {
     width: '100%',
     height: '100%',
     paddingBottom : 40
-},
+  },
+  searchBarContainer : {
+      flex : 1,
+      padding : 8,
+      width : '100%',
+      //backgroundColor : Colors.quasiBlack
+      borderBottomWidth : 1,
+      borderBottomColor : Colors.inactiveGrey
+  },
+  searchTextInput : {
+      padding : 8,
+      textAlign : 'center',
+      width : '100%',
+      borderWidth : 1,
+      borderColor : Colors.activeTeal,
+      borderRadius : 8,
+      backgroundColor : 'white'
+  }
 
 });
 

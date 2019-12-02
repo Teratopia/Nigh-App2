@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 
 import NavigationFooter from '../components/NavigationFooter';    //
 import CasLeagueFriendsScreen from './CasLeagueFriendsScreen';
 import CasLeagueStatusScreen from './CasLeagueStatusScreen';
 import NavigationModal from '../components/NavigationModal';
 import LoginScreen from './LoginScreen';                          //
-//import AdminScreen from './AdminScreen';
-//import UserProfileScreen from './UserProfileScreen';
+import AdminScreen from './AdminScreen';
+import UserProfileScreen from './UserProfileScreen';
 import UserNetworking from '../networking/userNetworking';        //
 import LocationTracker from '../components/LocationTracker';      //
-//import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
+import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
 import CasLeagueSearchScreen from './CasLeagueSearchScreen';  //
-
+//import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
 const ParentScreen = props => {
@@ -86,12 +86,19 @@ const ParentScreen = props => {
     setScreen('SEARCH');
   }
 
+  const logOut = () => {
+    setUser(null);
+    setCurrentScreen(null);
+    setViewNavModal(false);
+    view = <LoginScreen setUser={setTheUser}/>;
+  }
+
   let view = <LoginScreen setUser={setTheUser} venueCheck={venueCheck} venueChecked={venueChecked} setVenueUser={setVenueUser}/>;
   
   if(venueUser){
-    //view = <CasLeageVenueUserParentScreen venueUser={venueUser} setVenueUser={setVenueUser}/>
+    view = <CasLeageVenueUserParentScreen venueUser={venueUser} setVenueUser={setVenueUser}/>
   } else if(currentScreen === 'STATUS'){
-    view = <CasLeagueStatusScreen leftIconFunction={toggleNavModal} user={user} updateParentList={updateUserStatus} updateUserStatusToActive={updateUserStatusToActive}/>;
+    view = <CasLeagueStatusScreen leftIconFunction={toggleNavModal} user={user} updateParentList={updateUserStatus} updateUserStatusToActive={updateUserStatusToActive} logOut={logOut}/>;
   } else if (currentScreen === 'SEARCH'){
     view = <CasLeagueSearchScreen onEventSureSelection={setScreen} leftIconFunction={toggleNavModal} user={user}/>;
   } else if (currentScreen === 'FRIENDS'){
@@ -99,14 +106,7 @@ const ParentScreen = props => {
   } else if (currentScreen === 'ADMIN'){
     view = <AdminScreen user={user} onClose={closeAdmin}/>;
   } else if (currentScreen === 'PROFILE'){
-    //view = <UserProfileScreen user={user} leftIconFunction={toggleNavModal} setScreen={setScreen} setUser={setTheUser}/>;
-  }
-
-  const logOut = () => {
-    setUser(null);
-    setCurrentScreen(null);
-    setViewNavModal(false);
-    view = <LoginScreen setUser={setTheUser}/>;
+    view = <UserProfileScreen user={user} leftIconFunction={toggleNavModal} setScreen={setScreen} setUser={setTheUser}/>;
   }
 
   let navView;
@@ -124,22 +124,77 @@ const ParentScreen = props => {
       setLocTracker(<LocationTracker user={user} onStatusUpdate={updateStatusesToPassive}/>);
   }
 
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80
+  };
+
+  /*
+  const onSwipeLeft = () => {
+    console.log('onSwipeLeft');
+    currentScreen === 'STATUS' ? setCurrentScreen('SEARCH') : 
+    currentScreen === 'SEARCH' ? setCurrentScreen('FRIENDS') : 
+    currentScreen === 'FRIENDS' ? setCurrentScreen('STATUS') : 
+    null;
+  }
+
+  const onSwipeRight = () => {
+    console.log('onSwipeRight');
+    currentScreen === 'STATUS' ? setCurrentScreen('FRIENDS') : 
+    currentScreen === 'FRIENDS' ? setCurrentScreen('SEARCH') : 
+    currentScreen === 'SEARCH' ? setCurrentScreen('STATUS') : 
+    null;
+  }
+*/
+
   if(venueUser){
     return (
       <View style={{flex:1}}>
+          <StatusBar />
           {view}
-          <View style={{marginBottom:24, backgroundColor:'black'}}></View>
+          <View style={{
+            //marginBottom:24, 
+            backgroundColor:'black'
+            }}></View>
       </View>    
     );
   } else {
     return (
+
       <View style={{flex:1}}>
+            <StatusBar />
             {view}
             {locTracker}
             <NavigationFooter currentScreen={currentScreen} selectionChange={setScreen}/>
-            <View style={{marginBottom:24, backgroundColor:'black'}}></View>
+            <View style={{
+              //marginBottom:24, 
+              backgroundColor:'black'
+              }}></View>
             {navView}
-      </View>    
+      </View> 
+         /*
+        <View style={{flex:1}}>
+        <GestureRecognizer
+        onSwipeLeft={onSwipeLeft}
+        onSwipeRight={onSwipeRight}
+        config={config}
+        style={{
+          flex: 1,
+          //backgroundColor: this.state.backgroundColor
+        }}
+        >
+            {view}
+            {locTracker}
+            <NavigationFooter currentScreen={currentScreen} selectionChange={setScreen}/>
+            <View style={{
+              //marginBottom:24, 
+              backgroundColor:'black'
+              }}></View>
+            {navView}
+        </GestureRecognizer>
+      </View> 
+
+         */
     );
   }
 }

@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import Colors from '../constants/colors';             //
-import Icon from 'react-native-vector-icons/Entypo';  //
-import DeviceInfo from 'react-native-device-info';    
+import Colors from '../constants/colors';   //
+import Icon from 'react-native-vector-icons/Entypo';    //
+import DeviceInfo from 'react-native-device-info';
 
-const NavigationFooter = props => {
-    /*
-  const [status, setLocalStatus] = useState(props.currentScreen ? props.currentScreen : 'SEARCH');
+const CasLeagueVenueUserNavigationFooter = props => {
+    const [status, setLocalStatus] = useState('Settings');
 
     const setStatus = value => {
+        props.setParentStatus(value);
         setLocalStatus(value);
-        props.selectionChange(value);
     }
-    */
 
     console.log('DeviceInfo.getModel() = '+DeviceInfo.getModel());
     let iphonexFooterView;
@@ -23,36 +21,35 @@ const NavigationFooter = props => {
       return (
         <View style={{width : '100%'}}>
           <View style={styles.notificationSettingRow}>
-            <TouchableOpacity onPress={() => {props.selectionChange('STATUS')}} 
-                              style={props.currentScreen === 'STATUS' ?
+            <TouchableOpacity onPress={() => {setStatus('Promotions')}} 
+                              style={status === 'Promotions' ?
                               styles.activeButton :
                               styles.inactiveButton
                               }>
-                  <Icon name="megaphone" size={18} color="white" style={{marginTop : 4}}/>
-                  <Text style={styles.textStyle}>Status</Text>
+                  <Icon name="ticket" size={18} color="white" style={{marginTop : 4}}/>
+                  <Text style={styles.textStyle}>Promotions</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {props.selectionChange('SEARCH')}} 
-                              style={props.currentScreen === 'SEARCH' ?
+            <TouchableOpacity onPress={() => {setStatus('Settings')}} 
+                              style={status === 'Settings' ?
                               styles.activeButton :
                               styles.inactiveButton
                               }>
-                  <Icon name="compass" size={18} color="white" style={{marginTop : 4}}/>
-                  <Text style={styles.textStyle}>Search</Text>
+                  <Icon name="cog" size={18} color="white" style={{marginTop : 4}}/>
+                  <Text style={styles.textStyle}>Settings</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {props.selectionChange('FRIENDS')}} 
-                              style={props.currentScreen === 'FRIENDS' ?
+            <TouchableOpacity onPress={() => {setStatus('Statistics')}} 
+                              style={status === 'Statistics' ?
                               styles.activeButton :
                               styles.inactiveButton
                               }>
-                  <Icon name="users" size={18} color="white" style={{marginTop : 4}}/>
-                  <Text style={styles.textStyle}>Friends</Text>
+                  <Icon name="line-graph" size={18} color="white" style={{marginTop : 4}}/>
+                  <Text style={styles.textStyle}>Statistics</Text>
             </TouchableOpacity>
           </View>
           {
             iphonexFooterView
-          }    
+          }
         </View>
-
       );
   }
   
@@ -91,4 +88,4 @@ const NavigationFooter = props => {
       }
     });
 
-export default NavigationFooter;
+export default CasLeagueVenueUserNavigationFooter;

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, Button, Modal, Image, TouchableOpacity} from 'react-native';
 import Colors from '../constants/colors';   //
-import SocketGiftedChat from '../components/SocketGiftedChat';  //
+import SocketGiftedChat from '../components/SocketGiftedChat';
 import MatchNetworking from '../networking/matchNetworking';    //
 import UNW from '../networking/userNetworking'; //
 import GCH from '../helpers/giftedChatHelper';  //
@@ -366,7 +366,7 @@ createDate : Date,
                 </View>
                 
                 {
-                    showStats && historyStats ? 
+                    showStats && historyStats && !competition ? 
                     <View style={{...styles.competitionView, flex : 1}}>
                         <View style={styles.competitionHeader}>
                             <Text style={{fontSize : 18, fontWeight : '700', color : Colors.quasiBlack}}>Game History Statistics</Text>
@@ -430,8 +430,8 @@ createDate : Date,
                             <View style={competition.rules.name === 'APA' ? styles.activeButton : styles.inactiveButton}>
                                 <Button title="APA" onPress={() => {setRules('APA')}} color="white" style={{fontSize : 12}}/>
                             </View>
-                            <View style={competition.rules.name === 'MLA' ? styles.activeButton : styles.inactiveButton}>
-                                <Button title="MLA" onPress={() => {setRules('MLA')}} color="white" style={{fontSize : 12}}/>
+                            <View style={competition.rules.name === 'BCA' ? styles.activeButton : styles.inactiveButton}>
+                                <Button title="BCA" onPress={() => {setRules('BCA')}} color="white" style={{fontSize : 12}}/>
                             </View>
                             <View style={competition.rules.name === 'HOUSE' ? styles.activeButton : styles.inactiveButton}>
                                 <Button title="HOUSE" onPress={() => {setRules('HOUSE')}} color="white" style={{fontSize : 12}}/>
@@ -685,7 +685,7 @@ const styles = StyleSheet.create({
     competitionView : {
         borderTopWidth : 1,
         borderTopColor : Colors.inactiveGrey,
-        flex : 2,
+        flex : 3,
         alignItems: 'center',
         justifyContent : 'center',
         padding: 12,      

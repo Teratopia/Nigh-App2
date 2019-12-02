@@ -288,9 +288,9 @@ const createFormData = (node, body) => {
   };
 
 async function upsertVenuePromotion(node, venueId, promotion, onSuccess, onFailure){
-    console.log('updateUserProfilePic venueId = ', venueId);
+    console.log('upsertVenuePromotion venueId = ', venueId);
     var url = apiSettings.awsProxy + '/upsertVenuePromotion';
-      console.log('updateUserProfilePic node = ', node);
+      console.log('upsertVenuePromotion node = ', node);
     fetch(url, {
       method: "POST",
       headers: {

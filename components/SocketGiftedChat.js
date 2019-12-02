@@ -4,6 +4,7 @@ import { View, Text, AsyncStorage } from 'react-native';
 import io from 'socket.io-client/dist/socket.io';   //
 import { GiftedChat } from 'react-native-gifted-chat';    //
 import Helper from '../helpers/giftedChatHelper';
+import apiSettings from '../constants/apiSettings';
 
 
 const USER_ID = '@userId';
@@ -21,7 +22,7 @@ class SocketGiftedChat extends React.Component {
     this.onSend = this.onSend.bind(this);
     this._storeMessages = this._storeMessages.bind(this);
 
-    this.socket = io('http://localhost:5000', {jsonp : false});
+    this.socket = io(apiSettings.awsProxy, {jsonp : false});
     this.socket.on('connect', this.onSocketConnect);
     this.socket.on('chat message', this.onReceivedMessage);
     /*

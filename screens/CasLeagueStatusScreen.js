@@ -213,8 +213,9 @@ const CasLeagueStatusScreen = props => {
             title="STATUS"
             leftIcon="menu" 
             leftIconFunction={props.leftIconFunction}
-            //rightIcon="light-bulb" 
-            //rightIconFunction={toggleActivityIdeaModal}
+            rightIcon="logout" 
+            rightIconFunction={props.logOut}
+            rightIconLibrary="AntDesign"
             />
             
             <ScrollView style={styles.bodyView}>
@@ -422,10 +423,10 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     marginTop: getStatusBarHeight(),
-    paddingBottom: 12
+    //paddingBottom: 12
   },
   bodyView : {
-      margin : 12
+      marginHorizontal : 12
   },
   quickSetView : {
       margin : 8,

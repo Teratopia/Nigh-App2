@@ -16,27 +16,10 @@ const LoginScreen = props => {
     const [usernameView, setUsernameView] = useState();
     const [passwordView, setPasswordView] = useState();
 
-    /*
-    console.log('fetch todos 1');
-    fetch('Nigh.us-east-2.elasticbeanstalk.com/api/v1/todos').then(res => {
-        console.log('get todos res = ');
-        console.log(res);
-    });
-    */
-    console.log('test2');
-
     if (!deviceId) {
-        console.log('no device id 1');
         var uniqueId = DeviceInfo.getUniqueId();
-        //DeviceInfo.getUniqueId().then(uniqueId => {
-            console.log('no device id 2');
-            console.log('device id = '+uniqueId);
-            console.log('url = '+apiSettings.awsProxy+'/devId');
             setDeviceId(uniqueId);
             fetch(apiSettings.awsProxy+'/devId', {
-            //fetch('Nigh.us-east-2.elasticbeanstalk.com/devId', {
-
-                //Nigh.us-east-2.elasticbeanstalk.com/devId
                 method: 'POST',
                 headers: {
                     'Accept' : 'application/json',
@@ -48,11 +31,8 @@ const LoginScreen = props => {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    console.log('devId responseJson = ');
-                    console.log(responseJson);
                     if(responseJson.docReturned){
                         setUsername(responseJson.docReturned.username);
-                        //setPassword(responseJson.docReturned.password);
                     }
                     return responseJson;
                 })
@@ -73,13 +53,10 @@ const LoginScreen = props => {
         setPassword(input.nativeEvent.text);
     }
     signUpHandler = () => {
-        console.log('signUpHandler');
         if(checkForNullInputs()){
             if(props.venueChecked){
                 Geolocation.getCurrentPosition(position => {
-                    console.log('position', position);
                     VenueNetworking.signUpVenue(username, password, position.coords.latitude, position.coords.longitude, deviceId, venue => {
-                        console.log('sign up successful, venue = ', venue);
                         props.setVenueUser(venue);
                     }, err => {
                         console.log('sign up err, err = ', err);
@@ -98,13 +75,10 @@ const LoginScreen = props => {
         }
     }
     loginHandler = () => {
-        console.log('loginhandler');
         if(checkForNullInputs()){
             if(props.venueChecked){
                 Geolocation.getCurrentPosition(position => {
-                    console.log('position', position);
                     VenueNetworking.loginVenue(username, password, position.coords.latitude, position.coords.longitude, deviceId, venue => {
-                        console.log('login successful, venue = ', venue);
                         props.setVenueUser(venue);
                     }, err => {
                         console.log('login err, err = ', err);
@@ -282,7 +256,8 @@ const styles = StyleSheet.create({
         flexDirection : 'row', 
         alignItems : 'center', 
         textAlign: 'center',
-        color : Colors.quasiBlack
+        color : Colors.quasiBlack,
+        padding : 8
     },
     textInputContainer: {
         flexDirection: 'row',
@@ -290,7 +265,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         //marginTop : 6,
         marginBottom: 8,
-        padding: 8,
+        //padding: 8,
         borderColor: '#009688',
         borderRadius: 4,
         width: '100%',
