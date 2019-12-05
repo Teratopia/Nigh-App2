@@ -99,6 +99,31 @@ async function signUpVenue(username, password, latitude, longitude, deviceId, on
         console.error(error);
       });
   }
+
+  async function getVenueNotificationInfoById(venueId, statusSettings, friendsList, onSuccess, onFailure) {
+    var url = apiSettings.awsProxy + '/getVenueNotificationInfoById';
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            venueId : venueId,
+            statusSettings : statusSettings,
+            friendsList : friendsList
+        }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          console.log('getVenueNotificationInfoById response:');
+          console.log(responseJson);
+          onSuccess(responseJson);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   
   async function getPlayersCheckedIntoVenue(venueId, activityName, onSuccess, onFailure) {
     var url = apiSettings.awsProxy + '/getPlayersCheckedIntoVenue';
@@ -374,5 +399,6 @@ async function deletePromotion(venueId, promotionId, onSuccess, onFailure) {
                     deletePoolTable,
                     upsertVenuePromotion,
                     getVenuePromotionImage,
+                    getVenueNotificationInfoById,
                     deletePromotion
                 };

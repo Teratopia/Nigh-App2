@@ -124,12 +124,12 @@ const ParentScreen = props => {
       setLocTracker(<LocationTracker user={user} onStatusUpdate={updateStatusesToPassive}/>);
   }
 
+  /*
   const config = {
     velocityThreshold: 0.3,
     directionalOffsetThreshold: 80
   };
 
-  /*
   const onSwipeLeft = () => {
     console.log('onSwipeLeft');
     currentScreen === 'STATUS' ? setCurrentScreen('SEARCH') : 
@@ -150,7 +150,7 @@ const ParentScreen = props => {
   if(venueUser){
     return (
       <View style={{flex:1}}>
-          <StatusBar />
+          <StatusBar barStyle="dark-content" />
           {view}
           <View style={{
             //marginBottom:24, 
@@ -162,7 +162,7 @@ const ParentScreen = props => {
     return (
 
       <View style={{flex:1}}>
-            <StatusBar />
+            <StatusBar barStyle="dark-content" />
             {view}
             {locTracker}
             <NavigationFooter currentScreen={currentScreen} selectionChange={setScreen}/>

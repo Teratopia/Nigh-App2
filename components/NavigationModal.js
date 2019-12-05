@@ -47,7 +47,7 @@ const NavigationModal = props => {
                                 <Button title="FRIENDS" onPress={() => {props.setScreen('FRIENDS')}}/>
                             </View>
                             <View style={styles.buttonView}>
-                                <Button title="ABOUT" onPress={()=>{}}/>
+                                <Button title="ABOUT" onPress={() => {props.setScreen('ABOUT')}}/>
                             </View>
                             <View style={styles.buttonView}>
                                 <Button title="ADMIN" onPress={() => {props.setScreen('ADMIN')}}/>

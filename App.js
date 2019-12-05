@@ -9,10 +9,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import ParentScreen from './screens/ParentScreen';
-import LocationHelper from './helpers/locationHelper';
 
 const App: () => React$Node = () => {
-  LocationHelper.trackLocation();
   return  <View style={{flex:1}}>
             <ParentScreen/>
           </View>  

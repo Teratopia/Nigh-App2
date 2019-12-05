@@ -7,19 +7,15 @@ import VenueNetworking from '../networking/venueNetworking';    //
 import CasLeagueSearchVenueSelectedVenueModal from '../components/CasLeagueSearchVenueSelectedVenueModal';  //
 import Geolocation from '@react-native-community/geolocation';  //
 import Colors from '../constants/colors';
+const geolib = require('geolib');
 
 const CasLeagueSearchScreen = props => {
 
   const [recLoc, setRecLoc] = useState(false);
+  const [locNow, setLocNow] = useState(false);
   const [venues, setVenues] = useState([]);
   const [selectedVenue, setSelectedVenue] = useState(null);
   const [viewSearchBar , setViewSearchBar] = useState(null);
-  const [locNow, setLocNow] = useState({
-    latitude: 45.523316,
-    longitude: -122.689003,
-    latitudeDelta: 0.00922,
-    longitudeDelta: 0.00421
-  });
 
   if(!recLoc){
     Geolocation.getCurrentPosition(position => {
@@ -29,42 +25,46 @@ const CasLeagueSearchScreen = props => {
             latitudeDelta: 0.00922,
             longitudeDelta: 0.00421
         });
+        setLocNow({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.00922,
+            longitudeDelta: 0.00421
+        });
+        VenueNetworking.queryVenues(position.coords.latitude, position.coords.longitude, 1000, res => {
+            console.log('venues = ', res);
+            setVenues(res.venues);
+        }, err => {
+            console.log('err ', err);
+        });
     }, err => {
         console.log(err);
     });
   }
 
     const onRegionChangeComplete = region => {
-        setRecLoc(region);
-        console.log('onRegionChangeComplete region = ', region);
-        console.log('onRegionChangeComplete region lat delta m = ' + region.latitudeDelta*40000);
-        VenueNetworking.queryVenues(region.latitude, region.longitude, region.latitudeDelta*40000, res => {
-            console.log('venues = ', res);
-            setVenues(res.venues);
-        }, err => {
-            console.log('err ', err);
-        });
+        setLocNow(region);
+        var meters = geolib.getDistance(
+            {latitude : region.latitude, longitude : region.longitude},
+            {latitude : recLoc.latitude, longitude : recLoc.longitude});
+        if(meters > recLoc.latitudeDelta*40000){
+            setRecLoc(region);
+            //console.log('onRegionChangeComplete region = ', region);
+            //console.log('onRegionChangeComplete region lat delta m = ' + region.latitudeDelta*40000);
+            VenueNetworking.queryVenues(region.latitude, region.longitude, region.latitudeDelta*40000, res => {
+                //console.log('venues = ', res);
+                setVenues(res.venues);
+            }, err => {
+                console.log('err ', err);
+            });
+        }
     }
-
-    const onUserLocationChange = e => {
-
-        //1. get all venues in 1 mi radius
-        //2. check if location > 100 feet from previous
-        //3. check if location < 100 feet from any venue
-        //4. if within 100 feet, query server. Allow user to set to active, init notifications
-        //5. 
-
-
-        console.log('onUserLocationChange event.nativeEvent = ', e.nativeEvent);
-
-    }
-                
 
   return (
       
             <View style={styles.screen}>
                 <ModalHeader 
-                title="STATUS"
+                title="SEARCH"
                 leftIcon="menu" 
                 leftIconFunction={props.leftIconFunction}
                 rightIcon="magnifying-glass"
@@ -84,16 +84,16 @@ const CasLeagueSearchScreen = props => {
                 }
                 <View style={styles.mapView}>
                 {
-          recLoc ? 
+          locNow ? 
                     <MapView provider={PROVIDER_GOOGLE} 
                     style={styles.mapContainer}
-                    initialRegion={recLoc}
-                    region={recLoc}
+                    initialRegion={locNow}
+                    region={locNow}
                     showsUserLocation={true}
                     followsUserLocation={true}
                     showsMyLocationButton={true}
                     onRegionChangeComplete={onRegionChangeComplete}
-                    onUserLocationChange={onUserLocationChange}
+                    //onUserLocationChange={onUserLocationChange}
                     minZoomLevel={7}
                     >
                     {
