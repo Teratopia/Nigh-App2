@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, Button, Modal, TouchableOpacity, Image} from 'react-native';
 import Colors from '../constants/colors';   //
+import AsyncStorage from '@react-native-community/async-storage';
 //import TestNetworking from '../networking/testNetworking';
 const fs = require('react-native-fs');
 
@@ -23,6 +24,10 @@ const NavigationModal = props => {
 
     if(!profilePic){
         resetProfilePic();
+    }
+
+    logOut = async () => {
+        props.logOut();
     }
 
     return (
@@ -56,7 +61,7 @@ const NavigationModal = props => {
                                 <Button title="SETTINGS" onPress={() => {props.setScreen('SETTINGS')}}/>
                             </View>
                             <View style={{...styles.buttonView, borderBottomWidth : 0}}>
-                                <Button title="LOG OUT" onPress={props.logOut}/>
+                                <Button title="LOG OUT" onPress={logOut}/>
                             </View>
                     </View>
                 

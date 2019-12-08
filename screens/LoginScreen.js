@@ -7,6 +7,7 @@ import apiSettings from '../constants/apiSettings';                         //
 import CheckBox from 'react-native-check-box';                              //
 import VenueNetworking from '../networking/venueNetworking';                //
 import Geolocation from '@react-native-community/geolocation';              //
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 const LoginScreen = props => {
@@ -15,10 +16,34 @@ const LoginScreen = props => {
     const [deviceId, setDeviceId] = useState();
     const [usernameView, setUsernameView] = useState();
     const [passwordView, setPasswordView] = useState();
+    const [autoLogIn, setAutoLogIn] = useState(false);
+
+    getData = async () => {
+        try {
+          var username = await AsyncStorage.getItem('@username');
+          var password = await AsyncStorage.getItem('@password');
+          var storedAutoLogIn = await AsyncStorage.getItem('@autoLogIn');
+          if(!storedAutoLogIn){
+              storedAutoLogIn = 'false';
+          }
+          setAutoLogIn(storedAutoLogIn === 'true');
+          if(username !== null && password !== null) {
+            setPassword(password);
+            setUsername(username);
+            if(storedAutoLogIn === 'true'){
+                loginHandler();
+            }
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
 
     if (!deviceId) {
+        getData();
         var uniqueId = DeviceInfo.getUniqueId();
             setDeviceId(uniqueId);
+            /*
             fetch(apiSettings.awsProxy+'/devId', {
                 method: 'POST',
                 headers: {
@@ -39,9 +64,17 @@ const LoginScreen = props => {
                 .catch((error) => {
                     console.error(error);
                 });
-        //});
-
+            */
     }
+
+    storeData = async (username, password) => {
+        try {
+            await AsyncStorage.setItem('@username', username);
+            await AsyncStorage.setItem('@password', password);
+        } catch (e) {
+            console.log('storeData error = ', e);
+        }
+      }
 
     //  todo check if username taken in change handler
     usernameChangeHandler = input => {
@@ -141,6 +174,7 @@ const LoginScreen = props => {
                                         <Text style={{color : 'red'}}>Invalid Password.</Text>
                                     </View>);
                 } else {
+                    storeData(username, password);
                     if(Array.isArray(retVal)){
                         props.setUser(retVal[0]);
                     } else {
@@ -154,6 +188,12 @@ const LoginScreen = props => {
 
     const toggleCheckVenue = () => {
         props.venueCheck();
+    }
+
+    toggleAutoLogIn = async () => {
+        var boolString = autoLogIn ? 'false' : 'true';
+        await AsyncStorage.setItem('@autoLogIn', boolString);
+        setAutoLogIn(!autoLogIn);
     }
 
     return (
@@ -208,6 +248,15 @@ const LoginScreen = props => {
                         leftText={"Venue Sign In"} 
                         onClick={toggleCheckVenue} 
                         isChecked={props.venueChecked}
+                        checkBoxColor={Colors.activeTeal}
+                        />
+                    </View>
+                    <View style={styles.venueCheckboxContainer}>
+                        <Text>Automatically Log In</Text>
+                        <CheckBox 
+                        leftText={"Auto Log In"} 
+                        onClick={toggleAutoLogIn} 
+                        isChecked={autoLogIn}
                         checkBoxColor={Colors.activeTeal}
                         />
                     </View>

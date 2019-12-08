@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Modal, Button } from 'react-native';
 import UserNetworking from '../networking/userNetworking';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 const AdminScreen = props => {
     console.log('move user 1, user:');
     console.log(props.user);
+
+    PushNotificationIOS.requestPermissions();
+
+    PushNotificationIOS.addEventListener('register', function(token){
+        console.log('You are registered and the device token is: ', token)
+       });
+
     const moveUserNorth = () => {
         moveUser(props.user._id, props.user.location.coordinates[1]+.001, props.user.location.coordinates[0], 'NORTH');
     }
@@ -33,6 +41,10 @@ const AdminScreen = props => {
 
     }
 
+    const testPushNotification = () => {
+        PushNotificationIOS.presentLocalNotification({alertBody : 'TEST'});
+    }
+
     return (
         <View style={{height: '100%', backgroundColor : 'white'}}>
             <Modal visible={true} transparent={false} animationType='fade'>
@@ -41,6 +53,7 @@ const AdminScreen = props => {
                     <Button title="Move East" onPress={moveUserEast}/>
                     <Button title="Move South" onPress={moveUserSouth}/>
                     <Button title="Move West" onPress={moveUserWest}/>
+                    <Button title="Notification" onPress={testPushNotification}/>
                     <Button title="Close" onPress={props.onClose}/>
                 </View>
             </Modal>

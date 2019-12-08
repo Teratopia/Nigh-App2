@@ -1,8 +1,7 @@
-import LocationHelper from '../helpers/locationHelper';
 import VenueNetworking from '../networking/venueNetworking';
 import React, {useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
-import locationHelper from '../helpers/locationHelper';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 const geolib = require('geolib');
 
 const LocationTracker = props => {
@@ -47,6 +46,30 @@ const LocationTracker = props => {
         })
     }
 
+    const formatNotificationDetails = (statusSettings, res) => {
+        var tableChunk = res.venue.poolTables.length === 1 ? '1 table!' : '' + res.venue.poolTables.length + ' tables!';
+        var body = '' + res.venue.properName+' nearby has '+tableChunk+' ';
+
+        if(statusSettings.friendsAreNear && res.friendsAtVenue.length > 0){
+            body += '\n';
+            if(res.friendsAtVenue.length === 1){
+                body += '' + res.friendsAtVenue[0].username + ' is checked in! '
+            } else {
+                body += '' + res.friendsAtVenue.length + ' friends are checked in! '
+            }
+        } 
+        if(statusSettings.anActiveUserIsNear){
+            body += '\n';
+            if(res.nonFriendsAtVenue.length > 0){
+                body += '' + res.nonFriendsAtVenue.length + ' total active users.';
+            }
+        } 
+
+        console.log('body = ', body);
+        
+        PushNotificationIOS.presentLocalNotification({alertBody : body});
+    }
+
     const watchForChange = (searchCenter, venues, status) => {
         let venueList;
         let statusSettings;
@@ -82,9 +105,10 @@ const LocationTracker = props => {
                         VenueNetworking.getVenueNotificationInfoById(venue._id, statusSettings, props.user.friendsIdList, res => {
                             //push notification to user, 
                             console.log('getVenueNotificationInfoById success res = ', res);
+                            formatNotificationDetails(statusSettings, res);
                         }, err => {
                             console.log('getVenueNotificaitonInfoById error = ', err);
-                        })
+                        });
                     }
                 });
                 //set notified venues to true

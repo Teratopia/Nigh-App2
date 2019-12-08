@@ -7,13 +7,14 @@
  */
 
 import React from 'react';
-import {View} from 'react-native';
+import io from 'socket.io-client/dist/socket.io';   //
+import apiSettings from './constants/apiSettings';
 import ParentScreen from './screens/ParentScreen';
 
 const App: () => React$Node = () => {
-  return  <View style={{flex:1}}>
-            <ParentScreen/>
-          </View>  
+  let socket = io(apiSettings.awsProxy, {jsonp : false});
+  socket.on('connect', () => {});
+  return  <ParentScreen socket={socket}/>
 };
 
 export default App;

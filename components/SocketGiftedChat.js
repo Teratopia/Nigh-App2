@@ -22,14 +22,9 @@ class SocketGiftedChat extends React.Component {
     this.onSend = this.onSend.bind(this);
     this._storeMessages = this._storeMessages.bind(this);
 
-    this.socket = io(apiSettings.awsProxy, {jsonp : false});
-    this.socket.on('connect', this.onSocketConnect);
+    this.socket = this.props.socket;
+    //this.socket.on('connect', this.onSocketConnect);
     this.socket.on('chat message', this.onReceivedMessage);
-    /*
-, function(data){
-        console.log('answer', data);
-    }
-    */
   }
 
     componentWillMount() {
@@ -51,6 +46,7 @@ class SocketGiftedChat extends React.Component {
         if(this.props.user){
             this.setState({userId : this.props.user._id});
         }
+        this.onSocketConnect();
     }
 
     onSocketConnect(){
@@ -104,6 +100,10 @@ class SocketGiftedChat extends React.Component {
         messages: GiftedChat.append(previousState.messages, messages),
       };
     });
+  }
+
+  componentWillUnmount() {
+    this.socket.emit('leaveRoom', this.props.chat._id);
   }
 }
 

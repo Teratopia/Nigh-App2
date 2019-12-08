@@ -12,6 +12,8 @@ import UserNetworking from '../networking/userNetworking';        //
 import LocationTracker from '../components/LocationTracker';      //
 import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
 import CasLeagueSearchScreen from './CasLeagueSearchScreen';  //
+import AsyncStorage from '@react-native-community/async-storage';
+
 //import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
@@ -30,6 +32,7 @@ const ParentScreen = props => {
 
   const setTheUser = theUser => {
     console.log('set the user, ', theUser);
+    props.socket.emit('userLogin', theUser._id);
     setUser(theUser);
     setCurrentScreen('SEARCH');
   }
@@ -86,27 +89,57 @@ const ParentScreen = props => {
     setScreen('SEARCH');
   }
 
-  const logOut = () => {
+  const logOut = async () => {
+    props.socket.emit('userLogout', user._id);
+    await AsyncStorage.setItem('@autoLogIn', 'false');
     setUser(null);
     setCurrentScreen(null);
     setViewNavModal(false);
-    view = <LoginScreen setUser={setTheUser}/>;
+    view = <LoginScreen 
+              setUser={setTheUser} 
+              venueCheck={venueCheck} 
+              venueChecked={venueChecked} 
+              setVenueUser={setVenueUser}/>;
   }
 
-  let view = <LoginScreen setUser={setTheUser} venueCheck={venueCheck} venueChecked={venueChecked} setVenueUser={setVenueUser}/>;
+  let view = <LoginScreen 
+               setUser={setTheUser} 
+               venueCheck={venueCheck} 
+               venueChecked={venueChecked} 
+               setVenueUser={setVenueUser}/>;
   
   if(venueUser){
-    view = <CasLeageVenueUserParentScreen venueUser={venueUser} setVenueUser={setVenueUser}/>
+    view = <CasLeageVenueUserParentScreen 
+             venueUser={venueUser} 
+             setVenueUser={setVenueUser}/>
   } else if(currentScreen === 'STATUS'){
-    view = <CasLeagueStatusScreen leftIconFunction={toggleNavModal} user={user} updateParentList={updateUserStatus} updateUserStatusToActive={updateUserStatusToActive} logOut={logOut}/>;
+    view = <CasLeagueStatusScreen 
+             leftIconFunction={toggleNavModal} 
+             user={user} updateParentList={updateUserStatus} 
+             updateUserStatusToActive={updateUserStatusToActive} 
+             logOut={logOut}/>;
   } else if (currentScreen === 'SEARCH'){
-    view = <CasLeagueSearchScreen onEventSureSelection={setScreen} leftIconFunction={toggleNavModal} user={user}/>;
+    view = <CasLeagueSearchScreen 
+             onEventSureSelection={setScreen} 
+             leftIconFunction={toggleNavModal} 
+             user={user}/>;
   } else if (currentScreen === 'FRIENDS'){
-    view = <CasLeagueFriendsScreen selectedEvent={selectedEvent} leftIconFunction={toggleNavModal} user={user} setUser={setUser} onCloseModal={setScreen}/>;
+    view = <CasLeagueFriendsScreen
+             socket={props.socket}
+             selectedEvent={selectedEvent} 
+             leftIconFunction={toggleNavModal} 
+             user={user} setUser={setUser} 
+             onCloseModal={setScreen}/>;
   } else if (currentScreen === 'ADMIN'){
-    view = <AdminScreen user={user} onClose={closeAdmin}/>;
+    view = <AdminScreen 
+             user={user} 
+             onClose={closeAdmin}/>;
   } else if (currentScreen === 'PROFILE'){
-    view = <UserProfileScreen user={user} leftIconFunction={toggleNavModal} setScreen={setScreen} setUser={setTheUser}/>;
+    view = <UserProfileScreen 
+             user={user} 
+             leftIconFunction={toggleNavModal} 
+             setScreen={setScreen} 
+             setUser={setTheUser}/>;
   }
 
   let navView;

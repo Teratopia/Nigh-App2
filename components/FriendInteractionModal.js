@@ -184,7 +184,11 @@ createDate : Date,
     if(match && messages){
         console.log('match not null', match);
         console.log('messages not null', messages);
-        sgc = <SocketGiftedChat chat={match} user={props.user} messages={messages}/>
+        sgc = <SocketGiftedChat 
+                socket={props.socket}
+                chat={match} 
+                user={props.user} 
+                messages={messages}/>
     }
 
     const initCompetition = () => {
@@ -306,11 +310,9 @@ createDate : Date,
         <Modal visible={true} animationType="slide" transparent={false}>
             <View style={styles.modalView}>
                 <View style={{justifyContent : 'space-between', flexDirection : 'row', width : '100%', alignItems : 'center'}}>
-                    <TouchableOpacity onPress={() => {}} style={{marginLeft : 8}}>
-                        <Icon name="cross" size={18} color="white" />
-                    </TouchableOpacity>
+                    <View style={{width : 32}}/>
                     <Text style={{fontSize : 16, fontWeight : '600', color : Colors.quasiBlack}}>{props.chosenFriend.username}</Text>
-                    <TouchableOpacity onPress={() => {props.onClose(null)}} style={{marginRight : 8}}>
+                    <TouchableOpacity onPress={() => {props.onClose(null)}} style={{marginRight : 14}}>
                         <Icon name="cross" size={18} color="black" />
                     </TouchableOpacity>
                     
