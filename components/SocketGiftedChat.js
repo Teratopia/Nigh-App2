@@ -5,6 +5,7 @@ import io from 'socket.io-client/dist/socket.io';   //
 import { GiftedChat } from 'react-native-gifted-chat';    //
 import Helper from '../helpers/giftedChatHelper';
 import apiSettings from '../constants/apiSettings';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 const USER_ID = '@userId';
@@ -59,6 +60,7 @@ class SocketGiftedChat extends React.Component {
    */
   onReceivedMessage(messages) {
       console.log('onReceivedMessage messages = ', messages);
+      PushNotificationIOS.presentLocalNotification({alertTitle : 'test', alertBody : 'test'});
       if(!Array.isArray(messages)){
           console.log('onReceivedMessage 1' );
           messages = [messages];

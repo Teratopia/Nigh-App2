@@ -66,6 +66,7 @@
 		56E15D113FD142089F130637 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		5D997FB19004DCA94F0ADF8F /* Pods-Nigh2-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOS/Pods-Nigh2-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		6AEC7459C13746C98E2349CC /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		6C25BAFC239DE2A600047F4B /* Nigh2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Nigh2.entitlements; path = Nigh2/Nigh2.entitlements; sourceTree = "<group>"; };
 		70B98BF6BA8C4C0D958994E9 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		77A190200C9673514E788151 /* Pods-Nigh2-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOSTests/Pods-Nigh2-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8451FDDF516545F8B569649B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 		13B07FAE1A68108700A75B9A /* Nigh2 */ = {
 			isa = PBXGroup;
 			children = (
+				6C25BAFC239DE2A600047F4B /* Nigh2.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -725,6 +727,7 @@
 			baseConfigurationReference = 3C40AAE9F3D1852880F04A1C /* Pods-Nigh2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Nigh2/Nigh2.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = F559B6R2ZF;
@@ -746,6 +749,7 @@
 			baseConfigurationReference = 8CC785F678932D259300A898 /* Pods-Nigh2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Nigh2/Nigh2.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F559B6R2ZF;
 				INFOPLIST_FILE = Nigh2/Info.plist;

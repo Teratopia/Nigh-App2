@@ -2,6 +2,7 @@ import VenueNetworking from '../networking/venueNetworking';
 import React, {useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import moment from 'moment';
 const geolib = require('geolib');
 
 const LocationTracker = props => {
@@ -10,6 +11,22 @@ const LocationTracker = props => {
     const [userBilliardsSettings, setUserBilliardsSettings] = useState();
     const [venuesWithinOneMile, setVenuesWithinOneMile] = useState();
 
+
+    console.log('before push register');
+    //PushNotificationIOS.requestPermissions();
+    //PushNotificationIOS.requestPermissions();
+
+    PushNotificationIOS.addEventListener('register', token=>{
+        setPnToken(token);
+        console.log('register token = ', token);
+    });
+    
+    PushNotificationIOS.addEventListener('notification', PushNotIOS => {
+        var data = PushNotIOS.getData();
+        console.log('pushNotIOS data = ', data);
+        PushNotIOS.presentLocalNotification(data);
+    });
+
     /* depricated
     if(props.user && props.user._id){
         LocationHelper.trackLocation(props.user, props.onStatusUpdate);
@@ -17,6 +34,33 @@ const LocationTracker = props => {
     }
     return null;
     */
+     //message: type String
+    //date: type String  format 'YYYY-MM-DD HH:mm' (NOTIFICATION_DATE_TIME_FORMAT)
+
+    //construct the notification parameters
+    // const fireDate = moment(date, NOTIFICATION_DATE_TIME_FORMAT).toDate();
+
+    //let now = new Date();
+    //let twentySecondsFromNow = new Date(now.setSeconds(now.getSeconds() + 20));
+    //console.log('scheduleLocalNotification');
+    //console.log('twentySecondsFromNow = ', twentySecondsFromNow);
+    /*
+    const fireDate = moment()
+    .add(5, 'seconds')
+    .toDate()
+    .toISOString();
+    console.log('');
+    console.log('');
+    console.log('%%%%    fireDate = ', fireDate);
+    console.log('');
+    console.log('');
+    PushNotificationIOS.scheduleLocalNotification({
+        alertBody : 'test', 
+        alertTitle : 'test', 
+        fireDate : fireDate
+    });
+    */
+
    const updateUser = () => {
             props.user.statuses.forEach(status => {
                 if(status.activityName === 'BILLIARDS'){

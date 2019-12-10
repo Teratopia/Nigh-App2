@@ -8,12 +8,14 @@ import CheckBox from 'react-native-check-box';                              //
 import VenueNetworking from '../networking/venueNetworking';                //
 import Geolocation from '@react-native-community/geolocation';              //
 import AsyncStorage from '@react-native-community/async-storage';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 const LoginScreen = props => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [deviceId, setDeviceId] = useState();
+    const [pnToken, setPnToken] = useState();
     const [usernameView, setUsernameView] = useState();
     const [passwordView, setPasswordView] = useState();
     const [autoLogIn, setAutoLogIn] = useState(false);
@@ -42,7 +44,19 @@ const LoginScreen = props => {
     if (!deviceId) {
         getData();
         var uniqueId = DeviceInfo.getUniqueId();
-            setDeviceId(uniqueId);
+        console.log('login device id = ', uniqueId);
+        setDeviceId(uniqueId);
+        PushNotificationIOS.addEventListener('register', token=>{
+            setPnToken(token);
+            console.log('register token = ', token);
+        });
+        
+        PushNotificationIOS.addEventListener('registrationError', handler=>{
+            console.log('registrationError handler = ', handler);
+        });
+
+        PushNotificationIOS.requestPermissions();
+
             /*
             fetch(apiSettings.awsProxy+'/devId', {
                 method: 'POST',
@@ -158,7 +172,8 @@ const LoginScreen = props => {
                 password: password,
                 latitude: latitude,
                 longitude: longitude,
-                deviceId: deviceId
+                deviceId: deviceId,
+                pnToken : pnToken
             }),
         }).then((response) => response.json())
             .then((responseJson) => {

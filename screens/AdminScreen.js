@@ -6,12 +6,7 @@ import PushNotificationIOS from "@react-native-community/push-notification-ios";
 const AdminScreen = props => {
     console.log('move user 1, user:');
     console.log(props.user);
-
-    PushNotificationIOS.requestPermissions();
-
-    PushNotificationIOS.addEventListener('register', function(token){
-        console.log('You are registered and the device token is: ', token)
-       });
+    
 
     const moveUserNorth = () => {
         moveUser(props.user._id, props.user.location.coordinates[1]+.001, props.user.location.coordinates[0], 'NORTH');
@@ -49,6 +44,7 @@ const AdminScreen = props => {
         <View style={{height: '100%', backgroundColor : 'white'}}>
             <Modal visible={true} transparent={false} animationType='fade'>
                 <View style={{padding: 20, flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text>Notification Token: {props.user.pnToken}</Text>
                     <Button title="Move North" onPress={moveUserNorth}/>
                     <Button title="Move East" onPress={moveUserEast}/>
                     <Button title="Move South" onPress={moveUserSouth}/>
