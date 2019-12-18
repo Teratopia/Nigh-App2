@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Modal, Button } from 'react-native';
 import UserNetworking from '../networking/userNetworking';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import { showMessage, hideMessage } from "react-native-flash-message";
+
+import moment from 'moment';
 
 const AdminScreen = props => {
     console.log('move user 1, user:');
@@ -37,7 +40,31 @@ const AdminScreen = props => {
     }
 
     const testPushNotification = () => {
-        PushNotificationIOS.presentLocalNotification({alertBody : 'TEST'});
+        console.log('before show message');
+        showMessage({
+            message: "Hello World",
+  description: "This is our second message",
+  type: "success",
+        });
+        console.log('after show message');
+
+        const fireDate = moment()
+        .add(5, 'seconds')
+        .toDate()
+        .toISOString();
+        console.log('');
+        console.log('');
+        console.log('%%%%    fireDate = ', fireDate);
+        console.log('');
+        console.log('');
+        PushNotificationIOS.scheduleLocalNotification({
+            alertBody : 'test', 
+            alertTitle : 'test', 
+            fireDate : fireDate
+        });
+        
+
+        //PushNotificationIOS.presentLocalNotification({alertBody : 'TEST'});
     }
 
     return (

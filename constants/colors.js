@@ -6,7 +6,9 @@ export default {
     pendingBlue: '#008896',
     quasiBlack : '#303030',
     dangerRed : '#960000',
-    gold : '#959600'
+    gold : 'rgba(255, 215, 0, 1)',
+    silver : 'rgba(204, 204, 204, 1)',
+    bronze : 'rgba(205, 127, 50, 1)'
 
     /*
     //Navy and Maroon theme

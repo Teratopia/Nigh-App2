@@ -43,7 +43,7 @@ const CasLeagueVenueUserNavigationFooter = props => {
                               styles.inactiveButton
                               }>
                   <Icon name="line-graph" size={18} color="white" style={{marginTop : 4}}/>
-                  <Text style={styles.textStyle}>Statistics</Text>
+                  <Text style={styles.textStyle}>Analytics</Text>
             </TouchableOpacity>
           </View>
           {

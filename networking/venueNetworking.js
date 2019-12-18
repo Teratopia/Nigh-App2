@@ -150,6 +150,9 @@ async function signUpVenue(username, password, latitude, longitude, deviceId, on
   }
 
   function formatGooglePlacesVenueSearchParameters(inputs){
+    if(!inputs.name && !inputs.city && !inputs.state && !inputs.state && !inputs.postal){
+      return inputs;
+    }
     var params = '';
     inputs.name ? params += inputs.name.replace(' ', '%20') : null;
     inputs.city ? params += '%20'+inputs.city.replace(' ', '%20') : null;

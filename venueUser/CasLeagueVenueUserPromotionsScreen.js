@@ -1,16 +1,57 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text, Button, TextInput, Modal, DatePickerIOS, SafeAreaView, ScrollView } from 'react-native';
 import ModalHeader from '../components/ModalHeader';    //
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import VenueNetworking from '../networking/venueNetworking';    //
 import Colors from '../constants/colors';       //
 import CasLeagueVenueUserPromotionEdit from '../components/CasLeagueVenueUserPromotionEdit';    //
 import CasLeagueVenueUserPromotionView from '../components/CasLeagueVenueUserPromotionView';    //
+import CasLeagueSearchVenuePromotionLeaguePlacePrize from '../components/CasLeagueSearchVenuePromotionLeaguePlacePrize';
+import moment from 'moment';
 
 const CasLeagueVenueUserPromotionsScreen = props => {
 
     const [promotionToEdit, setPromotionToEdit] = useState(null); 
+    const [leagueTimeFrame, setLeagueTimeFrame] = useState(null); 
+    const [viewLeagueStartDatePicker, setViewLeagueStartDatePicker] = useState(false); 
+    const [league, setLeague] = useState(props.venueUser.activeLeague || {}); 
+    const [pushNotification, setPushNotification] = useState(props.venueUser.pushNotificationPromotion);
 
+    /*
+    _id : mongoose.Schema.Types.ObjectId,
+    venueId : String,
+    createDate : Date,
+    startDate : Date,
+    endDate : Date,
+    firstPlacePrizeTitle : String,
+    firstPlacePrizeDescription : String,
+    firstPlacePrizeImageId : String,
+    firstPlaceWinnerId : String,
+    secondPlacePrizeTitle : String,
+    secondPlacePrizeDescription : String,
+    secondPlacePrizeImageId : String,
+    secondPlaceWinnerId : String,
+    thirdPlacePrizeTitle : String,
+    thirdPlacePrizeDescription : String,
+    thirdPlacePrizeImageId : String,
+    thirdPlaceWinnerId : String,
+    timeFrame : String
+    */
+
+    if(!leagueTimeFrame){
+        props.venueUser.activeLeague && props.venueUser.activeLeague.timeFrame ?
+        setLeagueTimeFrame(props.venueUser.activeLeague.timeFrame) : 
+        setLeagueTimeFrame('monthly');
+    }
+
+    const setPushNotificationAndUpdateUser = value => {
+        let venClone = {...props.venueUser};
+        venClone.pushNotificationPromotion = value;
+        VenueNetworking.updateVenue(venClone, venue => {
+            props.setVenueUser(venue);
+            //setPushNotification(value);
+        });
+    }
 
     const saveNewPromotion = (newPromotionImage, newPromotion) => {
         console.log('saveNewPromotion 2 = ');
@@ -43,6 +84,45 @@ const CasLeagueVenueUserPromotionsScreen = props => {
         });
     }
 
+    const capFirstLetter = word => {
+        return word.replace(/^\w/, c => c.toUpperCase());
+    }
+
+    const editPrize = (place, field, value) => {
+        var fieldName = '';
+        let clone = {...league};
+        if(field === 'title' || field === 'description'){
+            if(place === 1){
+                fieldName += 'firstPlacePrize' + capFirstLetter(field);
+            } else if (place === 2){
+                fieldName += 'secondPlacePrize' + capFirstLetter(field);
+            } else if (place === 3){
+                fieldName += 'thirdPlacePrize' + capFirstLetter(field);
+            }
+        } else {
+            fieldName = field;
+        }
+        clone[fieldName] = value;
+        console.log('clone league = ', clone);
+        if(field === 'timeFrame' || field === 'startDate') {
+            if(clone.timeFrame === 'weekly'){
+                clone.endDate = moment(clone.startDate).add(7, 'days').toDate();
+            } else if(clone.timeFrame === 'fortnightly'){
+                clone.endDate = moment(clone.startDate).add(14, 'days').toDate();
+            } else if(clone.timeFrame === 'monthly'){
+                clone.endDate = moment(clone.startDate).add(1, 'months').toDate();
+            }
+        }
+            let venClone = {...props.venueUser};
+            venClone.activeLeague = clone;
+            VenueNetworking.updateVenue(venClone, res => {
+                console.log('editPrize res = ', res);
+                setLeague(clone);
+                props.setVenueUser(res);
+                //setPushNotification(value);
+            });
+    }
+
     return (
           <View style={styles.screen}>
             <ModalHeader 
@@ -53,6 +133,112 @@ const CasLeagueVenueUserPromotionsScreen = props => {
             rightIconFunction={() => {props.setVenueUser(null)}}
             rightIconLibrary="AntDesign"
             />
+            <SafeAreaView 
+            //style={styles.screen}
+            style={{width : '100%', 
+            //alignItems : 'center'
+        }}
+            >
+            <ScrollView 
+                
+                //showsHorizontalScrollIndicator={false}
+                //directionalLockEnabled={true}
+                //alwaysBounceHorizontal={false}
+                //centerContent={true}
+                //contentContainerStyle={{justifyContent : 'center', alignItems : 'center'}}
+                >
+            <View style={{alignItems : 'center', marginBottom : 62}}>
+
+            
+
+            <View style={styles.headerView}>
+                <Text style={{fontSize : 18, fontWeight : '600'}}>Notification</Text>
+            </View>
+            <View style={styles.inputFormTextInput}>
+                <TextInput 
+                    placeholder='Ad shown on push notification (max 42 chars)'
+                    maxLength={42}
+                    onSubmitEditing={e => {setPushNotificationAndUpdateUser(e.nativeEvent.text)}}
+                    style={{flex : 1, textAlign : 'center'}}
+                    defaultValue={props.venueUser.pushNotificationPromotion}
+                    //value={pushNotification}
+                />
+            </View>
+
+            <View style={styles.headerView}>
+                <Text style={{fontSize : 18, fontWeight : '600'}}>League Settings</Text>
+            </View>
+
+            <View style={styles.headerView}>
+                <Text style={{fontSize : 14, fontWeight : '400', color : Colors.inactiveGrey}}>Time Frame</Text>
+            </View>
+            <View style={{flexDirection : 'row', marginHorizontal : 4}}>
+                <View style={league.timeFrame === 'weekly' ? styles.activeButton : styles.inactiveButton}>
+                    <Button onPress={() => {editPrize(null, 'timeFrame', 'weekly')}} title="Weekly" color="white"/>
+                </View>
+                <View style={league.timeFrame === 'fortnightly' ? styles.activeButton : styles.inactiveButton}>
+                    <Button onPress={() => {editPrize(null, 'timeFrame', 'fortnightly')}} title="Fortnightly" color="white"/>
+                </View>
+                <View style={league.timeFrame === 'monthly' ? styles.activeButton : styles.inactiveButton}>
+                    <Button onPress={() => {editPrize(null, 'timeFrame', 'monthly')}} title="Monthly" color="white"/>
+                </View>
+            </View>
+
+            <View style={styles.headerView}>
+                <Text style={{fontSize : 14, fontWeight : '400', color : Colors.inactiveGrey}}>Beginning Date</Text>
+            </View>
+            <View style={{flexDirection : 'row', marginHorizontal : 4}}>
+                <View style={styles.activeButton}>
+                    <Button onPress={() => {setViewLeagueStartDatePicker(true)}} title={moment(league.startDate).format("MMM Do YYYY")} color="white"/>
+                </View>
+            </View>
+
+            {
+                viewLeagueStartDatePicker ?
+                <Modal>
+                    <View style={{flex : 1}}/>
+                        <DatePickerIOS 
+                            mode="date"
+                            date={new Date(league.startDate)}
+                            onDateChange={newDate => {editPrize(null, 'startDate', newDate)}}
+                            //maximumDate={fieldToEdit === 'fromDate' ? newPromotion.toDate : newPromotion.toDate.addDays(365)}
+                            //minimumDate={fieldToEdit === 'toDate' ? newPromotion.fromDate : new Date()}
+                        />
+                        <Button title="SET DATE" onPress={() => {setViewLeagueStartDatePicker(false)}} />
+                    <View style={{flex : 1}}/>
+                </Modal>
+                :
+                null
+            }
+
+            <CasLeagueSearchVenuePromotionLeaguePlacePrize 
+                prizeTitle='First' 
+                prizeNumber={1} 
+                editPrize={editPrize} 
+                title={league.firstPlacePrizeTitle}
+                description={league.firstPlacePrizeDescription}
+                imageId={league.firstPlacePrizeImageId}
+                />
+            <CasLeagueSearchVenuePromotionLeaguePlacePrize 
+                prizeTitle='Second' 
+                prizeNumber={2} 
+                editPrize={editPrize} 
+                title={league.secondPlacePrizeTitle}
+                description={league.secondPlacePrizeDescription}
+                imageId={league.secondPlacePrizeImageId}
+                />
+            <CasLeagueSearchVenuePromotionLeaguePlacePrize 
+                prizeTitle='Third' 
+                prizeNumber={3} 
+                editPrize={editPrize} 
+                title={league.thirdPlacePrizeTitle}
+                description={league.thirdPlacePrizeDescription}
+                imageId={league.thirdPlacePrizeImageId}
+                />
+
+            <View style={styles.headerView}>
+                <Text style={{fontSize : 18, fontWeight : '600'}}>Pop Ups</Text>
+            </View>
             
             <CasLeagueVenueUserPromotionEdit 
                 savePromotion={saveNewPromotion} 
@@ -79,7 +265,10 @@ const CasLeagueVenueUserPromotionsScreen = props => {
                         />
                     )}>            
                 </FlatList>
-            </View>            
+            </View>     
+            </View>
+            </ScrollView>
+            </SafeAreaView>       
         </View>
     );
 }
@@ -90,6 +279,9 @@ const styles = StyleSheet.create({
     width : '100%',
     alignItems: 'center',
     marginTop: getStatusBarHeight(),
+  },
+  headerView : {
+    marginVertical : 4
   },
   promotionContainer : {
     width : '100%',
@@ -150,7 +342,26 @@ const styles = StyleSheet.create({
       margin : 4,
       flex : 1,
       backgroundColor : Colors.activeTeal
-  }
+  },
+  inactiveButton : {
+      borderWidth : 1,
+      borderColor : Colors.activeTeal,
+      borderRadius : 8,
+      margin : 4,
+      flex : 1,
+      backgroundColor : Colors.inactiveGrey
+  },
+  inputFormTextInput : {
+    borderWidth : 1,
+    borderColor : Colors.inactiveGrey,
+    margin : 4,
+    marginHorizontal : 8,
+    borderRadius : 8,
+    //width : '100%',
+    textAlign : 'center',
+    padding : 8,
+    flexDirection : 'row'
+},
 
 });
 

@@ -258,20 +258,20 @@ const LoginScreen = props => {
                         </View>
                     </View>
                     <View style={styles.venueCheckboxContainer}>
-                        <Text>Venue Sign In</Text>
-                        <CheckBox 
-                        leftText={"Venue Sign In"} 
-                        onClick={toggleCheckVenue} 
-                        isChecked={props.venueChecked}
-                        checkBoxColor={Colors.activeTeal}
-                        />
-                    </View>
-                    <View style={styles.venueCheckboxContainer}>
                         <Text>Automatically Log In</Text>
                         <CheckBox 
                         leftText={"Auto Log In"} 
                         onClick={toggleAutoLogIn} 
                         isChecked={autoLogIn}
+                        checkBoxColor={Colors.activeTeal}
+                        />
+                    </View>
+                    <View style={styles.venueCheckboxContainer}>
+                        <Text>Venue Sign In</Text>
+                        <CheckBox 
+                        leftText={"Venue Sign In"} 
+                        onClick={toggleCheckVenue} 
+                        isChecked={props.venueChecked}
                         checkBoxColor={Colors.activeTeal}
                         />
                     </View>

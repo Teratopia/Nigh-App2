@@ -6,6 +6,8 @@ import getDirections from 'react-native-google-maps-directions';    //
 import {encode as btoa} from 'base-64';     //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import VenueLeaderboardTable from './VenueLeaderboardTable';
+import ImageNetworking from '../networking/imageNetworking';
+import moment from 'moment';
 
 const CasLeagueSearchVenueSelectedVenueModal = props => {
 
@@ -15,11 +17,46 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
     const [checkInUsers, setCheckInUsers] = useState(null);
     const [friendsToShowAtThisVenue, setFriendsToShowAtThisVenue] = useState([]);
     const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
+
+    const [firstPlaceImage, setFirstPlaceImage] = useState();
+    const [secondPlaceImage, setSecondPlaceImage] = useState();
+    const [thirdPlaceImage, setThirdPlaceImage] = useState();
+    const [activePlaceImage, setActivePlaceImage] = useState();
+    const [averages, setAverages] = useState();
     
-    const averages = determinePriceAve(props.venue.poolTables);
+    if(!averages){
+        let avg = determinePriceAve(props.venue.poolTables);
+        setAverages(avg);
+    }
+
+    function determinePriceAve(tables){
+        console.log('4');
+        var hourlyTot = 0;
+        var perGameTot = 0;
+        var hourlySum = 0;
+        var perGameSum = 0;
+        tables.forEach(table => {
+            if(table.priceUnit === 'Per Game'){
+                perGameSum += table.price;
+                perGameTot += 1;
+            } else {
+                hourlySum += table.price;
+                hourlyTot += 1;
+            }
+        });
+        var hourlyAve = hourlySum/hourlyTot;
+        var perGameAve = perGameSum/perGameTot;
+        return {
+            hourlyAve : hourlyAve,
+            perGameAve : perGameAve,
+            hourlyTot : hourlyTot,
+            perGameTot :perGameTot,
+        }
+    }
 
     console.log('CasLeagueSearchVenueSelectedVenueModal init venue = ', props.venue);
     if(!googleInfo){
+        console.log('1');
         VenueNetworking.getVenueDetails(props.venue.googlePlaceId, details => {
             console.log('details = ', details);
             if(details.result && details.result.website){
@@ -34,6 +71,7 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
     }
 
     if(!checkInUsers){
+        console.log('2');
         VenueNetworking.getPlayersCheckedIntoVenue(props.venue._id, null, users=> {
             console.log('VenueNetworking.getPlayersCheckedIntoVenue users = ', users);
             setCheckInUsers(users);
@@ -65,6 +103,7 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
     };
 
     if(!promotionImage && props.venue.venuePromotions.length > 0){
+        console.log('3');
         console.log('props.venue = ', props.venue);
         var now = new Date().getTime();
         var resPro = null;
@@ -92,31 +131,8 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
         setPromotionImage({});
     }
 
-    function determinePriceAve(tables){
-        var hourlyTot = 0;
-        var perGameTot = 0;
-        var hourlySum = 0;
-        var perGameSum = 0;
-        tables.forEach(table => {
-            if(table.priceUnit === 'Per Game'){
-                perGameSum += table.price;
-                perGameTot += 1;
-            } else {
-                hourlySum += table.price;
-                hourlyTot += 1;
-            }
-        });
-        var hourlyAve = hourlySum/hourlyTot;
-        var perGameAve = perGameSum/perGameTot;
-        return {
-            hourlyAve : hourlyAve,
-            perGameAve : perGameAve,
-            hourlyTot : hourlyTot,
-            perGameTot :perGameTot,
-        }
-    }
-
     const initDirectionsLink = () => {
+        console.log('5');
         const initDirectionsLinkData = {
             source: {
              latitude: props.recLoc.latitude,
@@ -143,6 +159,7 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
     }
 
     openWebsite = () => {
+        console.log('6');
         Linking.canOpenURL(googleInfo.website)
         .then((supported) => {
             if (!supported) {
@@ -152,6 +169,51 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
             }
         })
         .catch((err) => console.error('An error occurred', err));
+    }
+
+    const setAndShowPrizeImage = (place, id) => {
+        console.log('6');
+        console.log('setAndShowPrizeImage id = ', id);
+        if(!id){
+            return;
+        } else {
+            setShowLeaderboardModal(false);
+        }
+        
+        if(place === 'first' && firstPlaceImage){
+            setActivePlaceImage(firstPlaceImage);
+        } else if(place === 'second' && secondPlaceImage){
+            setActivePlaceImage(secondPlaceImage);
+        } else if(place === 'third' && thirdPlaceImage){
+            setActivePlaceImage(thirdPlaceImage);
+        } else {
+            console.log('before get image by id');
+            ImageNetworking.getImageById(
+                id,
+                res => {
+                console.log('getImageById res = ', res);
+                var imgSrc = {uri : 'data:image/jpeg;base64,' + arrayBufferToBase64(res.image.source.data.data)};
+                switch (place) {
+                    case 'first' : 
+                        setFirstPlaceImage(imgSrc);
+                    break;
+                    case 'second' : 
+                        setSecondPlaceImage(imgSrc)
+                    break;
+                    case 'third' : 
+                        setThirdPlaceImage(imgSrc);
+                    break;
+                }
+                setActivePlaceImage(imgSrc);
+            }, error => {
+                console.log('error = ', error);
+            });
+        }
+    }
+
+    const closePrizeImage = () => {
+        setShowLeaderboardModal(true);
+        setActivePlaceImage(null);
     }
 
     return (
@@ -267,7 +329,7 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
                                 
                             </View>
                             <View style={styles.inactiveButton}>
-                                <Button title="LEADERBOARD" onPress={() => {setShowLeaderboardModal(true)}} color="white"/>
+                                <Button title={props.venue.activeLeague ? "LEAGUE" : "LEADERBOARD"} onPress={() => {setShowLeaderboardModal(true)}} color="white"/>
                             </View>
                             {
                                 promotionImage && promotionImage.uri ? 
@@ -312,32 +374,153 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
                 null
             }
             {
+                
                 showLeaderboardModal ? 
-                <Modal transparent={true}>
-                    <View style={{flex : 1}}/>
+                <Modal transparent={true} animationType='fade'>
+                    {
+                        //<View style={{flex : 1}}/>
+                    }
+                    
                     <View style={{
-                        margin : 40,
+                        margin : 12,
+                        marginVertical : 120,
                         borderColor : Colors.activeTeal,
                         borderWidth : 1,
-                        flex : 4,
+                        flex : 1,
                         backgroundColor : 'white',
                         borderRadius : 8,
                         justifyContent : 'center'
                     }}>
-                        <View style={{
-                            width : '100%',
-                            marginTop : 12
-                        }}>
-                            <Text style={{
-                                fontWeight : '700',
-                                fontSize : 22,
-                                textAlign : 'center'
-                            }}>
-                                Leaderboard
-                            </Text>
-                        </View>
-                        
-                        <VenueLeaderboardTable venueUser={props.venue}/>
+
+                        {
+                            props.venue.activeLeague && props.venue.activeLeague.firstPlacePrizeTitle ? 
+                            <View style={{flex : 1}}>
+                                <View style={{
+                                    width : '100%',
+                                    marginVertical : 12,
+                                    //flex : 1
+                                }}>
+                                    <Text style={{
+                                        fontWeight : '700',
+                                        fontSize : 26,
+                                        textAlign : 'center'
+                                    }}>
+                                        League
+                                    </Text>
+                                </View>
+
+                                <Text style={styles.prizeHeader}>
+                                        End Date
+                                </Text>
+                                <Text style={styles.prizeTitle}>
+                                    {
+                                        moment(props.venue.activeLeague.endDate).format("MMM Do YYYY")
+                                    }
+                                </Text>
+                                
+                                <TouchableOpacity onPress={() => {setAndShowPrizeImage('first', props.venue.activeLeague.firstPlacePrizeImageId)}} style={{...styles.prizeTouchContainer}}>
+                                    <Text style={styles.prizeHeader}>
+                                            First Place Prize
+                                    </Text>
+                                    <Text style={styles.prizeTitle}>
+                                            {props.venue.activeLeague.firstPlacePrizeTitle}
+                                    </Text>
+                                    {
+                                        props.venue.activeLeague.firstPlacePrizeDescription ?
+                                        <Text style={styles.prizeDescription}>
+                                            {props.venue.activeLeague.firstPlacePrizeDescription}
+                                        </Text>
+                                        :
+                                        null
+                                    }
+                                    
+                                </TouchableOpacity>
+
+                                {
+                                    props.venue.activeLeague.secondPlacePrizeTitle ? 
+                                
+                                    <TouchableOpacity onPress={() => {setAndShowPrizeImage('second', props.venue.activeLeague.secondPlacePrizeImageId)}} style={{...styles.prizeTouchContainer, borderColor : Colors.silver}}>
+                                        <Text style={styles.prizeHeader}>
+                                                Second Place Prize
+                                        </Text>
+                                        <Text style={styles.prizeTitle}>
+                                                {props.venue.activeLeague.secondPlacePrizeTitle}
+                                        </Text>
+                                        {
+                                            props.venue.activeLeague.secondPlacePrizeDescription ? 
+                                            <Text style={styles.prizeDescription}>
+                                                {props.venue.activeLeague.secondPlacePrizeDescription}
+                                            </Text>
+                                            :
+                                            null
+                                        }
+                                        
+                                    </TouchableOpacity>
+                                :
+                                null
+                                }
+
+                                {
+                                    props.venue.activeLeague.thirdPlacePrizeTitle ? 
+
+                                    <TouchableOpacity onPress={() => {setAndShowPrizeImage('third', props.venue.activeLeague.thirdPlacePrizeImageId)}} style={{...styles.prizeTouchContainer, borderColor : Colors.bronze}}>
+                                        <Text style={styles.prizeHeader}>
+                                                Third Place Prize
+                                        </Text>
+                                        <Text style={styles.prizeTitle}>
+                                                {props.venue.activeLeague.thirdPlacePrizeTitle}
+                                        </Text>
+                                        {
+                                            props.venue.activeLeague.thirdPlacePrizeDescription ? 
+                                            <Text style={styles.prizeDescription}>
+                                                {props.venue.activeLeague.thirdPlacePrizeDescription}
+                                            </Text>
+                                            :
+                                            null
+                                        }
+                                    </TouchableOpacity>
+                                :
+                                null
+                                }
+
+                                <View style={{flex : 13}}>
+                                    <View style={{
+                                        width : '100%',
+                                        marginVertical : 12
+                                    }}>
+                                        <Text style={{
+                                            fontWeight : '600',
+                                            fontSize : 18,
+                                            textAlign : 'center'
+                                        }}>
+                                            Leaderboard
+                                        </Text>
+                                    </View>
+                                    <VenueLeaderboardTable 
+                                        venueUser={props.venue} 
+                                        //fromDate={props.venue.activeLeague.startDate}
+                                        //toDate={props.venue.activeLeague.endDate}
+                                    />
+                                </View>
+                            </View>
+                            :
+                            <View style={{flex : 1}}>
+                                <View style={{
+                                    width : '100%',
+                                    marginVertical : 12
+                                }}>
+                                    <Text style={{
+                                        fontWeight : '600',
+                                        fontSize : 18,
+                                        textAlign : 'center'
+                                    }}>
+                                        Leaderboard
+                                    </Text>
+                                </View>
+                                <VenueLeaderboardTable venueUser={props.venue}/>
+                            </View>
+                        }
+
                         <View style={{
                             margin : 12,
                             borderWidth : 1,
@@ -349,9 +532,42 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
                         </View>
                     
                     </View>
-                    <View style={{flex : 1}}/>
+                    {
+                        //<View style={{flex : 1}}/>
+                    }
+                    
                 </Modal>
                 : null
+            }
+
+            {
+                
+                activePlaceImage ? 
+                <Modal animationType='fade'>
+                    <TouchableOpacity 
+                        onPress={() => {closePrizeImage()}}
+                        style={{
+                            flex : 1,
+                            width : '100%',
+                            alignItems : 'center',
+                            justifyContent : 'center',
+                            paddingVertical : getStatusBarHeight(),
+                            backgroundColor : 'black',
+                        }}
+                        >
+                        <Image source={activePlaceImage} 
+                        style={{
+                            flex : 5,
+                            width : '100%',
+                            //alignItems : 'center',
+                            //justifyContent : 'center'
+                        }}
+                        />
+                    </TouchableOpacity>
+                </Modal>
+                :
+                null
+                
             }
         </Modal>
 
@@ -404,6 +620,36 @@ const styles = StyleSheet.create({
         backgroundColor : Colors.inactiveGrey,
         marginVertical : 4,
         minWidth : 200, 
+    },
+    prizeTouchContainer : {
+        justifyContent : 'center', 
+        alignItems : 'center', 
+        margin : 4,
+        marginHorizontal : 8,
+        padding : 4,
+        borderColor : Colors.gold,
+        borderWidth : 1,
+        borderRadius : 8,
+    },
+    prizeHeader : {
+        fontSize : 12,
+        color : Colors.inactiveGrey,
+        marginTop : 2,
+        textAlign : 'center'
+    },
+    prizeTitle : {
+        fontSize : 16,
+        color : Colors.quasiBlack,
+        fontWeight : '600',
+        marginVertical : 2,
+        textAlign : 'center'
+    },
+    prizeDescription : {
+        fontSize : 14,
+        color : Colors.quasiBlack,
+        fontWeight : '500',
+        marginBottom : 2,
+        textAlign : 'center'
     }
     
     

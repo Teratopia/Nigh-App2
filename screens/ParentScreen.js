@@ -13,6 +13,8 @@ import LocationTracker from '../components/LocationTracker';      //
 import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
 import CasLeagueSearchScreen from './CasLeagueSearchScreen';  //
 import AsyncStorage from '@react-native-community/async-storage';
+//import BgTracking from '../helpers/locationNotificationHelper';
+
 
 //import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
@@ -32,9 +34,11 @@ const ParentScreen = props => {
 
   const setTheUser = theUser => {
     console.log('set the user, ', theUser);
-    props.socket.emit('userLogin', theUser._id);
-    setUser(theUser);
-    setCurrentScreen('SEARCH');
+    if(theUser){
+      props.socket.emit('userLogin', theUser._id);
+      setUser(theUser);
+      setCurrentScreen('SEARCH');
+    }
   }
 
   console.log('test1');
@@ -147,17 +151,17 @@ const ParentScreen = props => {
     navView = <NavigationModal setScreen={setScreenFromNav} logOut={logOut} user={user}/>
   }
 
-  const updateStatusesToPassive = (user) => {
-      console.log('& updateStatusesToPassive user = ', user);
-      console.log(user);
-      setUser(user);
-  }
-
   if(!locTracker && user){
-      setLocTracker(<LocationTracker user={user} onStatusUpdate={updateStatusesToPassive}/>);
+      setLocTracker(<LocationTracker user={user} setUser={setUser}/>);
   }
 
   /*
+<BgTracking 
+        //user={user} onStatusUpdate={updateStatusesToPassive}
+        />
+
+
+
   const config = {
     velocityThreshold: 0.3,
     directionalOffsetThreshold: 80

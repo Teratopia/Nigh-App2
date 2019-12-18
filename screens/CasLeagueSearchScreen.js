@@ -7,6 +7,8 @@ import VenueNetworking from '../networking/venueNetworking';    //
 import CasLeagueSearchVenueSelectedVenueModal from '../components/CasLeagueSearchVenueSelectedVenueModal';  //
 import Geolocation from '@react-native-community/geolocation';  //
 import Colors from '../constants/colors';
+import VenueSelectionModal from '../components/VenueSelectionModal';
+
 const geolib = require('geolib');
 
 const CasLeagueSearchScreen = props => {
@@ -60,6 +62,44 @@ const CasLeagueSearchScreen = props => {
         }
     }
 
+    const handleSearchBarQuery = e => {
+        console.log('handleSearchBarQuery e.nativeEvent.text = ', e.nativeEvent.text);
+        VenueNetworking.googlePlacesVenueSearch(e.nativeEvent.text, res => {
+            console.log('handleSearchBarQuery res = ', res);
+            if(res.candidates && res.candidates.length > 0){
+                var lat = res.candidates[0].geometry.location.lat;
+                var long = res.candidates[0].geometry.location.lng;
+                setRecLoc({
+                    latitude: lat,
+                    longitude: long,
+                    latitudeDelta: 0.00922,
+                    longitudeDelta: 0.00421
+                });
+                setLocNow({
+                    latitude: lat,
+                    longitude: long,
+                    latitudeDelta: 0.00922,
+                    longitudeDelta: 0.00421
+                });
+                VenueNetworking.queryVenues(lat, long, 400, res => {
+                    console.log('venues = ', res);
+                    setVenues(res.venues);
+                    let venHit = null;
+                    res.venues.forEach(ven => {
+                        if(ven.location.coordinates[0] === long && ven.location.coordinates[1] === lat){
+                            venHit = ven;
+                        }
+                    })
+                    if(venHit){
+                        setSelectedVenue(venHit);
+                    }
+                }, err => {
+                    console.log('err ', err);
+                });
+            }
+        })
+    }
+
   return (
       
             <View style={styles.screen}>
@@ -76,7 +116,7 @@ const CasLeagueSearchScreen = props => {
                     <View style={styles.searchBarContainer}>
                         <TextInput 
                             style={styles.searchTextInput}
-                            onSubmitEditing={() => {}}
+                            onSubmitEditing={e => {handleSearchBarQuery(e)}}
                             placeholder="Search"
                         />
                     </View>
@@ -119,7 +159,15 @@ const CasLeagueSearchScreen = props => {
                 </View>
                 {
                 selectedVenue ? 
+                /*
                     <CasLeagueSearchVenueSelectedVenueModal 
+                        venue={selectedVenue} 
+                        setSelectedVenue={setSelectedVenue}
+                        recLoc={recLoc}
+                        user={props.user}
+                    />
+                    */
+                    <VenueSelectionModal
                         venue={selectedVenue} 
                         setSelectedVenue={setSelectedVenue}
                         recLoc={recLoc}

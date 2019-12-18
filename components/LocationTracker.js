@@ -1,8 +1,11 @@
 import VenueNetworking from '../networking/venueNetworking';
 import React, {useState} from 'react';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import { showMessage, hideMessage } from "react-native-flash-message";
 import moment from 'moment';
+import userNetworking from '../networking/userNetworking';
 const geolib = require('geolib');
 
 const LocationTracker = props => {
@@ -10,11 +13,6 @@ const LocationTracker = props => {
     const [isInit, setIsInit] = useState(false);
     const [userBilliardsSettings, setUserBilliardsSettings] = useState();
     const [venuesWithinOneMile, setVenuesWithinOneMile] = useState();
-
-
-    console.log('before push register');
-    //PushNotificationIOS.requestPermissions();
-    //PushNotificationIOS.requestPermissions();
 
     PushNotificationIOS.addEventListener('register', token=>{
         setPnToken(token);
@@ -24,42 +22,19 @@ const LocationTracker = props => {
     PushNotificationIOS.addEventListener('notification', PushNotIOS => {
         var data = PushNotIOS.getData();
         console.log('pushNotIOS data = ', data);
+        if(data.notificationType === 'chatMessage'){
+            showMessage({
+                message: data.text,
+                type: "info"
+            })
+        } else if(data.notificationType === 'friendStatusChange'){
+            showMessage({
+                message: data.text,
+                type: "info"
+            })
+        }
         PushNotIOS.presentLocalNotification(data);
     });
-
-    /* depricated
-    if(props.user && props.user._id){
-        LocationHelper.trackLocation(props.user, props.onStatusUpdate);
-
-    }
-    return null;
-    */
-     //message: type String
-    //date: type String  format 'YYYY-MM-DD HH:mm' (NOTIFICATION_DATE_TIME_FORMAT)
-
-    //construct the notification parameters
-    // const fireDate = moment(date, NOTIFICATION_DATE_TIME_FORMAT).toDate();
-
-    //let now = new Date();
-    //let twentySecondsFromNow = new Date(now.setSeconds(now.getSeconds() + 20));
-    //console.log('scheduleLocalNotification');
-    //console.log('twentySecondsFromNow = ', twentySecondsFromNow);
-    /*
-    const fireDate = moment()
-    .add(5, 'seconds')
-    .toDate()
-    .toISOString();
-    console.log('');
-    console.log('');
-    console.log('%%%%    fireDate = ', fireDate);
-    console.log('');
-    console.log('');
-    PushNotificationIOS.scheduleLocalNotification({
-        alertBody : 'test', 
-        alertTitle : 'test', 
-        fireDate : fireDate
-    });
-    */
 
    const updateUser = () => {
             props.user.statuses.forEach(status => {
@@ -110,8 +85,34 @@ const LocationTracker = props => {
         } 
 
         console.log('body = ', body);
+
+        showMessage({
+            message: body,
+            type: "info"
+        })
         
-        PushNotificationIOS.presentLocalNotification({alertBody : body});
+        const fireDate = moment()
+        .add(1, 'seconds')
+        .toDate()
+        .toISOString();
+        console.log('');
+        console.log('');
+        console.log('%%%%    fireDate = ', fireDate);
+        console.log('');
+        console.log('');
+        PushNotificationIOS.scheduleLocalNotification({
+            alertBody : body, 
+            alertTitle : res.venue.properName+'', 
+            fireDate : fireDate
+        });
+        
+        /*
+        PushNotificationIOS.presentLocalNotification({
+            alertBody : body, 
+            alertTitle : res.venue.properName+'', 
+            fireDate : fireDate
+        });
+        */
     }
 
     const watchForChange = (searchCenter, venues, status) => {
@@ -129,6 +130,14 @@ const LocationTracker = props => {
             var meters = geolib.getDistance(
                 {latitude : searchCenter.latitude, longitude : searchCenter.longitude},
                 {latitude : watchId.coords.latitude, longitude : watchId.coords.longitude});
+            if(statusSettings.active && meters > 20){
+                userNetworking.setAllUserStatusesToPassive(props.user._id, updatedUser => {
+                    console.log('statuses set to passive, updatedUser = ', updatedUser);
+                    props.setUser(updatedUser);
+                    statusSettings.active = false;
+                    setUserBilliardsSettings(statusSettings);
+                });
+            }
             if(meters > 1200){
                 pullVenues(watchId);
             } else {
@@ -169,6 +178,7 @@ const LocationTracker = props => {
             {distanceFilter : 15}
         );
     }
+
     if(!isInit && props.user){  
         updateUser();
     }

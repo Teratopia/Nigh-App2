@@ -57,7 +57,7 @@ const CasLeagueVenueUserHouseRulesEdit = props => {
 }
 
 return (
-    <View style={{...styles.optionsView, marginHorizontal : 16}}>
+    <View style={{...styles.optionsView, marginHorizontal : 16, ...props.style}}>
                         <View style={{...styles.textView, marginTop : 8}}>
                             <Text style={{...styles.textStyle, fontSize : 16, fontWeight : '600', color : Colors.quasiBlack}}>House Rules</Text>
                         </View>
@@ -67,11 +67,18 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Breaking</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.breaking}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('breaking')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.breaking}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('breaking')}} style={{marginLeft : 4}}/>
+                                    </View>    
+                                    :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.breaking}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>
@@ -89,11 +96,18 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Pocket Scratching</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.pocketScratching}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('pocketScratching')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.pocketScratching}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('pocketScratching')}} style={{marginLeft : 4}}/>
+                                    </View>
+                                :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.pocketScratching}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>
@@ -111,15 +125,22 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Table Scratching</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.tableScratching}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('tableScratching')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.tableScratching}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('tableScratching')}} style={{marginLeft : 4}}/>
+                                    </View>
+                                :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.tableScratching}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Pocket Scratching" 
+                                <TextInput  placeholder="Rules for Table Scratching" 
                                             onSubmitEditing={e => {updateRules('tableScratching', e)}} 
                                             defaultValue={houseRules.tableScratching}
                                             style={{textAlign : 'center'}}
@@ -133,11 +154,18 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Breaking Scratching</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.breakingScratching}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('breakingScratching')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.breakingScratching}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('breakingScratching')}} style={{marginLeft : 4}}/>
+                                    </View>
+                                :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.breakingScratching}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>
@@ -155,11 +183,18 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Eight Ball Scratching</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.eightBallScratching}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('eightBallScratching')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.eightBallScratching}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('eightBallScratching')}} style={{marginLeft : 4}}/>
+                                    </View>
+                                :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.eightBallScratching}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>
@@ -177,11 +212,18 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Slop</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.slop}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('slop')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.slop}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('slop')}} style={{marginLeft : 4}}/>
+                                    </View>
+                                :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.slop}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>
@@ -199,11 +241,18 @@ return (
                                 <View style={{...styles.textView, marginTop : 8}}>
                                     <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Prohibited</Text>
                                 </View>
-                                <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                                    <View style={{width : 16}}/>
-                                    <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.prohibited}</Text>
-                                    <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('prohibited')}} style={{marginLeft : 4}}/>
-                                </View>
+                                {
+                                    props.setVenueUser ? 
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <View style={{width : 16}}/>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.prohibited}</Text>
+                                        <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {toggleViewHouseRulesEditField('prohibited')}} style={{marginLeft : 4}}/>
+                                    </View>
+                                :
+                                    <View style={{...styles.textView, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
+                                        <Text style={{...styles.textStyle, fontSize : 12, color : Colors.inactiveGrey, textAlign : 'center'}}>{houseRules.prohibited}</Text>
+                                    </View>
+                                }
                             </View>
                             :
                             <View style={{...styles.inputFormTextInput, width : '100%'}}>

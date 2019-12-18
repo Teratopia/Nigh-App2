@@ -7,7 +7,7 @@ import VenueNetworking from '../networking/venueNetworking';    //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import Colors from '../constants/colors';   //
 import Geolocation from '@react-native-community/geolocation';  //
-
+import VenueSelectionModal from '../components/VenueSelectionModal';
 
 //  TODO:
 /*
@@ -189,7 +189,16 @@ const CasLeagueStatusScreen = props => {
           <SafeAreaView style={styles.screen}>
               {
                   selectedVenue ? 
+                  /*
                   <CasLeagueSearchVenueSelectedVenueModal 
+                        venue={selectedVenue} 
+                        setSelectedVenue={setSelectedVenue}
+                        recLoc={recLoc}
+                        checkInVenue={checkInVenue}
+                        user={props.user}
+                    />
+                    */
+                    <VenueSelectionModal
                         venue={selectedVenue} 
                         setSelectedVenue={setSelectedVenue}
                         recLoc={recLoc}
@@ -282,7 +291,7 @@ const CasLeagueStatusScreen = props => {
                 <View style={styles.bodyBlock}>
                     <View style={styles.bodyBlockHeader}>
                         <Text style={styles.bodyBlockHeaderText}>
-                            Notify Me When...
+                            Notify Me When
                         </Text>
                     </View>
                     <View style={{...styles.bodyBlockRow, justifyContent : 'space-between'}}>
@@ -440,7 +449,8 @@ const styles = StyleSheet.create({
   },
   bodyBlockHeaderText : {
     fontSize : 16,
-    fontWeight : '600'
+    fontWeight : '600',
+    textAlign : 'center'
   },
   bodyBlockRow : {
     flexDirection : 'row',

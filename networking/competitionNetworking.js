@@ -188,6 +188,31 @@ async function requestCompetition(competition, onSuccess) {
         console.error(error);
       });
   }
+  
+  async function getLeaderboardInfo(venueId, fromDate, toDate, onSuccess) {
+    var url = apiSettings.awsProxy + '/getLeaderboardInfo';
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            venueId : venueId,
+            fromDate : fromDate,
+            toDate : toDate
+        }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          console.log('response:');
+          console.log(responseJson);
+          onSuccess(responseJson);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   export default {  
                     requestCompetition, 
@@ -197,5 +222,6 @@ async function requestCompetition(competition, onSuccess) {
                     updateChallenge,
                     confirmChallenge,
                     getCompetitionHistory,
-                    getVenueCompetitionHistory
+                    getVenueCompetitionHistory,
+                    getLeaderboardInfo
                 };
