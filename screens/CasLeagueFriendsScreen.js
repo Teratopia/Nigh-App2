@@ -57,7 +57,8 @@ const CasLeagueFriendsScreen = props => {
         modalView = <FriendInteractionModal 
                         socket={props.socket}
                         onClose={setChosenFriend} 
-                        user={props.user} chosenFriend={chosenFriend} 
+                        user={props.user} 
+                        chosenFriend={chosenFriend} 
                         recheckBlocks={recheckBlocks} 
                         activityName="BILLIARDS"/>
     }

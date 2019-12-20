@@ -6,7 +6,6 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 
 const FriendInteractionModalStatsView = props => {
     const [historyStats, setHistoryStats] = useState(null);
-    const [socketInit, setSocketInit] = useState(false);
 
     function formatCompetitionHistoryStats(competitions){
         var stats = {};
@@ -63,17 +62,21 @@ const FriendInteractionModalStatsView = props => {
             console.log('getCompetitionHistory err = ', err);
         })
     }
+    /*
+    props.socket.on('update statistics', () => {
+        console.log('socket update stats');
+        resetStats();
+    });
+    */
+
+    props.socket.off('update statistics');
+    props.socket.on('update statistics', () => {
+        console.log('socket update stats');
+        resetStats();
+    });
 
     if(!historyStats){
         resetStats();
-    }
-
-    if(!socketInit){
-        setSocketInit(true);
-        props.socket.on('stats update', () => {
-            console.log('socket reset stats');
-            resetStats();
-        });
     }
 
     if(props.showStats && historyStats){

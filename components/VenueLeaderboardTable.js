@@ -184,27 +184,27 @@ return (
                                                     style={
                                                         score.user._id === props.userId ? 
                                                         {...styles.scoreRow, backgroundColor : Colors.activeTeal} : 
-                                                        props.userFriendsIds.includes(score.user._id) ? 
+                                                        props.userFriendsIds && props.userFriendsIds.includes(score.user._id) ? 
                                                         {...styles.scoreRow, backgroundColor : Colors.pendingBlue} :
                                                         styles.scoreRow}
                                                 >
                                                     <View style={{flex : 1, justifyContent : 'center', alignItems : 'center', paddingVertical : 4}}>
-                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                        <Text style={score.user._id === props.userId || (props.userFriendsIds && props.userFriendsIds.includes(score.user._id)) ? styles.activeScoreRowText : null}>
                                                             {score.place}
                                                         </Text>
                                                     </View>
                                                     <View style={{flex : 3, justifyContent : 'flex-start', alignItems : 'center', paddingVertical : 4}}>
-                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                        <Text style={score.user._id === props.userId || (props.userFriendsIds && props.userFriendsIds.includes(score.user._id)) ? styles.activeScoreRowText : null}>
                                                             {score.user.username}
                                                         </Text>
                                                     </View>
                                                     <View style={{flex : 2, justifyContent : 'center', alignItems : 'center', paddingVertical : 4}}>
-                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                        <Text style={score.user._id === props.userId || (props.userFriendsIds && props.userFriendsIds.includes(score.user._id)) ? styles.activeScoreRowText : null}>
                                                             {score.totalWins}/{score.totalLosses}
                                                         </Text>
                                                     </View>
                                                     <View style={{flex : 2, justifyContent : 'center', alignItems : 'center', paddingVertical : 4}}>
-                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                        <Text style={score.user._id === props.userId || (props.userFriendsIds && props.userFriendsIds.includes(score.user._id)) ? styles.activeScoreRowText : null}>
                                                             {score.score}/{score.uniqueUsersPlayed}
                                                         </Text>
                                                     </View>

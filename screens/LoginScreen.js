@@ -189,12 +189,15 @@ const LoginScreen = props => {
                                         <Text style={{color : 'red'}}>Invalid Password.</Text>
                                     </View>);
                 } else {
+                    
                     storeData(username, password);
+
                     if(Array.isArray(retVal)){
                         props.setUser(retVal[0]);
                     } else {
                         props.setUser(retVal);
                     }
+
                 }
             }).catch((error) => {
                 console.error(error);

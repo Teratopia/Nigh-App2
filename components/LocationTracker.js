@@ -22,6 +22,7 @@ const LocationTracker = props => {
     
     PushNotificationIOS.addEventListener('notification', PushNotIOS => {
         var data = PushNotIOS.getData();
+        console.log('pushNotIOS PushNotIOS = ', PushNotIOS);
         console.log('pushNotIOS data = ', data);
         if(data.notificationType === 'chatMessage'){
             showMessage({
@@ -38,7 +39,24 @@ const LocationTracker = props => {
                 color : 'white'
             })
         }
-        PushNotIOS.presentLocalNotification(data);
+        if(PushNotIOS){
+            //PushNotIOS.presentLocalNotification(data);
+
+            const fireDate = moment()
+            .add(1, 'seconds')
+            .toDate()
+            .toISOString();
+            console.log('');
+            console.log('');
+            console.log('%%%%    fireDate = ', fireDate);
+            console.log('');
+            console.log('');
+            PushNotificationIOS.scheduleLocalNotification({
+                //alertBody : body, 
+                alertTitle : data.text, 
+                fireDate : fireDate
+            });
+        }
     });
 
    const updateUser = () => {

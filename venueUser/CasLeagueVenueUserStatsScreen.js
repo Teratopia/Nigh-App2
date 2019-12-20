@@ -81,10 +81,14 @@ const CasLeagueVenueUserStatsScreen = props => {
       var firstMonth = before.getMonth();
       labels = [firstMonth, firstMonth+1, firstMonth+2, firstMonth+3];
     }
+
     labels.forEach(label => {
+      console.log('for each label = ', label);
       retVal[label] = 0;
+
     });
     console.log('labels in format, ', labels);
+    console.log('after labels in format retVal, ', retVal);
     if(value === 'week'){
       comps.forEach(comp => {
         var dayNum = new Date(comp.createDate).getDay();
@@ -94,20 +98,33 @@ const CasLeagueVenueUserStatsScreen = props => {
       comps.forEach(comp => {
         var dateNum = new Date(comp.createDate).getDate();
         console.log('dateNum = ', dateNum);
+
         retVal[dateNum] += 1;
       });
     } else if(value === 'quarter'){
       comps.forEach(comp => {
-        var monthNum = new Date(comp.createDate).getMonth() + 1;
+        var monthNum = new Date(comp.createDate).getMonth();
         console.log('monthNum = ', monthNum);
         retVal[monthNum] += 1;
       });
     }
     var retValArray = Object.values(retVal);
+    console.log('retValArray 1 = ', retValArray);
+    if(value === 'quarter' && retValArray.length === 5){
+      retValArray.splice(4, 1);
+    } else if (value === 'month'){
+      var nowDate = now.getDate();
+      var modChunk = retValArray.splice(nowDate, retValArray.length);
+      console.log('modChunk = ', modChunk);
+      modChunk.push(...retValArray);
+      retValArray = modChunk;
+    }
+    console.log('retValArray 2 = ', retValArray);
     var highestValue = 0;
     retValArray.forEach(val => {
       val > highestValue ? highestValue = val : null;
     })
+
     return {
       values : retValArray,
       highestValue : highestValue

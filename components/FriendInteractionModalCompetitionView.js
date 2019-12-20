@@ -15,7 +15,18 @@ import CasLeagueVenueUserHouseRulesEdit from '../venueUser/CasLeagueVenueUserHou
 
 const FriendInteractionModalCompetitionView = props => {
 
-    const [claimResult, setClaimResult] = useState();
+    props.socket.off('competition update');
+    props.socket.on('competition update', resComp => {
+        console.log('FriendInteractionModalCompetitionView comp update setCompetition');
+        console.log('resComp = ', resComp);
+        if(resComp && 
+            ((props.user._id === resComp.challengerId && resComp.challengerConfirmed) || 
+            (props.user._id === resComp.accepterId && resComp.accepterConfirmed))){
+            props.setCompetition(null);
+        } else {
+            props.setCompetition(resComp);
+        }
+    });
 
     const calculateCompetitionCountdownStart = () => {
         var foo = (10 * 60 * 1000) - (new Date() - new Date(props.competition.createDate));
@@ -41,42 +52,61 @@ const FriendInteractionModalCompetitionView = props => {
     const postChallenge = () => {
         let clone = {...props.competition};
         clone.createDate = new Date();
+        console.log('postChallenge 1');
+        /*
         CompetitionNetworking.requestCompetition(clone, res => {
             console.log('postChallenge res = ', res);
             props.setCompetition(res.competition);
-        })
+        });
+        */
+        props.socket.emit('requestCompetition', clone);
     }
 
     const deleteChallenge = () => {
+        /*
         CompetitionNetworking.deleteChallenge(props.competition._id, res => {
             console.log('deleteChallenge res = ', res);
             props.setCompetition(null);
         })
+        */
+        props.socket.emit('deleteChallenge', props.competition._id);
     }
     
     const acceptChallenge = () => {
+        /*
         CompetitionNetworking.acceptChallenge(props.competition._id, res => {
             console.log('acceptChallenge res = ', res);
             props.setCompetition(res.competition);
         });
+        */
+        props.socket.emit('acceptChallenge', props.competition._id);
     }
 
     const finishChallenge = selection => {
+        console.log('finishChallenge = ', selection);
         let compClone = {...props.competition};
         compClone.challengerId === props.user._id ? compClone.challengerResultClaim = selection : compClone.accepterResultClaim = selection;
+        /*
         CompetitionNetworking.updateChallenge(compClone, res => {
             console.log('updateChallenge res = ', res);
             props.setCompetition(res.competition);
-            setClaimResult(selection);
         });
+        */
+        props.socket.emit('finishChallenge', compClone);
     }
 
     const confirmChallenge = () => {
+        /*
         CompetitionNetworking.confirmChallenge(props.user._id, props.competition._id, res => {
             console.log('confirmChallenge res = ', res);
             props.setCompetition(null);
-            props.socket.emit('stats update');
         });
+        */
+        let req = {
+            userId : props.user._id,
+            competitionId : props.competition._id
+        }
+        props.socket.emit('confirmChallenge', req);
     }
  
     if(props.competition && !props.competition._id && !props.competition.acceptedDate){

@@ -26,6 +26,7 @@ class SocketGiftedChat extends React.Component {
     this.socket = this.props.socket;
     //this.socket.on('connect', this.onSocketConnect);
     this.socket.on('chat message', this.onReceivedMessage);
+    //this.socket.on('refresh stats', this.onReceivedMessage);
   }
 
     componentWillMount() {
