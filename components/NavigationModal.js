@@ -39,9 +39,13 @@ const NavigationModal = props => {
                                 source={profilePic}
                                 />
                             </TouchableOpacity>
-                            <View style={styles.buttonView}>
-                                <Button title="PROFILE" onPress={() => {props.setScreen('PROFILE')}}/>
-                            </View>
+                            {
+                                /*
+                                <View style={styles.buttonView}>
+                                    <Button title="PROFILE" onPress={() => {props.setScreen('PROFILE')}}/>
+                                </View>
+                                */
+                            }
                             <View style={styles.buttonView}>
                                 <Button title="STATUS" onPress={() => {props.setScreen('STATUS')}}/>
                             </View>

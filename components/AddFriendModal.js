@@ -9,8 +9,9 @@ const AddFriendModal = props => {
     const [resultsList, setResultsList] = useState();
     const [userSelected, setUserSelected] = useState();
     const [message, setMessage] = useState();
+    const [isInit, setIsInit] = useState(false);
 
-    searchUser = e => {
+    const searchUser = e => {
         console.log('searchUser e = ', e);
         //setUserSelected(null);
         UNW.searchUserByUsername(e, docs => {
@@ -32,14 +33,14 @@ const AddFriendModal = props => {
         });
     }
 
-    selectUser = id => {
+    const selectUser = id => {
         console.log('selectUser id = '+id);
         setUserSelected(id);
         var resClone = [...resultsList];
         setResultsList(resClone);
     }
 
-    sendRequest = () => {
+    const sendRequest = () => {
         console.log('sendRequest');
         UNW.sendFriendRequest(props.user._id, userSelected, message, res => {
             console.log('sendRequest success, res = ', res);
@@ -49,13 +50,20 @@ const AddFriendModal = props => {
         });
     }
 
-    editMessage = e => {
+    const editMessage = e => {
         console.log('editMessage e = '+e);
         setMessage(e);
     }
 
-    closeModal = () => {
+    const closeModal = () => {
         props.onClose();
+    }
+
+    if(!isInit && props.initUserSelected){
+        searchUser(props.initUserSelected.username);
+        setUserSelected(props.initUserSelected._id);
+        //selectUser(props.initUserSelected._id);
+        setIsInit(true);
     }
 
     return (
@@ -65,13 +73,19 @@ const AddFriendModal = props => {
                     <TouchableOpacity style={styles.modalView} onPress={() => {}} activeOpacity={1}>
                         <View style={styles.titleHeader}>
                             <Text style={styles.titleText}>
-                                Search User
+                                Friend Request
                             </Text>
                         </View>
+                        {
+                            !props.initUserSelected ?
                             <TextInput 
                                 onChangeText={e => {searchUser(e)}} style={{width : '100%', textAlign : 'center'}}
+                                placeholder="Search User"
                                 style={styles.searchUserTextInput}
                             />
+                            :
+                            null
+                        }
                         { resultsList && resultsList.length > 0 ? 
                             <View style={styles.resultListView}>
                                 <FlatList 
@@ -101,16 +115,31 @@ const AddFriendModal = props => {
                         multiline={true}
                         numberOfLines={4}
                         maxLength={144}
-                        style={{width : '100%', borderColor : Colors.inactiveGrey, borderRadius : 4, borderWidth : 1, minHeight : 96, marginVertical : 8, padding : 8}}/>
+                        style={{
+                            width : '100%', 
+                            borderColor : Colors.inactiveGrey, 
+                            borderRadius : 4, 
+                            borderWidth : 1, 
+                            minHeight : 96, 
+                            marginVertical : 8, 
+                            paddingTop : 12,
+                            paddingHorizontal : 12
+                        }}/>
                     </View>
                 
                     : null
                     }
                         
-
+                    {
+                        userSelected ? 
                         <View style={{...styles.buttonView, backgroundColor : Colors.activeTeal, borderColor : Colors.inactiveGrey}}>
                             <Button title="Send Request" color="white" onPress={sendRequest} />
                         </View>
+                        :
+                        <View style={{...styles.buttonView, backgroundColor : Colors.inactiveGrey, borderColor : Colors.activeTeal}}>
+                            <Button title="Send Request" color="white" onPress={sendRequest} disabled={true}/>
+                        </View>
+                    }
                         <View style={styles.buttonView}>
                             <Button title="Close" color="white" onPress={closeModal} />
                         </View>

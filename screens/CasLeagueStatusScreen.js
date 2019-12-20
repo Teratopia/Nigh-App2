@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, Button, Switch, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {Text, View, TextInput, Button, Switch, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import ModalHeader from '../components/ModalHeader';    //
 import CasLeagueSearchVenueSelectedVenueModal from '../components/CasLeagueSearchVenueSelectedVenueModal';  //
 import WarningMesageModal from '../components/WarningMesageModal';  //
@@ -23,8 +23,10 @@ const CasLeagueStatusScreen = props => {
   const [quickSetSelection, setQuickSetSelection] = useState('off');
   const [playMode, setPlayMode] = useState('casual');
   const [selectedVenue, setSelectedVenue] = useState(null);
+  const [selectedFavoriteVenue, setSelectedFavoriteVenue] = useState();
   const [recLoc, setRecLoc] = useState(false);
   const [warningMessageArgs, setWarningMessageArgs] = useState(null);
+  const [favoriteVenues, setFavoriteVenues] = useState();
   const [notificationSettings, setNotificationSettings] = useState({
       friendsAreNear : true,
       friendsBecomeActive : true,
@@ -183,27 +185,68 @@ const CasLeagueStatusScreen = props => {
     setSelectedVenue(null);
   }
 
+  if(!favoriteVenues && props.user.venueFavoritesIdList && props.user.venueFavoritesIdList.length > 0 ){
+    VenueNetworking.getVenuesById(props.user.venueFavoritesIdList, res => {
+        console.log('getVenuesById res = ', res);
+        setFavoriteVenues(res.venues);
+    }, err => {
+        console.log('getVenuesById err = ', err);
+    });
+  }
+
+  const removeVenue = user => {
+    /*
+    const favVensClone = [...favoriteVenues];
+    let i = 0;
+    let idx = null;
+    console.log('favVensClone 1 = ', favVensClone);
+    favVensClone.forEach(ven => {
+        ven._id === selectedFavoriteVenue._id ? idx = i : null;
+        i++;
+    });
+    console.log('idx = ', idx);
+    let res = null;
+    if(idx){
+        favVensClone.splice(idx, 1);
+    }
+    console.log('favVensClone 2 = ', favVensClone);
+    console.log('res 2 = ', res);
+    setSelectedFavoriteVenue(null);
+    setFavoriteVenues(favVensClone);
+    */
+    props.setUser(user);
+    setSelectedFavoriteVenue(null);
+    setFavoriteVenues(null);
+  }
+
 
   return (
 
           <SafeAreaView style={styles.screen}>
               {
                   selectedVenue ? 
-                  /*
-                  <CasLeagueSearchVenueSelectedVenueModal 
-                        venue={selectedVenue} 
-                        setSelectedVenue={setSelectedVenue}
-                        recLoc={recLoc}
-                        checkInVenue={checkInVenue}
-                        user={props.user}
-                    />
-                    */
                     <VenueSelectionModal
                         venue={selectedVenue} 
                         setSelectedVenue={setSelectedVenue}
                         recLoc={recLoc}
                         checkInVenue={checkInVenue}
                         user={props.user}
+                        setUser={removeVenue} 
+                        socket={props.socket}
+                    />
+                  :
+                  null
+              }
+              {
+                  selectedFavoriteVenue ? 
+                    <VenueSelectionModal
+                        venue={selectedFavoriteVenue} 
+                        setSelectedVenue={setSelectedFavoriteVenue}
+                        recLoc={recLoc}
+                        user={props.user}
+                        noPromotionPopUp={true}
+                        setUser={removeVenue} 
+                        socket={props.socket}
                     />
                   :
                   null
@@ -219,7 +262,7 @@ const CasLeagueStatusScreen = props => {
                   null
               }
             <ModalHeader 
-            title="STATUS"
+            title="PROFILE"
             leftIcon="menu" 
             leftIconFunction={props.leftIconFunction}
             rightIcon="logout" 
@@ -275,7 +318,7 @@ const CasLeagueStatusScreen = props => {
                 <View style={styles.bodyBlock}>
                     <View style={styles.bodyBlockHeader}>
                         <Text style={styles.bodyBlockHeaderText}>
-                            Status Description
+                            Status
                         </Text>
                     </View>
                     <View style={styles.bodyBlockRow}>
@@ -288,10 +331,33 @@ const CasLeagueStatusScreen = props => {
                     </View>
                 </View>
 
+                {
+                    favoriteVenues && favoriteVenues.length > 0 ? 
+                    <View style={styles.bodyBlock}>
+                        <View style={styles.bodyBlockHeader}>
+                            <Text style={styles.bodyBlockHeaderText}>
+                                Favorite Venues
+                            </Text>
+                        </View>
+                        {
+                        favoriteVenues.map(venue => {
+                            return <TouchableOpacity onPress={() => {setSelectedFavoriteVenue(venue)}} style={{...styles.favoriteVenueRow}}>
+                                <Text style={{color : 'white', fontWeight : '600', fontSize : 18}}>
+                                    {venue.properName}
+                                </Text>
+                            </TouchableOpacity>
+                        })
+                        }
+                    </View>
+                :
+                null
+                }
+                
+
                 <View style={styles.bodyBlock}>
                     <View style={styles.bodyBlockHeader}>
                         <Text style={styles.bodyBlockHeaderText}>
-                            Notify Me When
+                            Passive Notifications
                         </Text>
                     </View>
                     <View style={{...styles.bodyBlockRow, justifyContent : 'space-between'}}>
@@ -351,7 +417,7 @@ const CasLeagueStatusScreen = props => {
                 <View style={{...styles.bodyBlock, borderBottomWidth : 0}}>
                     <View style={styles.bodyBlockHeader}>
                         <Text style={styles.bodyBlockHeaderText}>
-                            Notify Others (Active Only)
+                            Active Notifications
                         </Text>
                     </View>
                     <View style={{...styles.bodyBlockRow, justifyContent : 'space-between'}}>
@@ -474,6 +540,7 @@ const styles = StyleSheet.create({
   },
   descriptionInput : {
     padding : 12,
+    paddingTop : 8,
     width : '100%',
     minHeight : 48,
     borderColor : Colors.inactiveGrey,
@@ -486,6 +553,18 @@ const styles = StyleSheet.create({
   bodyBlockRowSwitch : {
 
   },
+  favoriteVenueRow : {
+    //width : '100%', 
+    borderWidth : 1, 
+    borderRadius : 8, 
+    borderColor : Colors.inactiveGrey, 
+    backgroundColor : Colors.pendingBlue,
+    marginVertical : 4,
+    marginHorizontal : 12,
+    padding : 8,
+    justifyContent : 'center',
+    alignItems : 'center'
+},
 
 });
 

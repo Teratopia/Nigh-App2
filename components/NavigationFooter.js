@@ -28,8 +28,8 @@ const NavigationFooter = props => {
                               styles.activeButton :
                               styles.inactiveButton
                               }>
-                  <Icon name="megaphone" size={18} color="white" style={{marginTop : 4}}/>
-                  <Text style={styles.textStyle}>Status</Text>
+                  <Icon name="user" size={18} color="white" style={{marginTop : 4}}/>
+                  <Text style={styles.textStyle}>Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {props.selectionChange('SEARCH')}} 
                               style={props.currentScreen === 'SEARCH' ?

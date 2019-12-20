@@ -18,7 +18,6 @@ import FriendInteractionModalHeader from './FriendInteractionModalHeader';
 const FriendInteractionModal = props => {
     const [match, setMatch] = useState();
     const [messages, setMessages] = useState();
-    const [imageSource, setImageSource] = useState(null);
     const [friendStatus, setFriendStatus] = useState(null);
     const [competition, setCompetition] = useState(null);
     const [blocked, setBlocked] = useState(null);
@@ -92,6 +91,7 @@ const FriendInteractionModal = props => {
                     user={props.user}
                     chosenFriend={props.chosenFriend}
                     showStats={showStats}
+                    socket={props.socket}
                 />
 
                 <FriendInteractionModalCompetitionView 
@@ -100,6 +100,7 @@ const FriendInteractionModal = props => {
                     userVenue={userVenue}
                     friendVenue={friendVenue}
                     user={props.user}
+                    socket={props.socket}
                 />
                 
                 {

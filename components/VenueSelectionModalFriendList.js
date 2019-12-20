@@ -4,19 +4,36 @@ import FriendListRow from './FriendListRow';
 
 const VenueSelectionModalFriendList = props => {
     return <View style={styles.friendListView}>
-                <FlatList 
+        {
+            /*
+            <FlatList 
                     data={props.friendsToShowAtThisVenue} 
                     keyExtractor={(item, index) => 'key'+index}
                     renderItem={itemData => (
                         <FriendListRow user={itemData.item} activityName="BILLIARDS" onPress={() => {}}/> 
                     )}>
-                </FlatList>
+            </FlatList>
+            */
+        }
+                
+                {
+                    props.friendsToShowAtThisVenue ? 
+                    <View>
+                        {
+                        props.friendsToShowAtThisVenue.map(user => {
+                            return <FriendListRow user={user} activityName="BILLIARDS" onPress={() => {}}/> 
+                        })
+                        }
+                    </View>
+                    :
+                    null
+                }
             </View>
 }
 
 const styles = StyleSheet.create({
     friendListView : {
-        maxHeight : 42
+        //maxHeight : 42
     }
 });
 

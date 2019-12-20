@@ -172,6 +172,8 @@ const CasLeagueSearchScreen = props => {
                         setSelectedVenue={setSelectedVenue}
                         recLoc={recLoc}
                         user={props.user}
+                        setUser={props.setUser} 
+                        socket={props.socket}
                     />
                 :
                 null

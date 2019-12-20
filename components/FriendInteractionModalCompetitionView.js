@@ -15,6 +15,8 @@ import CasLeagueVenueUserHouseRulesEdit from '../venueUser/CasLeagueVenueUserHou
 
 const FriendInteractionModalCompetitionView = props => {
 
+    const [claimResult, setClaimResult] = useState();
+
     const calculateCompetitionCountdownStart = () => {
         var foo = (10 * 60 * 1000) - (new Date() - new Date(props.competition.createDate));
         console.log('foo = '+foo);
@@ -60,10 +62,12 @@ const FriendInteractionModalCompetitionView = props => {
     }
 
     const finishChallenge = selection => {
-        competition.challengerId === props.user._id ? competition.challengerResultClaim = selection : competition.accepterResultClaim = selection;
-        CompetitionNetworking.updateChallenge(props.competition, res => {
+        let compClone = {...props.competition};
+        compClone.challengerId === props.user._id ? compClone.challengerResultClaim = selection : compClone.accepterResultClaim = selection;
+        CompetitionNetworking.updateChallenge(compClone, res => {
             console.log('updateChallenge res = ', res);
             props.setCompetition(res.competition);
+            setClaimResult(selection);
         });
     }
 
@@ -71,6 +75,7 @@ const FriendInteractionModalCompetitionView = props => {
         CompetitionNetworking.confirmChallenge(props.user._id, props.competition._id, res => {
             console.log('confirmChallenge res = ', res);
             props.setCompetition(null);
+            props.socket.emit('stats update');
         });
     }
  
@@ -111,13 +116,17 @@ const FriendInteractionModalCompetitionView = props => {
             :
             null
         }
+        {
+            props.competition ?
+            <View style={{...styles.competitionViewButtonRow, marginVertical : 0}}>
+                <View style={{...styles.activeButton}}>
+                    <Button title="POST!" onPress={postChallenge} color="white" style={{fontSize : 12}}/>
+                </View>
+            </View>
+            :null
+        }
         
 
-        <View style={{...styles.competitionViewButtonRow, marginVertical : 0}}>
-            <View style={{...styles.activeButton}}>
-                <Button title="POST!" onPress={postChallenge} color="white" style={{fontSize : 12}}/>
-            </View>
-        </View>
     </View>
     } else if (props.competition && props.competition._id && !props.competition.acceptedDate && props.competition.challengerId === props.user._id){
 
@@ -190,9 +199,9 @@ const FriendInteractionModalCompetitionView = props => {
                     props.user._id === props.competition.accepterId && props.competition.accepterResultClaim === 'win' && props.competition.challengerResultClaim === 'loss' ?
                     {...styles.activeButton, width : '30%'} :
                     props.user._id === props.competition.accepterId && props.competition.accepterResultClaim === 'win' ?
-                    {...styles.goldButton, width : '30%'} :
+                    {...styles.blueButton, width : '30%'} :
                     props.user._id === props.competition.challengerId && props.competition.challengerResultClaim === 'win' ?
-                    {...styles.goldButton, width : '30%'} :
+                    {...styles.blueButton, width : '30%'} :
                     {...styles.inactiveButton, width : '30%'}
                 }>
                     <Button title="I WON" onPress={()=>{finishChallenge('win')}} color="white" style={{fontSize : 12}}/>
@@ -206,9 +215,9 @@ const FriendInteractionModalCompetitionView = props => {
                     props.user._id === props.competition.accepterId && props.competition.accepterResultClaim === 'loss' && props.competition.challengerResultClaim === 'win' ?
                     {...styles.activeButton, width : '30%'} :
                     props.user._id === props.competition.accepterId && props.competition.accepterResultClaim === 'loss' ?
-                    {...styles.goldButton, width : '30%'} :
+                    {...styles.blueButton, width : '30%'} :
                     props.user._id === props.competition.challengerId && props.competition.challengerResultClaim === 'loss' ?
-                    {...styles.goldButton, width : '30%'} :
+                    {...styles.blueButton, width : '30%'} :
                     {...styles.inactiveButton, width : '30%'}
                 }>                                
                     <Button title="I LOST" onPress={()=>{finishChallenge('loss')}} color="white" style={{fontSize : 12}}/>
@@ -218,22 +227,23 @@ const FriendInteractionModalCompetitionView = props => {
                     props.competition.challengerResultClaim === props.competition.accepterResultClaim && props.competition.accepterResultClaim === 'ignore' ?
                     {...styles.activeButton, width : '30%'} :
                     props.user._id === props.competition.challengerId && props.competition.challengerResultClaim === 'ignore'?
-                    {...styles.goldButton, width : '30%'} :
+                    {...styles.blueButton, width : '30%'} :
                     props.user._id === props.competition.accepterId && props.competition.accepterResultClaim === 'ignore'?
-                    {...styles.goldButton, width : '30%'} :
+                    {...styles.blueButton, width : '30%'} :
                     {...styles.inactiveButton, width : '30%'}
                 }>   
                     <Button title="IGNORE" onPress={()=>{finishChallenge('ignore')}} color="white" style={{fontSize : 12}}/>
                 </View>
                 
         </View>
-
+        <View style={styles.competitionChallengeButtonRow}>
         <View style={{...styles.activeButton, width : '50%', marginTop : 8}}>   
                     <Button title="CONFIRM" disabled={props.user._id === props.competition.challengerId ? !props.competition.challengerResultClaim : !props.competition.accepterResultClaim} 
                     onPress={confirmChallenge} 
                     color="white" 
                     style={{fontSize : 12}}/>
                 </View>
+        </View>
         
     </View>
     } else {
@@ -399,7 +409,9 @@ const styles = StyleSheet.create({
         backgroundColor : Colors.gold,
         width : '24%',
         fontSize : 12,
-        borderRadius : 8
+        borderRadius : 8,
+        flex : 1,
+        marginHorizontal : 4
     },
     blueButton : {  
         borderWidth : 1, 
@@ -407,13 +419,15 @@ const styles = StyleSheet.create({
         backgroundColor : Colors.pendingBlue,
         width : '24%',
         fontSize : 12,
-        borderRadius : 8
+        borderRadius : 8,
+        flex : 1,
+        marginHorizontal : 4
     },
     competitionChallengeButtonRow : {
         flexDirection : 'row',
         justifyContent : 'space-evenly',
         alignItems : 'center',
-        width : '100%'
+        width : '100%',
     },
     neutralIcon : {
         fontSize : 10, color : "white"

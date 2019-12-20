@@ -54,8 +54,8 @@ async function uploadImageAndReturnId(node, onSuccess, onFailure){
     })
       .then((response) => response.json())
       .then((responseJson) => {
-          console.log('response:');
-          console.log(responseJson);
+          console.log('getImageById networking callback');
+          //console.log(responseJson);
           onSuccess(responseJson);
       })
       .catch((error) => {

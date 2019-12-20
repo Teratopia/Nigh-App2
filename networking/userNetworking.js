@@ -368,6 +368,54 @@ async function toggleBlockFriend(userId, friendToBlockId, onSuccess) {
     });
 }
 
+async function addVenueIdToFavorites(userId, venueId, onSuccess) {
+  var url = apiSettings.awsProxy + '/addVenueIdToFavorites';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          userId : userId,
+          venueId : venueId
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+async function removeVenueIdFromFavorites(userId, venueId, onSuccess) {
+  var url = apiSettings.awsProxy + '/removeVenueIdFromFavorites';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          userId : userId,
+          venueId : venueId
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 
   export default {updateUserStatuses, 
                   setAllUserStatusesToPassive, 
@@ -383,5 +431,7 @@ async function toggleBlockFriend(userId, friendToBlockId, onSuccess) {
                   getUserFriends,
                   toggleBlockFriend,
                   getMultipleUsersById,
-                  updateUserStatusToActive
+                  updateUserStatusToActive,
+                  addVenueIdToFavorites,
+                  removeVenueIdFromFavorites
                 };

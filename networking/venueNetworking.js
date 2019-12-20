@@ -338,6 +338,7 @@ async function upsertVenuePromotion(node, venueId, promotion, onSuccess, onFailu
   };
   
   async function getVenuePromotionImage(venuePromotion, onSuccess, onFailure) {
+    console.log('getVenuePromotionImage 1');
     var url = apiSettings.awsProxy + '/getVenuePromotionImage';
     return fetch(url, {
                   method: 'POST',
@@ -351,8 +352,8 @@ async function upsertVenuePromotion(node, venueId, promotion, onSuccess, onFailu
               })
     .then((response) => response.json())
     .then((responseJson) => {
-        console.log('getVenuePromotionImage response:');
-        console.log(responseJson);
+        //console.log('getVenuePromotionImage response:');
+        //console.log(responseJson);
         onSuccess(responseJson);
     })
     .catch((error) => {
@@ -386,6 +387,30 @@ async function deletePromotion(venueId, promotionId, onSuccess, onFailure) {
     });
 }
 
+async function getVenuesById(venueIdList, onSuccess, onFailure) {
+  var url = apiSettings.awsProxy + '/getVenuesById';
+  return fetch(url, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    venueIdList : venueIdList
+                }),
+            })
+  .then((response) => response.json())
+  .then((responseJson) => {
+      console.log('getVenuesById response:');
+      console.log(responseJson);
+      onSuccess(responseJson);
+  })
+  .catch((error) => {
+    console.error(error);
+    onFailure(error);
+  });
+}
+
   
 
   export default {
@@ -403,5 +428,6 @@ async function deletePromotion(venueId, promotionId, onSuccess, onFailure) {
                     upsertVenuePromotion,
                     getVenuePromotionImage,
                     getVenueNotificationInfoById,
-                    deletePromotion
+                    deletePromotion,
+                    getVenuesById
                 };

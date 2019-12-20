@@ -94,12 +94,19 @@ const CasLeagueSearchVenueSelectedVenueModal = props => {
             console.log('VenueNetworking.getPlayersCheckedIntoVenue err = ', err);
         })
     }
-
+    /*
     function arrayBufferToBase64(buffer) {
         var binary = '';
         var bytes = [].slice.call(new Uint8Array(buffer));
         bytes.forEach((b) => binary += String.fromCharCode(b));
         return btoa(binary);
+    };
+    */
+    function arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
     };
 
     if(!promotionImage && props.venue.venuePromotions.length > 0){

@@ -6,6 +6,8 @@ import UserNetworking from '../networking/userNetworking';  //
 import CompetitionNetworking from '../networking/competitionNetworking';    //
 import Icon from 'react-native-vector-icons/Entypo';    //
 
+//TODO: MAKE TEXT AND ROW STYLES DRY
+
 const VenueLeaderboardTable = props => {
 
     const [scoresList, setScoresList] = useState(null);
@@ -76,10 +78,8 @@ const VenueLeaderboardTable = props => {
         setScoresList(slClone);
     }
 
-
-
 return (
-    <View style={styles.parentView}>
+    <View style={{...styles.parentView, ...props.style}}>
                 <View style={styles.tableContainer}>
                     <View 
                         onPress={() => {showModal(itemData.item)}} 
@@ -122,7 +122,7 @@ return (
                                     : 
                                     null
                             }
-                            <Text style={styles.headerFont}>Total W/L</Text>
+                            <Text style={styles.headerFont}>W/L</Text>
                             {   sortField === 'totalWL' ? 
                                 sortDirection === -1 ?
                                     <Icon name="chevron-down" size={14} color={Colors.quasiBlack}/>
@@ -153,6 +153,7 @@ return (
                     <View style={{flex : 4, marginHorizontal : 12}}>
                         {
                             scoresList ? 
+                            /*
                             <FlatList 
                                 data={scoresList} 
                                 keyExtractor={(item, index) => 'key'+index}
@@ -176,6 +177,40 @@ return (
                                     </TouchableOpacity>
                                 )}>
                             </FlatList>
+                            */
+                                    scoresList.map(score => {
+                                        return <TouchableOpacity 
+                                                    onPress={props.onRowPress ? () => {props.onRowPress(score)} : null} 
+                                                    style={
+                                                        score.user._id === props.userId ? 
+                                                        {...styles.scoreRow, backgroundColor : Colors.activeTeal} : 
+                                                        props.userFriendsIds.includes(score.user._id) ? 
+                                                        {...styles.scoreRow, backgroundColor : Colors.pendingBlue} :
+                                                        styles.scoreRow}
+                                                >
+                                                    <View style={{flex : 1, justifyContent : 'center', alignItems : 'center', paddingVertical : 4}}>
+                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                            {score.place}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{flex : 3, justifyContent : 'flex-start', alignItems : 'center', paddingVertical : 4}}>
+                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                            {score.user.username}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{flex : 2, justifyContent : 'center', alignItems : 'center', paddingVertical : 4}}>
+                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                            {score.totalWins}/{score.totalLosses}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{flex : 2, justifyContent : 'center', alignItems : 'center', paddingVertical : 4}}>
+                                                        <Text style={score.user._id === props.userId || props.userFriendsIds.includes(score.user._id) ? styles.activeScoreRowText : null}>
+                                                            {score.score}/{score.uniqueUsersPlayed}
+                                                        </Text>
+                                                    </View>
+                                                    
+                                                </TouchableOpacity>
+                                    })                                    
                             :
                             null
                         }
@@ -224,6 +259,18 @@ const styles = StyleSheet.create({
         justifyContent : 'center', 
         alignItems : 'center', 
         flexDirection : 'row'
+    },
+    scoreRow : {
+        width : '100%', 
+        flexDirection : 'row', 
+        borderBottomColor : Colors.quasiBlack, 
+        borderBottomWidth : 1, 
+        justifyContent : 'space-evenly', 
+        paddingTop : 4
+    },
+    activeScoreRowText : {
+        color : 'white',
+        fontWeight : '600'
     }
     
   

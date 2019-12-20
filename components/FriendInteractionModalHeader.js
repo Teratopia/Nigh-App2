@@ -181,12 +181,16 @@ const FriendInteractionModalHeader = props => {
                         <TouchableOpacity 
                             style={styles.topRowButton} 
                             onPress={initCompetition} 
-                            disabled={
-                                blocked 
-                                //|| !props.chosenFriend.activeVenueId || (friendVenue && friendVenue._id !== props.user.activeVenueId)
+                            disabled={ false
+                                //blocked || !props.chosenFriend.activeVenueId || props.chosenFriend.activeVenueId !== props.user.activeVenueId
                             }
                         >
-                            <Icon name="trophy" size={24} color={blocked ? Colors.dangerRed : Colors.activeTeal}/>
+                            <Icon name="trophy" size={24} 
+                            color={blocked ? 
+                                Colors.dangerRed :
+                                blocked || !props.chosenFriend.activeVenueId || props.chosenFriend.activeVenueId !== props.user.activeVenueId ? 
+                                Colors.inactiveGrey
+                                : Colors.activeTeal}/>
                             <Text style={{fontSize : 10, color : "white"}}>Challenge</Text>
                         </TouchableOpacity>
                         <Image
@@ -198,7 +202,12 @@ const FriendInteractionModalHeader = props => {
                             disabled={blocked || !props.friendVenue} 
                             onPress={initDirectionsLink}
                         >
-                            <Icon name="direction" size={24} color={blocked ? Colors.dangerRed : Colors.pendingBlue}/>
+                            <Icon name="direction" size={24} 
+                                color={blocked ? 
+                                    Colors.dangerRed :
+                                    blocked || !props.friendVenue ?
+                                    Colors.inactiveGrey
+                                    : Colors.pendingBlue}/>
                             <Text style={{fontSize : 10, color : "white"}}>Directions</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.smallTopRowButton} onPress={() => {props.setShowStats(previous => !previous)}}>

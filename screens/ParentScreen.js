@@ -119,20 +119,26 @@ const ParentScreen = props => {
   } else if(currentScreen === 'STATUS'){
     view = <CasLeagueStatusScreen 
              leftIconFunction={toggleNavModal} 
-             user={user} updateParentList={updateUserStatus} 
+             user={user} 
+             updateParentList={updateUserStatus} 
              updateUserStatusToActive={updateUserStatusToActive} 
+             setUser={setUser} 
+             socket={props.socket}
              logOut={logOut}/>;
   } else if (currentScreen === 'SEARCH'){
     view = <CasLeagueSearchScreen 
              onEventSureSelection={setScreen} 
              leftIconFunction={toggleNavModal} 
+             socket={props.socket}
+             setUser={setUser} 
              user={user}/>;
   } else if (currentScreen === 'FRIENDS'){
     view = <CasLeagueFriendsScreen
              socket={props.socket}
              selectedEvent={selectedEvent} 
              leftIconFunction={toggleNavModal} 
-             user={user} setUser={setUser} 
+             user={user} 
+             setUser={setUser} 
              onCloseModal={setScreen}/>;
   } else if (currentScreen === 'ADMIN'){
     view = <AdminScreen 

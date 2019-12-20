@@ -5,7 +5,7 @@ import VenueNetworking from '../networking/venueNetworking';    //
 import getDirections from 'react-native-google-maps-directions';    //
 import VenueSelectionModalFriendList from './VenueSelectionModalFriendList';
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
-
+import {encode as btoa} from 'base-64';     //
 
 const VenueSelectionModalHeader = props => {
 
@@ -16,6 +16,7 @@ const VenueSelectionModalHeader = props => {
     const [googleInfo, setGoogleInfo] = useState();
     const [promotionImage, setPromotionImage] = useState();
     const [showPromotionModal, setShowPromotionModal] = useState();
+    const [promotionImagesChecked, setPromotionImagesChecked] = useState();
     
     if(!priceAverage){
         console.log('4');
@@ -136,7 +137,8 @@ const VenueSelectionModalHeader = props => {
         return btoa(binary);
     };
 
-    if(!promotionImage && props.venue.venuePromotions.length > 0){
+    if(!promotionImagesChecked && !promotionImage && props.venue.venuePromotions.length > 0){
+        setPromotionImagesChecked(true);
         var now = new Date().getTime();
         var resPro = null;
         props.venue.venuePromotions.forEach(promotion => {
@@ -148,12 +150,16 @@ const VenueSelectionModalHeader = props => {
             VenueNetworking.getVenuePromotionImage(
                 resPro,
                 res => {
-                console.log('getVenuePromotionImage res = ', res);
+                    console.log('getVenuePromotionImage callback 1');
+                //console.log('getVenuePromotionImage res = ', res);
                 if(res.image && res.image.source && res.image.source.data){
+                    console.log('getVenuePromotionImage callback 2');
+                    
                     setPromotionImage({uri : 'data:image/jpeg;base64,' + arrayBufferToBase64(res.image.source.data.data)});
-                    if(!props.checkInVenue){
+                    if(!props.checkInVenue && !props.noPromotionPopUp){
                         setShowPromotionModal(true);
                     }
+                    
                 }
             }, error => {
                 console.log('error = ', error);
@@ -198,31 +204,40 @@ const VenueSelectionModalHeader = props => {
                     }
                 </View>
                 <View style={styles.headersRow}>
-                    <View style={{...styles.inactiveButton, flex : 1}}>
-                        <Button title="WEBSITE" onPress={() => {openWebsite()}} color="white"/>
-                    </View>
-                    <View style={props.checkInVenue ? {...styles.activeButton, flex : 1} : {...styles.inactiveButton, flex : 1}}>
+                    <TouchableOpacity onPress={() => {openWebsite()}} style={{...styles.inactiveButton, flex : 1}}>
+                        <Text style={{fontSize : 16, padding : 4, color : 'white'}}>WEBSITE</Text>
+                    </TouchableOpacity>
                         {
                             props.checkInVenue ? 
-                                <Button title="CHECK IN" onPress={props.checkInVenue} color="white"/>
+                                <TouchableOpacity onPress={props.checkInVenue} style={{...styles.activeButton, flex : 1}}>
+                                    <Text style={{fontSize : 16, padding : 4, color : 'white'}}>CHECK IN</Text>
+                                </TouchableOpacity>
                             :
-                                <Button title="DIRECTIONS" onPress={() => {initDirectionsLink()}} color="white"/>
+                                <TouchableOpacity onPress={() => {initDirectionsLink()}} style={{...styles.inactiveButton, flex : 1}}>
+                                    <Text style={{fontSize : 16, padding : 4, color : 'white'}}>DIRECTIONS</Text>
+                                </TouchableOpacity>
                         }
-                    </View>
                     {
                         promotionImage ?
-                        <View style={{...styles.inactiveButton, flex : 1}}>
-                            <Button title="PROMO" onPress={() => {setShowPromotionModal(true)}} color="white"/>
-                        </View>
+                        <TouchableOpacity onPress={() => {setShowPromotionModal(true)}} style={{...styles.inactiveButton, flex : 1}}>
+                            <Text style={{fontSize : 16, padding : 4, color : 'white'}}>PROMO</Text>
+                        </TouchableOpacity>
                         :
                         null
                     }
                 </View>
                 {
+                    /*
                     friendsToShowAtThisVenue && friendsToShowAtThisVenue.length > 0 ?
-                        <VenueSelectionModalFriendList friendsToShowAtThisVenue={friendsToShowAtThisVenue}/>
+                        <View style={{marginTop : 8}}>
+                            
+                            <View style={{marginHorizontal : 12, borderWidth : 1, borderColor : Colors.inactiveGrey}}>
+                                <VenueSelectionModalFriendList friendsToShowAtThisVenue={friendsToShowAtThisVenue}/>
+                            </View>
+                        </View>
                     :
                     null
+                    */
                 }
                 {
                 showPromotionModal && promotionImage ? 
@@ -262,7 +277,9 @@ const styles = StyleSheet.create({
         borderBottomColor : Colors.inactiveGrey,
         borderBottomWidth : 1,
         marginHorizontal : 8,
-        paddingBottom : 12
+        paddingBottom : 12,
+        //backgroundColor : 'yellow',
+        width : '100%'
     },
     properNameText : {
         fontWeight : '800',
@@ -272,7 +289,8 @@ const styles = StyleSheet.create({
     },
     headersRow : {
         flexDirection : 'row',
-        justifyContent : 'space-evenly'
+        justifyContent : 'space-evenly',
+        paddingHorizontal : 12
     },
     headerText : {
         fontSize : 10,
@@ -288,8 +306,16 @@ const styles = StyleSheet.create({
     headerValueColumn : {
         flex : 1
     },
+    subHeader : {
+        fontWeight : '600',
+        fontSize : 22,
+        textAlign : 'center',
+        marginBottom : 4
+    },
     activeButton : {
         //width : '100%', 
+        justifyContent : 'center',
+        alignItems : 'center',
         borderWidth : 1, 
         borderRadius : 8, 
         borderColor : Colors.inactiveGrey, 
@@ -299,6 +325,8 @@ const styles = StyleSheet.create({
     },
     inactiveButton : {
         //width : '100%', 
+        justifyContent : 'center',
+        alignItems : 'center',
         borderWidth : 1, 
         borderRadius : 8, 
         borderColor : Colors.activeTeal, 

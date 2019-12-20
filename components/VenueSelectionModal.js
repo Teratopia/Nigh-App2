@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Button, Modal, TouchableOpacity, FlatList, Linking, Image} from 'react-native';
+import {View, StyleSheet, Text, Button, Modal, SafeAreaView, ScrollView, Linking, Image} from 'react-native';
 import Colors from '../constants/colors';   //
-import VenueNetworking from '../networking/venueNetworking';    //
+import UserNetworking from '../networking/userNetworking';    //
 import getDirections from 'react-native-google-maps-directions';    //
 import {encode as btoa} from 'base-64';     //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
@@ -11,15 +11,70 @@ import moment from 'moment';
 import VenueSelectionModalFriendList from './VenueSelectionModalFriendList';
 import VenueSelectionModalHeader from './VenueSelectionModalHeader';
 import VenueSelectionLeagueInfo from './VenueSelectionLeagueInfo';
-
-
-
+import AddFriendModal from './AddFriendModal';
+import FriendInteractionModal from './FriendInteractionModal';
 
 const VenueSelectionModal = props => {
 
+    const [friendInteractionModal, setFriendInteractionModal] = useState();
+
+    const addVenueToUserFavorites = () => {
+        UserNetworking.addVenueIdToFavorites(props.user._id, props.venue._id, res => {
+            console.log('addVenueToUserFavorites res = ', res);
+            props.setUser(res.user);
+        }, err => {
+            console.log('addVenueToUserFavorites err = ', err);
+        });
+    }
+
+    const removeVenueFromUserFavorites = () => {
+        UserNetworking.removeVenueIdFromFavorites(props.user._id, props.venue._id, res => {
+            console.log('removeVenueIdFromFavorites res = ', res);
+            props.setUser(res.user);
+        }, err => {
+            console.log('removeVenueIdFromFavorites err = ', err);
+        });
+    }
+
+    /*
+if (viewAddFriendModal){
+        modalView = <AddFriendModal onClose={closeAddFriendModal} user={props.user}/>
+    } else if (friendRequestSelected){
+        modalView = <FriendRequestModal onClose={closeAddFriendModal} user={props.user} friendRequest={friendRequestSelected}/>
+    } else if (chosenFriend){
+        modalView = <FriendInteractionModal 
+                        socket={props.socket}
+                        onClose={setChosenFriend} 
+                        user={props.user} 
+                        chosenFriend={chosenFriend} 
+                        recheckBlocks={recheckBlocks} 
+                        activityName="BILLIARDS"/>
+*/
+
+    const onLeaderboardRowPress = score => {
+        //add addFriendModal preset search value
+        if(props.user.friendsIdList.includes(score.user._id)){
+            setFriendInteractionModal(
+                <FriendInteractionModal 
+                    socket={props.socket}
+                    onClose={() => {setFriendInteractionModal(null)}} 
+                    user={props.user} 
+                    chosenFriend={score.user} 
+                    recheckBlocks={() => {}} 
+                    activityName="BILLIARDS"/>
+            )
+        } else {
+            setFriendInteractionModal(
+                <AddFriendModal 
+                    onClose={() => {setFriendInteractionModal(null)}} 
+                    user={props.user}
+                    initUserSelected={score.user}/>
+            )
+        }
+    }
 
     return <Modal animation="fade">
-                <View style={styles.parentView}>
+                <SafeAreaView style={styles.parentView}>
 
                     <VenueSelectionModalHeader 
                         venue={props.venue} 
@@ -27,7 +82,10 @@ const VenueSelectionModal = props => {
                         recLoc={props.recLoc}
                         user={props.user}
                         checkInVenue={props.checkInVenue}
+                        noPromotionPopUp={props.noPromotionPopUp}
                     />
+
+                    <ScrollView style={{paddingBottom : 24}}>
 
                     {
                         props.venue.activeLeague && props.venue.activeLeague.firstPlacePrizeTitle ? 
@@ -38,28 +96,64 @@ const VenueSelectionModal = props => {
                             user={props.user}
                         />
                         :
-                        <View style={{height : 12}}/>
+                        //<View style={{flex : 1}}/>
+                        null
                     }
-                    <Text style={styles.subHeader}>
+                    <Text style={props.venue.activeLeague && props.venue.activeLeague.firstPlacePrizeTitle ? styles.subHeader : {...styles.subHeader, marginTop : 12}}>
                         Leaderboard
                     </Text>
                     {
+                        
                         props.venue.activeLeague && props.venue.activeLeague.firstPlacePrizeTitle ? 
                         <VenueLeaderboardTable 
                             venueUser={props.venue} 
+                            userId={props.user._id}
+                            userFriendsIds={props.user.friendsIdList}
+                            onRowPress={onLeaderboardRowPress}
                             //fromDate={props.venue.activeLeague.startDate}
                             //toDate={props.venue.activeLeague.endDate}
                         />
                         :
                         <VenueLeaderboardTable 
                             venueUser={props.venue} 
+                            userId={props.user._id}
+                            userFriendsIds={props.user.friendsIdList}
+                            onRowPress={onLeaderboardRowPress}
                         />
+
+                        
                     }
 
+                    <View style={{height : 48}}/>
+
+                    </ScrollView>
+
+                    <View style={{width : '100%'}}>
+                    {
+                        props.user.venueFavoritesIdList && props.user.venueFavoritesIdList.includes(props.venue._id) ?
+                        <View style={styles.inactiveButton}>
+                            <Button title="REMOVE FROM FAVORITES" onPress={removeVenueFromUserFavorites} color="white"/>
+                        </View>
+                        :
+                        //<Text>asdfasd</Text>
+                        
+                        <View style={styles.activeButton}>
+                            <Button title="ADD TO FAVORITES" onPress={addVenueToUserFavorites} color="white"/>
+                        </View>
+                        
+                    }
+                    
                     <View style={styles.inactiveButton}>
                         <Button title="CLOSE" onPress={() => {props.setSelectedVenue(null)}} color="white"/>
                     </View>
-                </View>
+                    </View>
+
+                </SafeAreaView>
+                    
+                    
+                {
+                    friendInteractionModal
+                }
             </Modal>
 }
 
@@ -67,8 +161,11 @@ const VenueSelectionModal = props => {
 const styles = StyleSheet.create({
     parentView : {
         flex : 1,
-        justifyContent : 'center',
-        marginVertical : getStatusBarHeight(),
+        //justifyContent : 'center',
+        alignItems : 'center',
+        marginTop : getStatusBarHeight(),
+        //backgroundColor : 'blue',
+        width : '100%'
         //marginVertical : 100
     },
     inactiveButton : {
@@ -77,6 +174,17 @@ const styles = StyleSheet.create({
         borderRadius : 8, 
         borderColor : Colors.activeTeal, 
         backgroundColor : Colors.inactiveGrey,
+        marginVertical : 4,
+        marginHorizontal : 12
+    },
+    activeButton : {
+        //width : '100%', 
+        justifyContent : 'center',
+        alignItems : 'center',
+        borderWidth : 1, 
+        borderRadius : 8, 
+        borderColor : Colors.inactiveGrey, 
+        backgroundColor : Colors.activeTeal,
         marginVertical : 4,
         marginHorizontal : 12
     },

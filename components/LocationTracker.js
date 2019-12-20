@@ -6,6 +6,7 @@ import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import moment from 'moment';
 import userNetworking from '../networking/userNetworking';
+import Colors from '../constants/colors';
 const geolib = require('geolib');
 
 const LocationTracker = props => {
@@ -25,12 +26,16 @@ const LocationTracker = props => {
         if(data.notificationType === 'chatMessage'){
             showMessage({
                 message: data.text,
-                type: "info"
+                type: "default",
+                backgroundColor : Colors.activeTeal,
+                color : 'white'
             })
         } else if(data.notificationType === 'friendStatusChange'){
             showMessage({
                 message: data.text,
-                type: "info"
+                type: "default",
+                backgroundColor : Colors.activeTeal,
+                color : 'white'
             })
         }
         PushNotIOS.presentLocalNotification(data);
@@ -88,7 +93,9 @@ const LocationTracker = props => {
 
         showMessage({
             message: body,
-            type: "info"
+            type: "default",
+            backgroundColor : Colors.activeTeal,
+            color : 'white'
         })
         
         const fireDate = moment()

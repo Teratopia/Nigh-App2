@@ -38,7 +38,7 @@ const VenueSelectionLeagueInfo = props => {
             ImageNetworking.getImageById(
                 id,
                 res => {
-                console.log('getImageById res = ', res);
+                //console.log('getImageById res = ', res);
                 var imgSrc = {uri : 'data:image/jpeg;base64,' + arrayBufferToBase64(res.image.source.data.data)};
                 switch (place) {
                     case 'first' : 
