@@ -185,7 +185,7 @@ const CasLeagueStatusScreen = props => {
     setSelectedVenue(null);
   }
 
-  if(!favoriteVenues && props.user.venueFavoritesIdList && props.user.venueFavoritesIdList.length > 0 ){
+  if(!favoriteVenues && props.user && props.user.venueFavoritesIdList && props.user.venueFavoritesIdList.length > 0 ){
     VenueNetworking.getVenuesById(props.user.venueFavoritesIdList, res => {
         console.log('getVenuesById res = ', res);
         setFavoriteVenues(res.venues);

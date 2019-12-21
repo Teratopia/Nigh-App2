@@ -9,6 +9,7 @@ import VenueNetworking from '../networking/venueNetworking';                //
 import Geolocation from '@react-native-community/geolocation';              //
 import AsyncStorage from '@react-native-community/async-storage';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import LoginVerifyEmailModal from '../components/LoginVerifyEmailModal';
 
 
 const LoginScreen = props => {
@@ -19,6 +20,7 @@ const LoginScreen = props => {
     const [usernameView, setUsernameView] = useState();
     const [passwordView, setPasswordView] = useState();
     const [autoLogIn, setAutoLogIn] = useState(false);
+    const [verifyEmailModal, setVerifyEmailModal] = useState(false);
 
     getData = async () => {
         try {
@@ -189,13 +191,24 @@ const LoginScreen = props => {
                                         <Text style={{color : 'red'}}>Invalid Password.</Text>
                                     </View>);
                 } else {
-                    
-                    storeData(username, password);
 
+                    storeData(username, password);
+                    let retUser;
                     if(Array.isArray(retVal)){
-                        props.setUser(retVal[0]);
+                        retUser = retVal[0];
+                        //props.setUser(retVal[0]);
                     } else {
-                        props.setUser(retVal);
+                        retUser = retVal;
+                        //props.setUser(retVal);
+                    }
+                    if(!retUser.email){
+                        setVerifyEmailModal(<LoginVerifyEmailModal 
+                                                userId={retUser._id}
+                                                setVerifyEmailModal={setVerifyEmailModal}
+                                                setUser={props.setUser}
+                                            />)
+                    } else {
+                        props.setUser(retUser);
                     }
 
                 }
@@ -217,6 +230,11 @@ const LoginScreen = props => {
     return (
         <View style={{height: '100%', backgroundColor : 'black'}}>
         <Modal visible={true} transparent={false} animationType='fade'>
+        { verifyEmailModal ? 
+        verifyEmailModal
+        :
+            null
+}
             <View style={styles.parentView}>
                 <View style={styles.titleView}>
                     <Text style={styles.titleText}>Nigh</Text>

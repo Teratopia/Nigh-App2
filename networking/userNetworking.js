@@ -1,5 +1,54 @@
 import apiSettings from '../constants/apiSettings';
 
+async function requestEmailVerification(email, onSuccess) {
+  var url = apiSettings.awsProxy + '/requestEmailVerification';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          email : email
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        console.log('response.code:');
+        console.log(responseJson.code);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+async function updateUserEmail(userId, email, onSuccess) {
+  var url = apiSettings.awsProxy + '/updateUserEmail';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          userId : userId,
+          email : email
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 async function updateUserStatusToActive(userId, statuses, venueId, onSuccess) {
   var url = apiSettings.awsProxy + '/updateUserStatusToActive';
   return fetch(url, {
@@ -417,7 +466,9 @@ async function removeVenueIdFromFavorites(userId, venueId, onSuccess) {
 }
 
 
-  export default {updateUserStatuses, 
+  export default {requestEmailVerification,
+                  updateUserEmail,
+                  updateUserStatuses, 
                   setAllUserStatusesToPassive, 
                   updateUserLocation, 
                   deleteAllUsers, 
