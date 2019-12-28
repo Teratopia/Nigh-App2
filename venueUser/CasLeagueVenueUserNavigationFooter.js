@@ -9,7 +9,7 @@ const CasLeagueVenueUserNavigationFooter = props => {
 
     const setStatus = value => {
         props.setParentStatus(value);
-        setLocalStatus(value);
+        //setLocalStatus(value);
     }
 
     console.log('DeviceInfo.getModel() = '+DeviceInfo.getModel());
@@ -22,7 +22,7 @@ const CasLeagueVenueUserNavigationFooter = props => {
         <View style={{width : '100%'}}>
           <View style={styles.notificationSettingRow}>
             <TouchableOpacity onPress={() => {setStatus('Promotions')}} 
-                              style={status === 'Promotions' ?
+                              style={props.currentScreen === 'Promotions' ?
                               styles.activeButton :
                               styles.inactiveButton
                               }>
@@ -30,7 +30,7 @@ const CasLeagueVenueUserNavigationFooter = props => {
                   <Text style={styles.textStyle}>Promotions</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {setStatus('Settings')}} 
-                              style={status === 'Settings' ?
+                              style={props.currentScreen === 'Settings' ?
                               styles.activeButton :
                               styles.inactiveButton
                               }>
@@ -38,7 +38,7 @@ const CasLeagueVenueUserNavigationFooter = props => {
                   <Text style={styles.textStyle}>Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {setStatus('Statistics')}} 
-                              style={status === 'Statistics' ?
+                              style={props.currentScreen === 'Statistics' ?
                               styles.activeButton :
                               styles.inactiveButton
                               }>

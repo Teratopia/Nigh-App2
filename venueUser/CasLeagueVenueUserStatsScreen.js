@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, Button, Modal, DatePickerIOS, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Button, Modal, DatePickerIOS, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import ModalHeader from '../components/ModalHeader';  //
 import { getStatusBarHeight } from 'react-native-status-bar-height';  //
 import VenueLeaderboardTable from '../components/VenueLeaderboardTable';  //
@@ -170,16 +170,16 @@ const CasLeagueVenueUserStatsScreen = props => {
   }
 
     return (
-          <View style={styles.screen}>
+          <SafeAreaView style={styles.screen}>
             <ModalHeader 
             title="ANALYTICS"
             leftIcon="new-message" 
-            leftIconFunction={() => {}}
+            leftIconFunction={() => {props.setCurrentScreen('FEEDBACK')}}
             rightIcon="logout" 
             rightIconFunction={() => {props.setVenueUser(null)}}
             rightIconLibrary="AntDesign"
             />
-
+          <ScrollView>
           <View style={{flexDirection : 'row', marginHorizontal : 4, marginTop : 8}}>
                 <View style={{flex : 1, justifyContent : 'center', alignItems : 'center'}}>
                   <Text style={{fontSize : 18, fontWeight : '600'}}>Rankings</Text>
@@ -218,12 +218,17 @@ const CasLeagueVenueUserStatsScreen = props => {
                 </Modal>
                 :
               null}
-            <VenueLeaderboardTable venueUser={props.venueUser} fromDate={fromDate} toDate={toDate}/>
+            <VenueLeaderboardTable 
+              venueUser={props.venueUser} 
+              fromDate={fromDate} 
+              toDate={toDate} 
+              //style={{maxHeight : 400}}
+              />
 
             
             {
               gameHistory ? 
-              <View>
+              <View style={{justifyContent : 'center', width : '100%'}}>
                 <View style={{flexDirection : 'row', marginHorizontal : 4, marginVertical : 8}}>
                   <View style={{flex : 1, justifyContent : 'center', alignItems : 'center'}}>
                     <Text style={{fontSize : 18, fontWeight : '600'}}>Games Played</Text>
@@ -258,6 +263,7 @@ const CasLeagueVenueUserStatsScreen = props => {
                   bezier
                   style={{
                     marginVertical: 8,
+                    marginHorizontal : 8,
                     marginBottom : 16,
                     borderRadius: 16
                   }}
@@ -265,8 +271,8 @@ const CasLeagueVenueUserStatsScreen = props => {
               </View>
               : null
             }
-            
-          </View>
+          </ScrollView>
+          </SafeAreaView>
     );
 }
 
@@ -274,6 +280,7 @@ const styles = StyleSheet.create({
   screen : {
     flex:1,
     alignItems: 'center',
+    width : '100%',
     marginTop: getStatusBarHeight(),
   },
   activeButton : {

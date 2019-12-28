@@ -98,7 +98,7 @@ const CasLeagueVenueUserHomeScreen = props => {
             <ModalHeader 
             title={venueDetails ? 'SETTINGS' : "SETUP"}
             leftIcon="new-message" 
-            leftIconFunction={() => {}}
+            leftIconFunction={() => {props.setCurrentScreen('FEEDBACK')}}
             rightIcon="logout" 
             rightIconFunction={() => {props.setVenueUser(null)}}
             rightIconLibrary="AntDesign"

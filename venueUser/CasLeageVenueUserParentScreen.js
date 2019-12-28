@@ -4,6 +4,7 @@ import CasLeagueVenueUserHomeScreen from './CasLeagueVenueUserHomeScreen';  //
 import CasLeagueVenueUserStatsScreen from './CasLeagueVenueUserStatsScreen';  //
 import CasLeagueVenueUserPromotionsScreen from './CasLeagueVenueUserPromotionsScreen';  //
 import CasLeagueVenueUserNavigationFooter from './CasLeagueVenueUserNavigationFooter';  //
+import CasLeagueFeedbackScreen from '../screens/CasLeagueFeedbackScreen';
 
 //setParentStatus
 
@@ -12,12 +13,30 @@ const CasLeageVenueUserParentScreen = props => {
 
   const [currentScreen, setCurrentScreen] = useState('Settings');
   
- if(currentScreen === 'Settings'){
-    view = <CasLeagueVenueUserHomeScreen venueUser={props.venueUser} setVenueUser={props.setVenueUser}/>;
+  if(currentScreen === 'FEEDBACK'){
+    view =  <CasLeagueFeedbackScreen
+                //toggleNavModal={toggleNavModal} 
+                setScreen={setCurrentScreen}
+                venueUser={props.venueUser} 
+            />
+  } else if(currentScreen === 'Settings'){
+    view =  <CasLeagueVenueUserHomeScreen 
+              venueUser={props.venueUser} 
+              setVenueUser={props.setVenueUser}
+              setCurrentScreen={setCurrentScreen}
+            />;
   } else if (currentScreen === 'Statistics'){
-    view = <CasLeagueVenueUserStatsScreen venueUser={props.venueUser} setVenueUser={props.setVenueUser}/>
+    view =  <CasLeagueVenueUserStatsScreen 
+              venueUser={props.venueUser} 
+              setVenueUser={props.setVenueUser}
+              setCurrentScreen={setCurrentScreen}
+            />
   } else if (currentScreen === 'Promotions'){
-    view = <CasLeagueVenueUserPromotionsScreen venueUser={props.venueUser} setVenueUser={props.setVenueUser}/>
+    view =  <CasLeagueVenueUserPromotionsScreen 
+              venueUser={props.venueUser} 
+              setVenueUser={props.setVenueUser}
+              setCurrentScreen={setCurrentScreen}
+            />
   }
 
   const logOut = () => {
@@ -27,7 +46,10 @@ const CasLeageVenueUserParentScreen = props => {
   return (
     <View style={styles.screen}>
           {view}
-          <CasLeagueVenueUserNavigationFooter setParentStatus={setCurrentScreen} />
+          <CasLeagueVenueUserNavigationFooter 
+            currentScreen={currentScreen} 
+            setParentStatus={setCurrentScreen} 
+          />
     </View>    
   );
 }

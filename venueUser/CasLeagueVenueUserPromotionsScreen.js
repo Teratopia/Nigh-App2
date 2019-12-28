@@ -128,7 +128,7 @@ const CasLeagueVenueUserPromotionsScreen = props => {
             <ModalHeader 
             title="PROMOTIONS"
             leftIcon="new-message" 
-            leftIconFunction={() => {}}
+            leftIconFunction={() => {props.setCurrentScreen('FEEDBACK')}}
             rightIcon="logout" 
             rightIconFunction={() => {props.setVenueUser(null)}}
             rightIconLibrary="AntDesign"
@@ -159,7 +159,7 @@ const CasLeagueVenueUserPromotionsScreen = props => {
                     placeholder='Ad shown on push notification (max 42 chars)'
                     maxLength={42}
                     onSubmitEditing={e => {setPushNotificationAndUpdateUser(e.nativeEvent.text)}}
-                    style={{flex : 1, textAlign : 'center', color : Colors.inactiveGrey}}
+                    style={{flex : 1, textAlign : 'center', color : Colors.quasiBlack}}
                     placeholderTextColor={Colors.inactiveGrey}
                     defaultValue={props.venueUser.pushNotificationPromotion}
                     //value={pushNotification}

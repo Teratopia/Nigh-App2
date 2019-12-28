@@ -22,35 +22,66 @@ const CasLeagueFeedbackScreen = props => {
 
   function sendFeedback(){
       if(feedback && feedback.length > 0){
-        MiscNetworking.sendFeedback(props.user, feedback, type, severity, res => {
-            console.log('sendFeedback res = ', res);
-            if(res.success){
-                showMessage({
-                    message: 'Feedback Sent!',
-                    type: "default",
-                    backgroundColor : Colors.activeTeal,
-                    color : 'white'
-                });
-                setFeedback(null);
-                setSeverity(0);
-                setType('FEATURE');
-            }
-        }, err => {
-            console.log('sendFeedback error = ', err);
-        })
+          if(props.user){
+            MiscNetworking.sendFeedback(props.user, feedback, type, severity, res => {
+                console.log('sendFeedback res = ', res);
+                if(res.success){
+                    showMessage({
+                        message: 'Feedback Sent!',
+                        type: "default",
+                        backgroundColor : Colors.activeTeal,
+                        color : 'white'
+                    });
+                    setFeedback(null);
+                    setSeverity(0);
+                    setType('FEATURE');
+                }
+            }, err => {
+                console.log('sendFeedback error = ', err);
+            })
+          } else if (props.venueUser){
+            MiscNetworking.sendFeedback(props.venueUser, feedback, type, severity, res => {
+                console.log('sendFeedback res = ', res);
+                if(res.success){
+                    showMessage({
+                        message: 'Feedback Sent!',
+                        type: "default",
+                        backgroundColor : Colors.activeTeal,
+                        color : 'white'
+                    });
+                    setFeedback(null);
+                    setSeverity(0);
+                    setType('FEATURE');
+                }
+            }, err => {
+                console.log('sendFeedback error = ', err);
+            })
+          }
       }
   }
 
   return (
       <View style={styles.screen}>
-            <ModalHeader 
+          {
+              props.user ? 
+              <ModalHeader 
                 title="FEEDBACK"
                 leftIcon="menu" 
                 leftIconFunction={props.toggleNavModal}
                 rightIcon="cross"
-                rightIconFunction={() => {props.setScreen('SEARCH')}}
+                rightIconFunction={() => {props.setScreen('Settings')}}
                 style={{marginBottom : 0}}
-                />
+              />
+              :
+              <ModalHeader 
+                title="FEEDBACK"
+                //leftIcon="menu" 
+                //leftIconFunction={props.toggleNavModal}
+                rightIcon="cross"
+                rightIconFunction={() => {props.setScreen('Settings')}}
+                style={{marginBottom : 0}}
+              />
+          }
 
             <View style={{
                 flexDirection : 'row',
