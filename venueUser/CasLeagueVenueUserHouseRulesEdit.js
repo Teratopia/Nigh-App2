@@ -85,7 +85,11 @@ return (
                                 <TextInput  placeholder="Rules for Breaking" 
                                             onSubmitEditing={e => {updateRules('breaking', e)}} 
                                             defaultValue={houseRules.breaking}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>
@@ -114,7 +118,11 @@ return (
                                 <TextInput  placeholder="Rules for Pocket Scratching" 
                                             onSubmitEditing={e => {updateRules('pocketScratching', e)}} 
                                             defaultValue={houseRules.pocketScratching}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>
@@ -143,7 +151,11 @@ return (
                                 <TextInput  placeholder="Rules for Table Scratching" 
                                             onSubmitEditing={e => {updateRules('tableScratching', e)}} 
                                             defaultValue={houseRules.tableScratching}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>
@@ -172,7 +184,11 @@ return (
                                 <TextInput  placeholder="Rules for Pocket Scratching" 
                                             onSubmitEditing={e => {updateRules('breakingScratching', e)}} 
                                             defaultValue={houseRules.breakingScratching}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>
@@ -201,7 +217,11 @@ return (
                                 <TextInput  placeholder="Rules for Pocket Scratching" 
                                             onSubmitEditing={e => {updateRules('eightBallScratching', e)}} 
                                             defaultValue={houseRules.eightBallScratching}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>
@@ -230,7 +250,11 @@ return (
                                 <TextInput  placeholder="Rules for Pocket Scratching" 
                                             onSubmitEditing={e => {updateRules('slop', e)}} 
                                             defaultValue={houseRules.slop}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>
@@ -259,7 +283,11 @@ return (
                                 <TextInput  placeholder="Rules for Pocket Scratching" 
                                             onSubmitEditing={e => {updateRules('prohibited', e)}} 
                                             defaultValue={houseRules.prohibited}
-                                            style={{textAlign : 'center'}}
+                                            placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             multiline={true}
                                             />
                             </View>

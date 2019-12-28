@@ -16,7 +16,7 @@ const LocationTracker = props => {
     const [venuesWithinOneMile, setVenuesWithinOneMile] = useState();
 
     PushNotificationIOS.addEventListener('register', token=>{
-        setPnToken(token);
+        //setPnToken(token);
         console.log('register token = ', token);
     });
     
@@ -32,6 +32,13 @@ const LocationTracker = props => {
                 color : 'white'
             })
         } else if(data.notificationType === 'friendStatusChange'){
+            showMessage({
+                message: data.text,
+                type: "default",
+                backgroundColor : Colors.activeTeal,
+                color : 'white'
+            })
+        } else if(data.notificationType === 'unrecognizedDevie'){
             showMessage({
                 message: data.text,
                 type: "default",

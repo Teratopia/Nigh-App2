@@ -128,9 +128,13 @@ const CasLeagueVenueUserHomeScreen = props => {
                             :
                             <View style={{...styles.inputFormTextInput, width : '62%'}}>
                                 <TextInput  placeholder="Input@Email.here" 
+                                            placeholderTextColor={Colors.inactiveGrey}
                                             onSubmitEditing={updateEmail} 
                                             defaultValue={props.venueUser.email}
-                                            style={{textAlign : 'center'}}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                             />
                             </View>
                         }

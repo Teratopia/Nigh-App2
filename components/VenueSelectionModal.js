@@ -2,13 +2,8 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, Button, Modal, SafeAreaView, ScrollView, Linking, Image} from 'react-native';
 import Colors from '../constants/colors';   //
 import UserNetworking from '../networking/userNetworking';    //
-import getDirections from 'react-native-google-maps-directions';    //
-import {encode as btoa} from 'base-64';     //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import VenueLeaderboardTable from './VenueLeaderboardTable';
-import ImageNetworking from '../networking/imageNetworking';
-import moment from 'moment';
-import VenueSelectionModalFriendList from './VenueSelectionModalFriendList';
 import VenueSelectionModalHeader from './VenueSelectionModalHeader';
 import VenueSelectionLeagueInfo from './VenueSelectionLeagueInfo';
 import AddFriendModal from './AddFriendModal';
@@ -52,8 +47,9 @@ if (viewAddFriendModal){
 */
 
     const onLeaderboardRowPress = score => {
-        //add addFriendModal preset search value
-        if(props.user.friendsIdList.includes(score.user._id)){
+        if(score.user._id === props.user._id){
+            //do nothing
+        } else if(props.user.friendsIdList.includes(score.user._id)){
             setFriendInteractionModal(
                 <FriendInteractionModal 
                     socket={props.socket}
@@ -85,7 +81,7 @@ if (viewAddFriendModal){
                         noPromotionPopUp={props.noPromotionPopUp}
                     />
 
-                    <ScrollView style={{paddingBottom : 24}}>
+                    <ScrollView style={{paddingBottom : 24, width : '100%'}}>
 
                     {
                         props.venue.activeLeague && props.venue.activeLeague.firstPlacePrizeTitle ? 
@@ -110,6 +106,7 @@ if (viewAddFriendModal){
                             userId={props.user._id}
                             userFriendsIds={props.user.friendsIdList}
                             onRowPress={onLeaderboardRowPress}
+                            style={{width : '100%'}}
                             //fromDate={props.venue.activeLeague.startDate}
                             //toDate={props.venue.activeLeague.endDate}
                         />
@@ -119,16 +116,15 @@ if (viewAddFriendModal){
                             userId={props.user._id}
                             userFriendsIds={props.user.friendsIdList}
                             onRowPress={onLeaderboardRowPress}
+                            style={{width : '100%'}}
                         />
-
-                        
                     }
 
                     <View style={{height : 48}}/>
 
                     </ScrollView>
 
-                    <View style={{width : '100%'}}>
+                    <View style={{width : '100%', marginBottom : 4}}>
                     {
                         props.user.venueFavoritesIdList && props.user.venueFavoritesIdList.includes(props.venue._id) ?
                         <View style={styles.inactiveButton}>

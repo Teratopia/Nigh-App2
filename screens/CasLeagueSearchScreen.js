@@ -118,6 +118,8 @@ const CasLeagueSearchScreen = props => {
                             style={styles.searchTextInput}
                             onSubmitEditing={e => {handleSearchBarQuery(e)}}
                             placeholder="Search"
+                            placeholderTextColor={Colors.inactiveGrey}
+                            returnKeyType="search"
                         />
                     </View>
                     : null
@@ -214,7 +216,8 @@ const styles = StyleSheet.create({
       borderWidth : 1,
       borderColor : Colors.activeTeal,
       borderRadius : 8,
-      backgroundColor : 'white'
+      backgroundColor : 'white',
+      color : Colors.quasiBlack
   }
 
 });

@@ -103,7 +103,11 @@ const CasLeagueVenueUserInitSetup = props => {
                         onSubmitEditing={e => {editForm('name', e)}}
                         placeholder="Venue Name" 
                         maxLength={144}
-                        style={{textAlign : 'center'}}
+                        placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                         />
                     </View>
                     <View style={{...styles.inputFormTextInput, width : '100%'}}>
@@ -111,7 +115,11 @@ const CasLeagueVenueUserInitSetup = props => {
                         onSubmitEditing={e => {editForm('address', e)}}
                         placeholder="Address" 
                         maxLength={144}
-                        style={{textAlign : 'center'}}
+                        placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                         />
                     </View>
                     <View style={styles.inputFormRow}>
@@ -121,7 +129,11 @@ const CasLeagueVenueUserInitSetup = props => {
                                 onSubmitEditing={e => {editForm('city', e)}}
                                 placeholder="City" 
                                 maxLength={144}
-                                style={{textAlign : 'center'}}
+                                placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                 />
                             </View>
                         </View>
@@ -132,7 +144,11 @@ const CasLeagueVenueUserInitSetup = props => {
                                 onSubmitEditing={e => {editForm('state', e)}}
                                 placeholder="State" 
                                 maxLength={2}
-                                style={{textAlign : 'center'}}
+                                placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                 />
                             </View>
                         </View>
@@ -143,7 +159,11 @@ const CasLeagueVenueUserInitSetup = props => {
                                 onSubmitEditing={e => {editForm('postal', e)}}
                                 placeholder="Zip" 
                                 maxLength={5}
-                                style={{textAlign : 'center'}}
+                                placeholderTextColor={Colors.inactiveGrey}
+                                            style={{
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
+                                            }}
                                 />
                             </View>
                         </View>

@@ -201,7 +201,15 @@ const LoginScreen = props => {
                         retUser = retVal;
                         //props.setUser(retVal);
                     }
-                    if(!retUser.email){
+                    if(retUser && responseJson.verificationCode){
+                        setVerifyEmailModal(<LoginVerifyEmailModal 
+                            userId={retUser._id}
+                            setVerifyEmailModal={setVerifyEmailModal}
+                            setUser={props.setUser}
+                            code={responseJson.verificationCode}
+                            pnToken={pnToken}
+                        />)
+                    } else if(!retUser.email){
                         setVerifyEmailModal(<LoginVerifyEmailModal 
                                                 userId={retUser._id}
                                                 setVerifyEmailModal={setVerifyEmailModal}

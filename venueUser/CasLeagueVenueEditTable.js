@@ -27,7 +27,13 @@ return  <View style={styles.tablesView}>
                 : null
               }
             <View style={styles.tablesViewHeader}>
-                <TextInput style={{flex : 1}} defaultValue={table.name} placeholder="Table Name" onSubmitEditing={e => {updateTable('name', e.nativeEvent.text)}} />
+                <TextInput 
+                    style={{flex : 1, color : Colors.quasiBlack}} 
+                    defaultValue={table.name} 
+                    placeholder="Table Name" 
+                    placeholderTextColor={Colors.inactiveGrey}
+                    onSubmitEditing={e => {updateTable('name', e.nativeEvent.text)}} 
+                />
                 {
                     props.setTableToUpdate ? 
                     <Icon name="edit" size={12} color={Colors.quasiBlack} onPress={() => {props.setTableToUpdate(null)}} style={{marginRight : 4}}/>

@@ -7,7 +7,7 @@ const LoginVerifyEmailModal = props => {
 
     const [email, setEmail] = useState('');
     const [whyPressed, setWhyPressed] = useState(false);
-    const [code, setCode] = useState();
+    const [code, setCode] = useState(props.code);
     const [codeInput, setCodeInput] = useState();
 
     function sendEmailHandler(){
@@ -18,14 +18,23 @@ const LoginVerifyEmailModal = props => {
     }
 
     function submitCodeHandler(){
+        console.log('codeInput === code');
         if(codeInput === code){
-            console.log('codeInput === code');
-            UserNetworking.updateUserEmail(props.userId, email, res => {
-                console.log('submitCodeHandler updateUserEmail res = ', res);
-                if(res.user){
-                    props.setUser(res.user);
-                }
-            })
+            if(props.code && props.pnToken){
+                UserNetworking.addPnToken(props.userId, props.pnToken, res => {
+                    console.log('submitCodeHandler addPnToken res = ', res);
+                    if(res.user){
+                        props.setUser(res.user);
+                    }
+                })
+            } else {
+                UserNetworking.updateUserEmail(props.userId, email, res => {
+                    console.log('submitCodeHandler updateUserEmail res = ', res);
+                    if(res.user){
+                        props.setUser(res.user);
+                    }
+                })
+            }            
         }
         /*
         UserNetworking.requestEmailVerification(email, resCode => {

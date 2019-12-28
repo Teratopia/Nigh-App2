@@ -49,6 +49,30 @@ async function updateUserEmail(userId, email, onSuccess) {
     });
 }
 
+async function addPnToken(userId, pnToken, onSuccess) {
+  var url = apiSettings.awsProxy + '/addPnToken';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          userId : userId,
+          pnToken : pnToken
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 async function updateUserStatusToActive(userId, statuses, venueId, onSuccess) {
   var url = apiSettings.awsProxy + '/updateUserStatusToActive';
   return fetch(url, {
@@ -468,6 +492,7 @@ async function removeVenueIdFromFavorites(userId, venueId, onSuccess) {
 
   export default {requestEmailVerification,
                   updateUserEmail,
+                  addPnToken,
                   updateUserStatuses, 
                   setAllUserStatusesToPassive, 
                   updateUserLocation, 

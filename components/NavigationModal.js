@@ -34,7 +34,7 @@ const NavigationModal = props => {
         <Modal visible={true} transparent={true}>
             <TouchableOpacity style={styles.modalView} onPress={() => {props.setScreen(null)}}>
                 <View style={styles.navView}>
-                            <TouchableOpacity onPress={() => {props.setScreen('PROFILE')}} style={styles.profileHeader}>
+                            <TouchableOpacity onPress={() => {}} style={styles.profileHeader}>
                                 <Image style={{height : 62, width : 62, borderRadius : 31, borderColor: Colors.activeTeal, borderWidth : 2}}
                                 source={profilePic}
                                 />
@@ -47,7 +47,7 @@ const NavigationModal = props => {
                                 */
                             }
                             <View style={styles.buttonView}>
-                                <Button title="STATUS" onPress={() => {props.setScreen('STATUS')}}/>
+                                <Button title="PROFILE" onPress={() => {props.setScreen('STATUS')}}/>
                             </View>
                             <View style={styles.buttonView}>
                                 <Button title="SEARCH" onPress={() => {props.setScreen('SEARCH')}}/>
@@ -59,11 +59,18 @@ const NavigationModal = props => {
                                 <Button title="ABOUT" onPress={() => {props.setScreen('ABOUT')}}/>
                             </View>
                             <View style={styles.buttonView}>
+                                <Button title="FEEDBACK" onPress={() => {props.setScreen('FEEDBACK')}}/>
+                            </View>
+                            {
+                                /*
+                            <View style={styles.buttonView}>
                                 <Button title="ADMIN" onPress={() => {props.setScreen('ADMIN')}}/>
                             </View>
                             <View style={{...styles.buttonView}}>
                                 <Button title="SETTINGS" onPress={() => {props.setScreen('SETTINGS')}}/>
                             </View>
+                                */
+                            }
                             <View style={{...styles.buttonView, borderBottomWidth : 0}}>
                                 <Button title="LOG OUT" onPress={logOut}/>
                             </View>
@@ -82,7 +89,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     navView : {
-        height : '62%',
+        height : '50%',
         width : '50%',
         justifyContent: 'center',
         alignItems: 'center',

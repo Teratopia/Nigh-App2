@@ -12,7 +12,9 @@ import UserNetworking from '../networking/userNetworking';        //
 import LocationTracker from '../components/LocationTracker';      //
 import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
 import CasLeagueSearchScreen from './CasLeagueSearchScreen';  //
+import CasLeagueFeedbackScreen from './CasLeagueFeedbackScreen';
 import AsyncStorage from '@react-native-community/async-storage';
+
 //import BgTracking from '../helpers/locationNotificationHelper';
 
 
@@ -116,6 +118,12 @@ const ParentScreen = props => {
     view = <CasLeageVenueUserParentScreen 
              venueUser={venueUser} 
              setVenueUser={setVenueUser}/>
+  } else if(currentScreen === 'FEEDBACK'){      
+    view = <CasLeagueFeedbackScreen
+             toggleNavModal={toggleNavModal} 
+             setScreen={setScreen}
+             user={user}
+      />
   } else if(currentScreen === 'STATUS'){
     view = <CasLeagueStatusScreen 
              leftIconFunction={toggleNavModal} 

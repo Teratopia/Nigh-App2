@@ -81,6 +81,7 @@ const AddFriendModal = props => {
                             <TextInput 
                                 onChangeText={e => {searchUser(e)}} style={{width : '100%', textAlign : 'center'}}
                                 placeholder="Search User"
+                                placeholderTextColor={Colors.inactiveGrey}
                                 style={styles.searchUserTextInput}
                             />
                             :
@@ -112,6 +113,7 @@ const AddFriendModal = props => {
                     <View style={{width : '100%'}}>
                         <TextInput onChangeText={e => {editMessage(e)}}
                         placeholder="Send a Message!" 
+                        placeholderTextColor={Colors.inactiveGrey}
                         multiline={true}
                         numberOfLines={4}
                         maxLength={144}
@@ -123,7 +125,8 @@ const AddFriendModal = props => {
                             minHeight : 96, 
                             marginVertical : 8, 
                             paddingTop : 12,
-                            paddingHorizontal : 12
+                            paddingHorizontal : 12,
+                            color : Colors.quasiBlack
                         }}/>
                     </View>
                 
@@ -256,7 +259,8 @@ const styles = StyleSheet.create({
         borderWidth : 1,
         borderColor : Colors.inactiveGrey,
         borderRadius : 8,
-        backgroundColor : 'white'
+        backgroundColor : 'white',
+        color : Colors.quasiBlack
     },
     titleText : {
         fontWeight : '700',

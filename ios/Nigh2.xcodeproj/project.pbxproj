@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* Nigh2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* Nigh2Tests.m */; };
-		09230FE7F48108DD09D39038 /* libPods-Nigh2-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EF3FEC9E777A13526BD6F45 /* libPods-Nigh2-tvOSTests.a */; };
+		04BED84424549899F3DD0955 /* libPods-Nigh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C592EEB45243E354633A4C /* libPods-Nigh2.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -17,9 +17,9 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* Nigh2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* Nigh2Tests.m */; };
-		4DB3D0143B86BD0CBC30C905 /* libPods-Nigh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEECCB9405AF42086DCD96E0 /* libPods-Nigh2.a */; };
-		4F538A0684EC4E6C57F28251 /* libPods-Nigh2-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 325B296BE34421B11851A7A6 /* libPods-Nigh2-tvOS.a */; };
-		D5A1329BEC73D190E13818EB /* libPods-Nigh2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF623CAB5233A547B42E01C /* libPods-Nigh2Tests.a */; };
+		AC2E7621EE27A151C234673B /* libPods-Nigh2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19959E1BFC8E9D6AC26A7624 /* libPods-Nigh2Tests.a */; };
+		CE871BC4D6564540426E32D6 /* libPods-Nigh2-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 302D4D2309D11D533E8E64A6 /* libPods-Nigh2-tvOS.a */; };
+		E6884856DA97203E41307AFF /* libPods-Nigh2-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14440DB58995BAF934D3ED44 /* libPods-Nigh2-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 		00E356EE1AD99517003FC87E /* Nigh2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Nigh2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* Nigh2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Nigh2Tests.m; sourceTree = "<group>"; };
-		0EF3FEC9E777A13526BD6F45 /* libPods-Nigh2-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10E1584F4E9B4DF48130E803 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Nigh2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nigh2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Nigh2/AppDelegate.h; sourceTree = "<group>"; };
@@ -53,37 +52,38 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Nigh2/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Nigh2/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Nigh2/main.m; sourceTree = "<group>"; };
+		14440DB58995BAF934D3ED44 /* libPods-Nigh2-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		189B9F538BE978DC73735965 /* Pods-Nigh2-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOS/Pods-Nigh2-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		19959E1BFC8E9D6AC26A7624 /* libPods-Nigh2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1ACA0A361E3D288B4C744163 /* Pods-Nigh2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2Tests.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2Tests/Pods-Nigh2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		29F3E56233F140F5B67DD416 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Nigh2-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nigh2-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Nigh2-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Nigh2-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		325B296BE34421B11851A7A6 /* libPods-Nigh2-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C40AAE9F3D1852880F04A1C /* Pods-Nigh2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2/Pods-Nigh2.debug.xcconfig"; sourceTree = "<group>"; };
+		302D4D2309D11D533E8E64A6 /* libPods-Nigh2-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3933D98D3E8391A3370BADD4 /* Pods-Nigh2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2/Pods-Nigh2.debug.xcconfig"; sourceTree = "<group>"; };
 		3D340D0ECACD4EFFBED434D3 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		3FF623CAB5233A547B42E01C /* libPods-Nigh2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41EDEB42E5D443E29AE0144B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		462B76EA892AD6904A8A0D5F /* Pods-Nigh2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2Tests.release.xcconfig"; path = "Target Support Files/Pods-Nigh2Tests/Pods-Nigh2Tests.release.xcconfig"; sourceTree = "<group>"; };
-		4845B42E55AB406CE55FD269 /* Pods-Nigh2-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOSTests/Pods-Nigh2-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		56E15D113FD142089F130637 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		5D997FB19004DCA94F0ADF8F /* Pods-Nigh2-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOS/Pods-Nigh2-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		6AEC7459C13746C98E2349CC /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		6C25BAFC239DE2A600047F4B /* Nigh2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Nigh2.entitlements; path = Nigh2/Nigh2.entitlements; sourceTree = "<group>"; };
 		70B98BF6BA8C4C0D958994E9 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		77A190200C9673514E788151 /* Pods-Nigh2-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOSTests/Pods-Nigh2-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8451FDDF516545F8B569649B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		8CC785F678932D259300A898 /* Pods-Nigh2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2.release.xcconfig"; path = "Target Support Files/Pods-Nigh2/Pods-Nigh2.release.xcconfig"; sourceTree = "<group>"; };
 		9D85FF7736FD467D9679C2C8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		BBE6A67951CF47D0BD77476F /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		C1D39F5E970C44518FB83415 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		C33F2E2DA9E843ECD31FAFE5 /* Pods-Nigh2-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOS/Pods-Nigh2-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C646E9F2F64E32C77C6FD8D1 /* Pods-Nigh2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2.release.xcconfig"; path = "Target Support Files/Pods-Nigh2/Pods-Nigh2.release.xcconfig"; sourceTree = "<group>"; };
 		C969381C736640ECBB5EB527 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		CEECCB9405AF42086DCD96E0 /* libPods-Nigh2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9E61C16C6F106FD5AF4B92A /* Pods-Nigh2-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOSTests/Pods-Nigh2-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D0C592EEB45243E354633A4C /* libPods-Nigh2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nigh2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCFCA2FDA7D49F6899ABBF2 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		E5DD8786C5AD11E1FDE067B5 /* Pods-Nigh2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2Tests.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2Tests/Pods-Nigh2Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		EA806A739A6845786633BDCB /* Pods-Nigh2-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOS/Pods-Nigh2-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ECF6F12034AF4DFE9365F3F6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EEA7992691124B1DAC6C3450 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		F33F0CD700224D478F9A553F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		FA41DC300D5243E9ADD02B70 /* Pods-Nigh2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2Tests.release.xcconfig"; path = "Target Support Files/Pods-Nigh2Tests/Pods-Nigh2Tests.release.xcconfig"; sourceTree = "<group>"; };
+		FDC845BAADA63E6F5C504631 /* Pods-Nigh2-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nigh2-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Nigh2-tvOSTests/Pods-Nigh2-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5A1329BEC73D190E13818EB /* libPods-Nigh2Tests.a in Frameworks */,
+				AC2E7621EE27A151C234673B /* libPods-Nigh2Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DB3D0143B86BD0CBC30C905 /* libPods-Nigh2.a in Frameworks */,
+				04BED84424549899F3DD0955 /* libPods-Nigh2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F538A0684EC4E6C57F28251 /* libPods-Nigh2-tvOS.a in Frameworks */,
+				CE871BC4D6564540426E32D6 /* libPods-Nigh2-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09230FE7F48108DD09D39038 /* libPods-Nigh2-tvOSTests.a in Frameworks */,
+				E6884856DA97203E41307AFF /* libPods-Nigh2-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,10 +159,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				CEECCB9405AF42086DCD96E0 /* libPods-Nigh2.a */,
-				325B296BE34421B11851A7A6 /* libPods-Nigh2-tvOS.a */,
-				0EF3FEC9E777A13526BD6F45 /* libPods-Nigh2-tvOSTests.a */,
-				3FF623CAB5233A547B42E01C /* libPods-Nigh2Tests.a */,
+				D0C592EEB45243E354633A4C /* libPods-Nigh2.a */,
+				302D4D2309D11D533E8E64A6 /* libPods-Nigh2-tvOS.a */,
+				14440DB58995BAF934D3ED44 /* libPods-Nigh2-tvOSTests.a */,
+				19959E1BFC8E9D6AC26A7624 /* libPods-Nigh2Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -193,14 +193,14 @@
 		59FA476AB0EA9DFFA77F2B2D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3C40AAE9F3D1852880F04A1C /* Pods-Nigh2.debug.xcconfig */,
-				8CC785F678932D259300A898 /* Pods-Nigh2.release.xcconfig */,
-				5D997FB19004DCA94F0ADF8F /* Pods-Nigh2-tvOS.debug.xcconfig */,
-				C33F2E2DA9E843ECD31FAFE5 /* Pods-Nigh2-tvOS.release.xcconfig */,
-				77A190200C9673514E788151 /* Pods-Nigh2-tvOSTests.debug.xcconfig */,
-				4845B42E55AB406CE55FD269 /* Pods-Nigh2-tvOSTests.release.xcconfig */,
-				E5DD8786C5AD11E1FDE067B5 /* Pods-Nigh2Tests.debug.xcconfig */,
-				462B76EA892AD6904A8A0D5F /* Pods-Nigh2Tests.release.xcconfig */,
+				3933D98D3E8391A3370BADD4 /* Pods-Nigh2.debug.xcconfig */,
+				C646E9F2F64E32C77C6FD8D1 /* Pods-Nigh2.release.xcconfig */,
+				EA806A739A6845786633BDCB /* Pods-Nigh2-tvOS.debug.xcconfig */,
+				189B9F538BE978DC73735965 /* Pods-Nigh2-tvOS.release.xcconfig */,
+				C9E61C16C6F106FD5AF4B92A /* Pods-Nigh2-tvOSTests.debug.xcconfig */,
+				FDC845BAADA63E6F5C504631 /* Pods-Nigh2-tvOSTests.release.xcconfig */,
+				1ACA0A361E3D288B4C744163 /* Pods-Nigh2Tests.debug.xcconfig */,
+				FA41DC300D5243E9ADD02B70 /* Pods-Nigh2Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "Nigh2Tests" */;
 			buildPhases = (
-				DAD16884B6D986128EA14BF6 /* [CP] Check Pods Manifest.lock */,
+				207D35E18535F782F4919FA5 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -265,13 +265,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Nigh2" */;
 			buildPhases = (
-				D229B111AB1F4F8AD7BA163E /* [CP] Check Pods Manifest.lock */,
+				C353BB80C09116743262DF66 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				38F9B2D702ECD5D0CBB698A7 /* [CP] Copy Pods Resources */,
+				928194D606B63EFB55FD5499 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,7 +286,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Nigh2-tvOS" */;
 			buildPhases = (
-				AF4DFF01C41F5B72C4FD3B45 /* [CP] Check Pods Manifest.lock */,
+				F1F8C0256B1FFFB93D9E39EB /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -306,7 +306,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Nigh2-tvOSTests" */;
 			buildPhases = (
-				96AEA9E99E470FF4210D3A28 /* [CP] Check Pods Manifest.lock */,
+				AF441C6CE59F8606E5A17315 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -420,6 +420,28 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		207D35E18535F782F4919FA5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Nigh2Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -434,7 +456,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		38F9B2D702ECD5D0CBB698A7 /* [CP] Copy Pods Resources */ = {
+		928194D606B63EFB55FD5499 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -484,7 +506,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nigh2/Pods-Nigh2-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96AEA9E99E470FF4210D3A28 /* [CP] Check Pods Manifest.lock */ = {
+		AF441C6CE59F8606E5A17315 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -506,29 +528,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AF4DFF01C41F5B72C4FD3B45 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Nigh2-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D229B111AB1F4F8AD7BA163E /* [CP] Check Pods Manifest.lock */ = {
+		C353BB80C09116743262DF66 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -550,7 +550,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DAD16884B6D986128EA14BF6 /* [CP] Check Pods Manifest.lock */ = {
+		F1F8C0256B1FFFB93D9E39EB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -565,7 +565,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Nigh2Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Nigh2-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -677,7 +677,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5DD8786C5AD11E1FDE067B5 /* Pods-Nigh2Tests.debug.xcconfig */;
+			baseConfigurationReference = 1ACA0A361E3D288B4C744163 /* Pods-Nigh2Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -702,7 +702,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 462B76EA892AD6904A8A0D5F /* Pods-Nigh2Tests.release.xcconfig */;
+			baseConfigurationReference = FA41DC300D5243E9ADD02B70 /* Pods-Nigh2Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -724,7 +724,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C40AAE9F3D1852880F04A1C /* Pods-Nigh2.debug.xcconfig */;
+			baseConfigurationReference = 3933D98D3E8391A3370BADD4 /* Pods-Nigh2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Nigh2/Nigh2.entitlements;
@@ -746,7 +746,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CC785F678932D259300A898 /* Pods-Nigh2.release.xcconfig */;
+			baseConfigurationReference = C646E9F2F64E32C77C6FD8D1 /* Pods-Nigh2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Nigh2/Nigh2.entitlements;
@@ -767,7 +767,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D997FB19004DCA94F0ADF8F /* Pods-Nigh2-tvOS.debug.xcconfig */;
+			baseConfigurationReference = EA806A739A6845786633BDCB /* Pods-Nigh2-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -795,7 +795,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C33F2E2DA9E843ECD31FAFE5 /* Pods-Nigh2-tvOS.release.xcconfig */;
+			baseConfigurationReference = 189B9F538BE978DC73735965 /* Pods-Nigh2-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -823,7 +823,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 77A190200C9673514E788151 /* Pods-Nigh2-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = C9E61C16C6F106FD5AF4B92A /* Pods-Nigh2-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -850,7 +850,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4845B42E55AB406CE55FD269 /* Pods-Nigh2-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = FDC845BAADA63E6F5C504631 /* Pods-Nigh2-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

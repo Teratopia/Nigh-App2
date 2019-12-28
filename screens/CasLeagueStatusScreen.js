@@ -322,12 +322,15 @@ const CasLeagueStatusScreen = props => {
                         </Text>
                     </View>
                     <View style={styles.bodyBlockRow}>
-                        <TextInput style={styles.descriptionInput} 
-                        placeholder="Tell folks what you're up to!"
-                        multiline={true}
-                        maxLength={144}
-                        defaultValue={notificationSettings.description} 
-                        onChangeText={e => {editDescription(e)}}/>
+                        <TextInput 
+                            style={styles.descriptionInput} 
+                            placeholder="Tell folks what you're up to!"
+                            multiline={true}
+                            maxLength={144}
+                            defaultValue={notificationSettings.description} 
+                            onChangeText={e => {editDescription(e)}}
+                            placeholderTextColor={Colors.inactiveGrey}
+                        />
                     </View>
                 </View>
 
@@ -341,11 +344,15 @@ const CasLeagueStatusScreen = props => {
                         </View>
                         {
                         favoriteVenues.map(venue => {
-                            return <TouchableOpacity onPress={() => {setSelectedFavoriteVenue(venue)}} style={{...styles.favoriteVenueRow}}>
-                                <Text style={{color : 'white', fontWeight : '600', fontSize : 18}}>
-                                    {venue.properName}
-                                </Text>
-                            </TouchableOpacity>
+                            return <TouchableOpacity 
+                                        key={venue._id}
+                                        onPress={() => {setSelectedFavoriteVenue(venue)}} 
+                                        style={{...styles.favoriteVenueRow}}
+                                    >
+                                        <Text style={{color : 'white', fontWeight : '600', fontSize : 18}}>
+                                            {venue.properName}
+                                        </Text>
+                                    </TouchableOpacity>
                         })
                         }
                     </View>
@@ -545,7 +552,8 @@ const styles = StyleSheet.create({
     minHeight : 48,
     borderColor : Colors.inactiveGrey,
     borderWidth : 1,
-    borderRadius : 8
+    borderRadius : 8,
+    color : Colors.quasiBlack
   },
   bodyBlockRowSwitchTitle : {
 

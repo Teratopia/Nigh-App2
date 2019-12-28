@@ -159,7 +159,8 @@ const CasLeagueVenueUserPromotionsScreen = props => {
                     placeholder='Ad shown on push notification (max 42 chars)'
                     maxLength={42}
                     onSubmitEditing={e => {setPushNotificationAndUpdateUser(e.nativeEvent.text)}}
-                    style={{flex : 1, textAlign : 'center'}}
+                    style={{flex : 1, textAlign : 'center', color : Colors.inactiveGrey}}
+                    placeholderTextColor={Colors.inactiveGrey}
                     defaultValue={props.venueUser.pushNotificationPromotion}
                     //value={pushNotification}
                 />
