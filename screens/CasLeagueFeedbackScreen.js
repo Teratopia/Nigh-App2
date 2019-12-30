@@ -69,7 +69,7 @@ const CasLeagueFeedbackScreen = props => {
                 leftIcon="menu" 
                 leftIconFunction={props.toggleNavModal}
                 rightIcon="cross"
-                rightIconFunction={() => {props.setScreen('Settings')}}
+                rightIconFunction={() => {props.setScreen('SEARCH')}}
                 style={{marginBottom : 0}}
               />
               :
@@ -181,7 +181,7 @@ const CasLeagueFeedbackScreen = props => {
                 </Text>
                 :
                 <Text style={styles.subheader}>
-                    Comments? Critiques? Requests for a new venue? Let us know what's on your mind!
+                    Comments? Critiques? Request for a new venue? Let us know what's on your mind!
                 </Text>
             }
             <View style={{

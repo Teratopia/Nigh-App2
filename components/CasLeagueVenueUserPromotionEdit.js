@@ -118,10 +118,13 @@ const CasLeagueVenueUserPromotionEdit = props => {
                                         borderColor : Colors.inactiveGrey,
                                         borderRadius : 8,
                                         textAlign : 'center',
-                                        marginVertical : 8
+                                        marginVertical : 8,
+                                        color : Colors.quasiBlack
                                     }}
+                                        placeholderTextColor={Colors.inactiveGrey}
                                         defaultValue={newPromotion.name}
                                         onSubmitEditing={e => {updateNewPromotion('name', e.nativeEvent.text)}}
+                                        returnKeyType="done"
                                     />
                                     :
                                     <Text style={styles.promotionRowContainerElementValueText}>{newPromotion.name}</Text>

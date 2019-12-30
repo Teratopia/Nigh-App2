@@ -49,6 +49,57 @@ async function updateUserEmail(userId, email, onSuccess) {
     });
 }
 
+async function passwordResetVerifyEmail(username, email, onSuccess, onFailure){
+  var url = apiSettings.awsProxy + '/passwordResetVerifyEmail';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          username : username,
+          email : email
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+      onFailure(error);
+    });
+}
+
+async function passwordReset(username, email, password, onSuccess, onFailure){
+  var url = apiSettings.awsProxy + '/passwordReset';
+  return fetch(url, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          username : username,
+          email : email,
+          password : password
+      }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log('response:');
+        console.log(responseJson);
+        onSuccess(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+      onFailure(error);
+    });
+}
+
 async function addPnToken(userId, pnToken, onSuccess) {
   var url = apiSettings.awsProxy + '/addPnToken';
   return fetch(url, {
@@ -509,5 +560,7 @@ async function removeVenueIdFromFavorites(userId, venueId, onSuccess) {
                   getMultipleUsersById,
                   updateUserStatusToActive,
                   addVenueIdToFavorites,
-                  removeVenueIdFromFavorites
+                  removeVenueIdFromFavorites,
+                  passwordResetVerifyEmail,
+                  passwordReset
                 };

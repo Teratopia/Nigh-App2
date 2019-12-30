@@ -5,7 +5,7 @@ import UserNetworking from '../networking/userNetworking';
 
 const LoginVerifyEmailModal = props => {
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(props.email || '');
     const [whyPressed, setWhyPressed] = useState(false);
     const [code, setCode] = useState(props.code);
     const [codeInput, setCodeInput] = useState();
@@ -20,6 +20,7 @@ const LoginVerifyEmailModal = props => {
     function submitCodeHandler(){
         console.log('codeInput === code');
         if(codeInput === code){
+            console.log('props.pnToken = ', props.pnToken);
             if(props.code && props.pnToken){
                 UserNetworking.addPnToken(props.userId, props.pnToken, res => {
                     console.log('submitCodeHandler addPnToken res = ', res);
@@ -56,15 +57,28 @@ const LoginVerifyEmailModal = props => {
                         fontSize : 24,
                         fontWeight : '700',
                         color : Colors.quasiBlack
-                    }}>Verify Email</Text>
+                    }}>Verify {props.email ? 'New Device' : 'Email'}</Text>
                     
-                    <View style={{marginTop : 12}}>
-                        <Text style={{
-                            fontSize : 16,
-                            //fontWeight : '700',
-                            color : Colors.inactiveGrey
-                        }}>Your Verification Code</Text>
-                    </View>
+                    {props.email ? 
+                        <View style={{marginTop : 12}}>
+                            <Text style={{
+                                fontSize : 16,
+                                //fontWeight : '700',
+                                color : Colors.inactiveGrey,
+                                textAlign : 'center'
+                            }}>A verification code has been sent to {props.email}</Text>
+                        </View>
+                    :
+                        null
+                    }
+
+                        <View style={{marginTop : 12}}>
+                            <Text style={{
+                                fontSize : 16,
+                                //fontWeight : '700',
+                                color : Colors.inactiveGrey
+                            }}>Your Verification Code</Text>
+                        </View>
                     
                     <View style={{flexDirection : 'row', marginVertical : 12, marginTop : 4}}>
                         <TextInput

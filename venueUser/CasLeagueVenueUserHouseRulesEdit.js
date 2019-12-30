@@ -81,17 +81,23 @@ return (
                                 }
                             </View>
                             :
-                            <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Breaking" 
-                                            onSubmitEditing={e => {updateRules('breaking', e)}} 
-                                            defaultValue={houseRules.breaking}
-                                            placeholderTextColor={Colors.inactiveGrey}
-                                            style={{
-                                                textAlign : 'center',
-                                                color : Colors.quasiBlack
-                                            }}
-                                            multiline={true}
-                                            />
+                            <View style={{justifyContent : 'center', alignItems : 'center'}}>
+                                <View style={{...styles.textView, marginTop : 8}}>
+                                    <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Breaking</Text>
+                                </View>
+                                <View style={{...styles.inputFormTextInput, width : '100%'}}>
+                                    <TextInput  placeholder="Rules for Breaking" 
+                                                onSubmitEditing={e => {updateRules('breaking', e)}} 
+                                                defaultValue={houseRules.breaking}
+                                                placeholderTextColor={Colors.inactiveGrey}
+                                                style={{
+                                                    textAlign : 'center',
+                                                    color : Colors.quasiBlack
+                                                }}
+                                                multiline={true}
+                                                returnKeyType="done"
+                                                />
+                                </View>
                             </View>
                         }
                         {
@@ -114,17 +120,23 @@ return (
                                 }
                             </View>
                             :
-                            <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Pocket Scratching" 
-                                            onSubmitEditing={e => {updateRules('pocketScratching', e)}} 
-                                            defaultValue={houseRules.pocketScratching}
-                                            placeholderTextColor={Colors.inactiveGrey}
-                                            style={{
-                                                textAlign : 'center',
-                                                color : Colors.quasiBlack
-                                            }}
-                                            multiline={true}
-                                            />
+                            <View style={{justifyContent : 'center', alignItems : 'center'}}>
+                                <View style={{...styles.textView, marginTop : 8}}>
+                                    <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Pocket Scratching</Text>
+                                </View>
+                                <View style={{...styles.inputFormTextInput, width : '100%'}}>
+                                    <TextInput  placeholder="Rules for Pocket Scratching" 
+                                                onSubmitEditing={e => {updateRules('pocketScratching', e)}} 
+                                                defaultValue={houseRules.pocketScratching}
+                                                placeholderTextColor={Colors.inactiveGrey}
+                                                style={{
+                                                    textAlign : 'center',
+                                                    color : Colors.quasiBlack
+                                                }}
+                                                multiline={true}
+                                                returnKeyType="done"
+                                                />
+                                </View>
                             </View>
                         }
                         {
@@ -147,17 +159,23 @@ return (
                                 }
                             </View>
                             :
-                            <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Table Scratching" 
-                                            onSubmitEditing={e => {updateRules('tableScratching', e)}} 
-                                            defaultValue={houseRules.tableScratching}
-                                            placeholderTextColor={Colors.inactiveGrey}
-                                            style={{
-                                                textAlign : 'center',
-                                                color : Colors.quasiBlack
-                                            }}
-                                            multiline={true}
-                                            />
+                            <View style={{justifyContent : 'center', alignItems : 'center'}}>
+                                <View style={{...styles.textView, marginTop : 8}}>
+                                    <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Table Scratching</Text>
+                                </View>
+                                <View style={{...styles.inputFormTextInput, width : '100%'}}>
+                                    <TextInput  placeholder="Rules for Table Scratching" 
+                                                onSubmitEditing={e => {updateRules('tableScratching', e)}} 
+                                                defaultValue={houseRules.tableScratching}
+                                                placeholderTextColor={Colors.inactiveGrey}
+                                                style={{
+                                                    textAlign : 'center',
+                                                    color : Colors.quasiBlack
+                                                }}
+                                                multiline={true}
+                                                returnKeyType="done"
+                                                />
+                                </View>
                             </View>
                         }
                         {
@@ -180,17 +198,23 @@ return (
                                 }
                             </View>
                             :
-                            <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Pocket Scratching" 
-                                            onSubmitEditing={e => {updateRules('breakingScratching', e)}} 
-                                            defaultValue={houseRules.breakingScratching}
-                                            placeholderTextColor={Colors.inactiveGrey}
-                                            style={{
-                                                textAlign : 'center',
-                                                color : Colors.quasiBlack
-                                            }}
-                                            multiline={true}
-                                            />
+                            <View style={{justifyContent : 'center', alignItems : 'center'}}>
+                                <View style={{...styles.textView, marginTop : 8}}>
+                                    <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Breaking Scratching</Text>
+                                </View>
+                                <View style={{...styles.inputFormTextInput, width : '100%'}}>
+                                    <TextInput  placeholder="Rules for Pocket Scratching" 
+                                                onSubmitEditing={e => {updateRules('breakingScratching', e)}} 
+                                                defaultValue={houseRules.breakingScratching}
+                                                placeholderTextColor={Colors.inactiveGrey}
+                                                style={{
+                                                    textAlign : 'center',
+                                                    color : Colors.quasiBlack
+                                                }}
+                                                multiline={true}
+                                                returnKeyType="done"
+                                                />
+                                </View>
                             </View>
                         }
                         {
@@ -213,17 +237,23 @@ return (
                                 }
                             </View>
                             :
-                            <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Pocket Scratching" 
-                                            onSubmitEditing={e => {updateRules('eightBallScratching', e)}} 
-                                            defaultValue={houseRules.eightBallScratching}
-                                            placeholderTextColor={Colors.inactiveGrey}
-                                            style={{
-                                                textAlign : 'center',
-                                                color : Colors.quasiBlack
-                                            }}
-                                            multiline={true}
-                                            />
+                            <View style={{justifyContent : 'center', alignItems : 'center'}}>
+                                <View style={{...styles.textView, marginTop : 8}}>
+                                    <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Eight Ball Scratching</Text>
+                                </View>
+                                <View style={{...styles.inputFormTextInput, width : '100%'}}>
+                                    <TextInput  placeholder="Rules for Pocket Scratching" 
+                                                onSubmitEditing={e => {updateRules('eightBallScratching', e)}} 
+                                                defaultValue={houseRules.eightBallScratching}
+                                                placeholderTextColor={Colors.inactiveGrey}
+                                                style={{
+                                                    textAlign : 'center',
+                                                    color : Colors.quasiBlack
+                                                }}
+                                                multiline={true}
+                                                returnKeyType="done"
+                                                />
+                                </View>
                             </View>
                         }
                         {
@@ -246,17 +276,23 @@ return (
                                 }
                             </View>
                             :
-                            <View style={{...styles.inputFormTextInput, width : '100%'}}>
-                                <TextInput  placeholder="Rules for Pocket Scratching" 
-                                            onSubmitEditing={e => {updateRules('slop', e)}} 
-                                            defaultValue={houseRules.slop}
-                                            placeholderTextColor={Colors.inactiveGrey}
-                                            style={{
-                                                textAlign : 'center',
-                                                color : Colors.quasiBlack
-                                            }}
-                                            multiline={true}
-                                            />
+                            <View style={{justifyContent : 'center', alignItems : 'center'}}>
+                                <View style={{...styles.textView, marginTop : 8}}>
+                                    <Text style={{...styles.textStyle, fontSize : 14, fontWeight : '500', color : Colors.quasiBlack}}>Slop</Text>
+                                </View>
+                                <View style={{...styles.inputFormTextInput, width : '100%'}}>
+                                    <TextInput  placeholder="Rules for Pocket Scratching" 
+                                                onSubmitEditing={e => {updateRules('slop', e)}} 
+                                                defaultValue={houseRules.slop}
+                                                placeholderTextColor={Colors.inactiveGrey}
+                                                style={{
+                                                    textAlign : 'center',
+                                                    color : Colors.quasiBlack
+                                                }}
+                                                multiline={true}
+                                                returnKeyType="done"
+                                                />
+                                </View>
                             </View>
                         }
                         {
@@ -289,6 +325,7 @@ return (
                                                 color : Colors.quasiBlack
                                             }}
                                             multiline={true}
+                                            returnKeyType="done"
                                             />
                             </View>
                         }

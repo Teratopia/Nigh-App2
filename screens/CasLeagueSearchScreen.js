@@ -211,13 +211,16 @@ const styles = StyleSheet.create({
   },
   searchTextInput : {
       padding : 8,
+      paddingBottom : 4,
       textAlign : 'center',
       width : '100%',
       borderWidth : 1,
       borderColor : Colors.activeTeal,
       borderRadius : 8,
       backgroundColor : 'white',
-      color : Colors.quasiBlack
+      color : Colors.quasiBlack,
+      fontSize : 16,
+      fontWeight : '500'
   }
 
 });

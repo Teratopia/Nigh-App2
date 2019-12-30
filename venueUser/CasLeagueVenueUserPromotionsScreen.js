@@ -162,6 +162,7 @@ const CasLeagueVenueUserPromotionsScreen = props => {
                     style={{flex : 1, textAlign : 'center', color : Colors.quasiBlack}}
                     placeholderTextColor={Colors.inactiveGrey}
                     defaultValue={props.venueUser.pushNotificationPromotion}
+                    returnKeyType="done"
                     //value={pushNotification}
                 />
             </View>

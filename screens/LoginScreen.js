@@ -10,6 +10,7 @@ import Geolocation from '@react-native-community/geolocation';              //
 import AsyncStorage from '@react-native-community/async-storage';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import LoginVerifyEmailModal from '../components/LoginVerifyEmailModal';
+import LoginPasswordResetModal from '../components/LoginPasswordResetModal';
 
 
 const LoginScreen = props => {
@@ -21,6 +22,7 @@ const LoginScreen = props => {
     const [passwordView, setPasswordView] = useState();
     const [autoLogIn, setAutoLogIn] = useState(false);
     const [verifyEmailModal, setVerifyEmailModal] = useState(false);
+    const [resetPasswordView, setResetPasswordView] = useState(false);
 
     getData = async () => {
         try {
@@ -161,6 +163,42 @@ const LoginScreen = props => {
         return flag;
     }
 
+    function initPasswordReset(username){
+        setVerifyEmailModal(<LoginPasswordResetModal
+                                username={username}
+                                setVerifyEmailModal={setVerifyEmailModal}
+                                setPasswordView={setPasswordView}
+                                setResetPasswordView={setResetPasswordView}
+                            />);
+    }
+
+    function handleSignUpOrLoginFailure(typeParam, responseJson){
+        if(typeParam === 'signUp' && responseJson.message === 'Username Exists'){
+            setUsernameView(<View style={{marginBottom : 8, justifyContent : 'center', alignItems: 'center'}}>
+                                <Text style={{color : 'red'}}>Username Already Exists.</Text>
+                            </View>);
+        }
+        if(typeParam === 'login' && (responseJson.message === 'Invalid password' || responseJson.message === 'Password does not match.')){
+            setPasswordView(<View style={{marginBottom : 8, justifyContent : 'center', alignItems: 'center'}}>
+                                    <Text style={{color : 'red'}}>Invalid Password.</Text>                                
+                            </View>);
+            setResetPasswordView(<View style={{...styles.buttonContainer, marginBottom : 8}}>
+                                    <View style={{...styles.button}}>
+                                        <Button 
+                                            title="Reset Password"
+                                            onPress={initPasswordReset}
+                                            color="white"
+                                        />
+                                    </View>
+                                </View>);
+        }
+        if(typeParam === 'login' && responseJson.message === 'No username found.'){
+            setUsernameView(<View style={{marginBottom : 8, justifyContent : 'center', alignItems: 'center'}}>
+                                <Text style={{color : 'red'}}>No User With This Username Exists.</Text>
+                            </View>);
+        }
+    }
+
     signUpOrLoginUser = (typeParam, username, password, latitude, longitude) => {
         setUsernameView(null);
         return fetch(apiSettings.awsProxy + '/' + typeParam, {
@@ -181,44 +219,46 @@ const LoginScreen = props => {
             .then((responseJson) => {
                 console.log('signUpOrLoginUser '+typeParam+' responseJson = ');
                 console.log(responseJson);
-                var retVal = responseJson.user;
-                if(typeParam === 'signUp' && responseJson.message === 'Username Exists'){
-                    setUsernameView(<View style={{marginBottom : 8, justifyContent : 'center', alignItems: 'center'}}>
-                                        <Text style={{color : 'red'}}>Username already exists.</Text>
-                                    </View>);
-                } else if (typeParam === 'login' && responseJson.message === 'Invalid password'){
-                    setPasswordView(<View style={{marginBottom : 8, justifyContent : 'center', alignItems: 'center'}}>
-                                        <Text style={{color : 'red'}}>Invalid Password.</Text>
-                                    </View>);
+                if(responseJson.success === false){
+                    handleSignUpOrLoginFailure(typeParam, responseJson);
                 } else {
-
-                    storeData(username, password);
+                    var retVal = responseJson.user;
                     let retUser;
-                    if(Array.isArray(retVal)){
-                        retUser = retVal[0];
-                        //props.setUser(retVal[0]);
-                    } else {
-                        retUser = retVal;
-                        //props.setUser(retVal);
-                    }
-                    if(retUser && responseJson.verificationCode){
+                        if(Array.isArray(retVal)){
+                            retUser = retVal[0];
+                        } else {
+                            retUser = retVal;
+                        }
+                    if(retUser && responseJson.message === 'No Email'){
+                        console.log('no email');
                         setVerifyEmailModal(<LoginVerifyEmailModal 
                             userId={retUser._id}
                             setVerifyEmailModal={setVerifyEmailModal}
                             setUser={props.setUser}
-                            code={responseJson.verificationCode}
-                            pnToken={pnToken}
                         />)
-                    } else if(!retUser.email){
-                        setVerifyEmailModal(<LoginVerifyEmailModal 
-                                                userId={retUser._id}
-                                                setVerifyEmailModal={setVerifyEmailModal}
-                                                setUser={props.setUser}
-                                            />)
                     } else {
-                        props.setUser(retUser);
+                        storeData(username, password);
+                        console.log('responseJson.verificationCode = ');
+                        console.log(responseJson.verificationCode);
+                        if(retUser && responseJson.verificationCode){
+                            setVerifyEmailModal(<LoginVerifyEmailModal 
+                                userId={retUser._id}
+                                email={retUser.email}
+                                setVerifyEmailModal={setVerifyEmailModal}
+                                setUser={props.setUser}
+                                code={responseJson.verificationCode}
+                                pnToken={pnToken}
+                            />)
+                        } else if(!retUser.email){
+                            setVerifyEmailModal(<LoginVerifyEmailModal 
+                                                    userId={retUser._id}
+                                                    setVerifyEmailModal={setVerifyEmailModal}
+                                                    setUser={props.setUser}
+                                                />)
+                        } else {
+                            props.setUser(retUser);
+                        }
                     }
-
                 }
             }).catch((error) => {
                 console.error(error);
@@ -256,11 +296,11 @@ const LoginScreen = props => {
                             style={styles.textInput}
                             defaultValue={props.description}
                             placeholder="Username"
-
                             maxLength={32}
                             multiline={false}
                             value={username}
                             onChange={usernameChangeHandler}
+                            returnKeyType="done"
                         />
                     </View>
                     {usernameView}
@@ -269,15 +309,16 @@ const LoginScreen = props => {
                             style={styles.textInput}
                             defaultValue={props.description}
                             placeholder="Password"
-
                             secureTextEntry={true}
                             maxLength={32}
                             multiline={false}
                             value={password}
                             onChange={passwordChangeHandler}
+                            returnKeyType="done"
                         />
                     </View>
                     {passwordView}
+                    {resetPasswordView}
                     <View style={styles.buttonContainer}>
                         <View style={styles.button}>
                             <Button title="Log In!" onPress={loginHandler} color='white' />
@@ -377,7 +418,9 @@ const styles = StyleSheet.create({
         marginTop : 8
     },
     button: {
-        width: '40%',
+        //width: '40%',
+        flex : 1,
+        marginHorizontal : 8,
         borderWidth: 2,
         borderColor: '#009688',
         borderRadius: 4,

@@ -62,22 +62,33 @@ return <View style={{width : '100%', alignItems : 'center'}}>
             <View style={styles.inputFormTextInput}>
                 <TextInput 
                     placeholder='Prize Title (max 42 chars)'
+                    placeholderTextColor={Colors.inactiveGrey}
                     maxLength={42}
                     onSubmitEditing={e => {props.editPrize(props.prizeNumber, 'title', e.nativeEvent.text)}}
-                    style={{flex : 1, textAlign : 'center'}}
+                    style={{
+                        flex : 1, 
+                        color : Colors.quasiBlack,
+                         textAlign : 'center'
+                    }}
                     defaultValue={props.title}
+                    returnKeyType="done"
                 />
             </View>
             <View style={styles.inputFormTextInput}>
                 <TextInput 
                     placeholder='Prize Description (max 144 chars)'
+                    placeholderTextColor={Colors.inactiveGrey}
                     maxLength={144}
                     onSubmitEditing={e => {props.editPrize(props.prizeNumber, 'description', e.nativeEvent.text)}}
-                    style={{flex : 1, 
+                    style={{
+                        flex : 1, 
+                        color : Colors.quasiBlack,
                         //textAlign : 'center', 
-                        minHeight : 42}}
+                        minHeight : 42
+                    }}
                     multiline={true}
                     defaultValue={props.description}
+                    returnKeyType="done"
                 />
             </View>
             <View style={{flexDirection : 'row', marginHorizontal : 4}}>
