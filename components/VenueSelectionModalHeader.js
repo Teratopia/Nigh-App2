@@ -257,10 +257,12 @@ const VenueSelectionModalHeader = props => {
                             <Image source={promotionImage} 
                             style={{
                                 flex : 1,
-                                width : '100%',
+                                //width : '100%',
                                 alignItems : 'center',
-                                justifyContent : 'center'
+                                justifyContent : 'center',
+                                alignSelf : 'stretch'
                             }}
+                            resizeMode='contain'
                             />
                         </TouchableOpacity>
                     </Modal> : 

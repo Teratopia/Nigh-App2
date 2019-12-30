@@ -225,6 +225,7 @@ const CasLeagueVenueUserPromotionEdit = props => {
                     <View style={{flex : 1, justifyContent : 'center', alignItems : 'center'}}/>
                         <Image source={newPromotionImage} 
                         style={{flex : 8}}
+                        resizeMode='contain'
                         />
                         <View style={{flex : 1, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
                             <Button title="CLOSE" onPress={() => {setViewImageModal(false)}} />

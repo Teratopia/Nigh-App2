@@ -119,9 +119,10 @@ return <View style={{width : '100%', alignItems : 'center'}}>
                         <Image source={img} 
                         style={{
                             flex : 5,
-                            width : '100%',
+                            //width : '100%',
                             //alignItems : 'center',
                             //justifyContent : 'center'
+                            resizeMode='contain'
                         }}
                         />
                         <View style={{flexDirection : 'row', marginHorizontal : 4, flex : 1, alignItems : 'center', justifyContent : 'center'}}>
