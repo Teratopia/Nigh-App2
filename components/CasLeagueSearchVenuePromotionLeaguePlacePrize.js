@@ -122,8 +122,8 @@ return <View style={{width : '100%', alignItems : 'center'}}>
                             //width : '100%',
                             //alignItems : 'center',
                             //justifyContent : 'center'
-                            resizeMode='contain'
                         }}
+                        resizeMode='contain'
                         />
                         <View style={{flexDirection : 'row', marginHorizontal : 4, flex : 1, alignItems : 'center', justifyContent : 'center'}}>
                             <View style={styles.activeButton}>

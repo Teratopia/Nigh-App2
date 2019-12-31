@@ -114,7 +114,7 @@ const CasLeagueFeedbackScreen = props => {
                 type === 'ERROR' ?
                 <View>
                     <Text style={styles.subheader}>
-                        Found a bug? Excellent! Please indicate the severity of the issue along with a description of the problem. To be extra helpful you can provide a list of steps to reproduce the error or suggest a potential solution. Your user feedback is invaluable in finding these issues, thank you again!
+                        Found a bug? Excellent! Please indicate the severity of the issue along with a description of the problem. To be extra helpful you can provide a list of steps to reproduce the error or suggest a potential solution. Your feedback is invaluable in discovering these issues, thank you!
                     </Text>
                     <Text style={{
                         textAlign : 'center',

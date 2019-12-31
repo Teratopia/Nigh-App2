@@ -13,6 +13,7 @@ import LocationTracker from '../components/LocationTracker';      //
 import CasLeageVenueUserParentScreen from '../venueUser/CasLeageVenueUserParentScreen';
 import CasLeagueSearchScreen from './CasLeagueSearchScreen';  //
 import CasLeagueFeedbackScreen from './CasLeagueFeedbackScreen';
+import AboutScreen from './AboutScreen';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //import BgTracking from '../helpers/locationNotificationHelper';
@@ -158,6 +159,10 @@ const ParentScreen = props => {
              leftIconFunction={toggleNavModal} 
              setScreen={setScreen} 
              setUser={setTheUser}/>;
+  } else if (currentScreen === 'ABOUT'){
+    view = <AboutScreen 
+             toggleNavModal={toggleNavModal} 
+             setScreen={setScreen}/>;
   }
 
   let navView;
