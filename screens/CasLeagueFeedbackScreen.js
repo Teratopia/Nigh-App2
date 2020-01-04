@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, Button, Switch, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, TextInput, Button, StyleSheet} from 'react-native';
 import ModalHeader from '../components/ModalHeader';    //
-import WarningMesageModal from '../components/WarningMesageModal';  //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import Colors from '../constants/colors';   //
 import MiscNetworking from '../networking/miscNetworking';
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 //  TODO:
 /*

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Modal, Button, SafeAreaView, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import ModalHeader from '../components/ModalHeader';    //
 import { getStatusBarHeight } from 'react-native-status-bar-height';    //
 import Colors from '../constants/colors';

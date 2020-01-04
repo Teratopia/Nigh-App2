@@ -102,7 +102,8 @@ const LoginVerifyEmailModal = props => {
                                         borderColor : Colors.inactiveGrey,
                                         borderRadius : 8,
                                         flex : 1,
-                                        textAlign : 'center'
+                                        textAlign : 'center',
+                                        color : Colors.quasiBlack
                                     }}
                                     returnKeyType="done"
                                     secureTextEntry={true}
@@ -131,7 +132,8 @@ const LoginVerifyEmailModal = props => {
                                                 borderColor : Colors.inactiveGrey,
                                                 borderRadius : 8,
                                                 flex : 1,
-                                                textAlign : 'center'
+                                                textAlign : 'center',
+                                                color : Colors.quasiBlack
                                             }}
                                             returnKeyType="done"
                                             secureTextEntry={true}
@@ -174,7 +176,8 @@ const LoginVerifyEmailModal = props => {
                                         borderColor : Colors.inactiveGrey,
                                         borderRadius : 8,
                                         flex : 1,
-                                        textAlign : 'center'
+                                        textAlign : 'center',
+                                        color : Colors.quasiBlack
                                     }}
                                     returnKeyType="done"
                                 />
@@ -201,7 +204,8 @@ const LoginVerifyEmailModal = props => {
                                     borderColor : Colors.inactiveGrey,
                                     borderRadius : 8,
                                     flex : 1,
-                                    textAlign : 'center'
+                                    textAlign : 'center',
+                                    color : Colors.quasiBlack
                                 }}
                                 returnKeyType="done"
                             />
@@ -230,7 +234,8 @@ const LoginVerifyEmailModal = props => {
                                     borderColor : Colors.inactiveGrey,
                                     borderRadius : 8,
                                     flex : 1,
-                                    textAlign : 'center'
+                                    textAlign : 'center',
+                                    color : Colors.quasiBlack
                                 }}
                                 returnKeyType="done"
                             />

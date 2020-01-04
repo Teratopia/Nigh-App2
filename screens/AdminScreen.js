@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Modal, Button } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Modal, Button } from 'react-native';
 import UserNetworking from '../networking/userNetworking';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 import moment from 'moment';
 

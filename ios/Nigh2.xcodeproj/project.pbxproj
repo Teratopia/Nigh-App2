@@ -17,6 +17,10 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* Nigh2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* Nigh2Tests.m */; };
+		6C167A8823BB1328002FE87B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C167A8723BB1328002FE87B /* GoogleService-Info.plist */; };
+		6C167A8923BB1328002FE87B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C167A8723BB1328002FE87B /* GoogleService-Info.plist */; };
+		6C167A8A23BB1328002FE87B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C167A8723BB1328002FE87B /* GoogleService-Info.plist */; };
+		6C167A8B23BB1328002FE87B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C167A8723BB1328002FE87B /* GoogleService-Info.plist */; };
 		AC2E7621EE27A151C234673B /* libPods-Nigh2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19959E1BFC8E9D6AC26A7624 /* libPods-Nigh2Tests.a */; };
 		CE871BC4D6564540426E32D6 /* libPods-Nigh2-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 302D4D2309D11D533E8E64A6 /* libPods-Nigh2-tvOS.a */; };
 		E6884856DA97203E41307AFF /* libPods-Nigh2-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14440DB58995BAF934D3ED44 /* libPods-Nigh2-tvOSTests.a */; };
@@ -65,6 +69,7 @@
 		41EDEB42E5D443E29AE0144B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		56E15D113FD142089F130637 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		6AEC7459C13746C98E2349CC /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		6C167A8723BB1328002FE87B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6C25BAFC239DE2A600047F4B /* Nigh2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Nigh2.entitlements; path = Nigh2/Nigh2.entitlements; sourceTree = "<group>"; };
 		70B98BF6BA8C4C0D958994E9 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		8451FDDF516545F8B569649B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -148,6 +153,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				6C167A8723BB1328002FE87B /* GoogleService-Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -272,6 +278,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				928194D606B63EFB55FD5499 /* [CP] Copy Pods Resources */,
+				6CA54F7323BB1A70009A3AB2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -376,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C167A8923BB1328002FE87B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +393,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				6C167A8823BB1328002FE87B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				6C167A8A23BB1328002FE87B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +410,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C167A8B23BB1328002FE87B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +466,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		6CA54F7323BB1A70009A3AB2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		928194D606B63EFB55FD5499 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

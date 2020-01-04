@@ -391,6 +391,7 @@ const styles = StyleSheet.create({
         borderWidth : 1,
         borderColor : 'grey',
         borderRadius : 4,
+        color : Colors.quasiBlack
         //height : '100%'
     },
     inactiveGenderButton : {
